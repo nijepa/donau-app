@@ -105,7 +105,7 @@ body {
   /* min-height: calc(100vh - 100px); */
   //margin: 50px;
   //background-attachment: fixed;
-  letter-spacing: -1px;
+  //letter-spacing: -1px;
 }
 
 h1,
@@ -120,57 +120,7 @@ h6 {
 h1 {
   font-size: 24px;
 }
-button {
-  /* font-family: 'Ubuntu', sans-serif; */
-  text-transform: uppercase;
-  background: var(--blue-dark);
-  border: 0;
-  padding: 10px 20px;
-  -webkit-box-shadow: -9px -9px 9px -7px rgba(0,0,0,0.75);
-  -moz-box-shadow: -9px -9px 9px -7px rgba(0,0,0,0.75);
-  box-shadow: -9px -9px 9px -7px rgba(20, 4, 95, 0.25);
-  border-radius: 5px 0 0 0;
-  cursor: pointer;
-  /* transform: skewY(3deg) skewX(3deg); */
-  font-size: 16px;
-  max-width: 125px;
-/*   writing-mode: vertical-rl;
-  text-orientation: upright; */
-  transform: rotate(13deg) ;
-  transform-origin: 0% 0%;
-  transition: all ease-in-out 0.2s;
-}
-button div {
-  transform: rotate(-13deg);
-  background: transparent;
-  color: var(--blue-darker);
-  transition: all ease-in-out 0.2s;
-}
 
-button:hover, button:active, button:focus {
-  background: var(--blue);
-  -webkit-box-shadow: 9px 9px 9px -7px rgba(0,0,0,0.75);
-  -moz-box-shadow: 9px 9px 9px -7px rgba(0,0,0,0.75);
-  box-shadow: 9px 9px 9px -7px rgba(0,0,0,0.75);
-/*   writing-mode: unset;
-  text-orientation: unset; */
-  transform: rotate(0deg);
-  /* transform: skewY(0deg) skewX(0deg); */
-  color: #000000;
-  border-radius: 0 0 5px 0;
-  div {
-    transform: rotate(0deg);
-    color: whitesmoke;
-  }
-}
-
-button:focus {
-  outline: transparent;
-  outline-color: transparent;
-  outline-style: none;
-  outline-width: 0em;
-  //background: transparent !important;
-}
 
 h2 {
   grid-column: 1 / -1;
@@ -362,28 +312,6 @@ svg {
   font-size: 2.4em;
   color: var(--blue-dark);
   margin-top: -1em;
-}
-
-button {
-  justify-self: start;
-  padding: 1em;
-  background: transparent;
-  border: 2px solid transparent;
-  border-radius: 0.5em;
-  text-align: left;
-  color: var(--blue-dark);
-  font-size: 1.5em;
-  font-weight: 600;
-  text-decoration: underline;
-  cursor: pointer;
-  transition: all 0.4s ease-in-out;
-}
-
-button:hover,
-button:focus {
-  background: var(--blue-dark);
-  color: var(--blue-lighter);
-  text-decoration: none;
 }
 
 label {

@@ -1,14 +1,58 @@
 <template>
-  <div class="">
-    <button @click="sube">fff</button>
+  <section class="companies">
+    <!-- <button @click="sube">fff</button>
     <p>{{ comps }}</p>
-    <button @click="vali">check</button>
-    <ul>
-      <li v-for="item in comp" :key="item.IdKupca">
-        {{ item.NazivF }}
+    <button @click="vali">check</button> -->
+    <ul class="companies__list-header">
+      <li>
+        <h5>Firma</h5>
+        <p>Adresa</p>
+        <p>E-mail</p>
+        <p>Telefon</p>
+        <p>Site</p>
       </li>
     </ul>
-  </div>
+    <ul class="companies__list">
+      <li v-for="item in comp" :key="item.id">
+        <h5>{{ item.name }}</h5>
+        <p>{{ item.address }}</p>
+        <p>{{ item.email }}</p>
+        <p>{{ item.phone }}</p>
+        <p>{{ item.site }}</p>
+      </li>
+    </ul>
+    <div class="navigation">
+      <div class="page__nav">
+        <button @click="prevRec">
+          <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#494c4e" d="M13.75 22.987l-7.99-9c-.51-.57-.76-1.28-.76-1.99s.25-1.42.74-1.98c.01 0 .01-.01.01-.01l.02-.02 7.98-8.98c1.1-1.24 3.002-1.35 4.242-.25 1.24 1.1 1.35 3 .25 4.23l-6.23 7.01 6.23 7.01c1.1 1.24.99 3.13-.25 4.24-1.24 1.1-3.13.98-4.24-.26z"/>
+          </svg>
+        </button>
+        <ul class="page__btns">
+          <li v-for="(p, i) in pages" :key="i">
+            <button>{{p}}</button>
+          </li>
+        </ul>
+        <button @click="nextRec">
+          <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" mirror-in-rtl="true">
+            <path fill="#494c4e" d="M10.25 22.987l7.99-9c.51-.57.76-1.28.76-1.99s-.25-1.42-.74-1.98c-.01 0-.01-.01-.01-.01l-.02-.02-7.98-8.98c-1.1-1.24-3.002-1.35-4.242-.25-1.24 1.1-1.35 3-.25 4.23l6.23 7.01-6.23 7.01c-1.1 1.24-.99 3.13.25 4.24 1.24 1.1 3.13.98 4.24-.26z"/>
+          </svg>
+        </button>
+      </div>
+      <ul class="page__per">
+        <li>
+          <button>10</button>
+        </li>
+        <li>
+          <button>25</button>
+        </li>
+        <li>
+          <button>50</button>
+        </li>
+      </ul>
+    </div>
+  </section>
+  
 </template>
 
 <script>
@@ -16,7 +60,7 @@ export default {
   name: 'company',
   data() {
     return {
-      comp: [
+      comp2: [
   {
     "IdKupca": 1,
     "NazivF": "DMB Ralja",
@@ -22199,7 +22243,12 @@ export default {
     "IDVrsteF": 10
   }
         ],
-      zu: []
+      comp: [],
+      zu: [],
+      last: null,
+      count: 0,
+      perPage: 10,
+      pages: 0
     }
   },
   computed: {
@@ -22209,7 +22258,7 @@ export default {
   },
   methods: {
     vali(){
-      const validation = this.comp.every(item =>  item.Zemlja === '' );
+      //const validation = this.comp.every(item =>  item.Zemlja === '' );
       
       this.zu = this.comp.map(c => {
         const contacts = [
@@ -22241,19 +22290,26 @@ export default {
       }
       //alert('Success.')
     }, 
-    async readFromFirestore() {
-      //const user = this.$fire.auth()
-      //
-      const messageRef = await this.$fire.firestore.collection('companies').get()
+    async readFromFirestore(nav = null) {
+      let messageRef = null
+      if(nav) {
+        nav === 'n' ? 
+          messageRef = await this.$fire.firestore.collection('companies').orderBy('name').startAfter(this.last).limit(this.perPage).get() : 
+          messageRef = await this.$fire.firestore.collection('companies').orderBy('name').endBefore(this.last).limitToLast(this.perPage).get()
+      } else {
+        messageRef = await this.$fire.firestore.collection('companies').orderBy('name').limit(this.perPage).get()
+      }
+      
       try {
-        const messageDoc = await messageRef.docs.map(doc => {
+        const messageDoc = await messageRef.docs.map( doc => {
+          nav === 'n' ?
+            this.last = messageRef.docs[messageRef.docs.length-1] :
+            this.last = messageRef.docs[0]
           const bio = doc.data()
           return {...bio}
         });
-        console.log(messageDoc)
-        //const promiseThemes = snapshot.docs.map(doc => {id: doc.id, ...doc.data());
+        this.comp = messageDoc
         
-        alert(this.comp.length)
       } catch (e) {
         alert(e)
         return
@@ -22261,12 +22317,141 @@ export default {
     },
     sube() {
       this.readFromFirestore()
-      for(let i =0; i<3;i++) {
+      //this.vali()
+      for(let i =0; i<30;i++) {
         //this.writeToFirestore(this.zu[i])
       }
     },
+    nextRec() {
+      this.readFromFirestore('n')
+    },
+    prevRec() {
+      this.readFromFirestore('p')
+    },
+    async setNav() {
+      await this.$fire.firestore.collection('companies').get().then((querySnapshot) => {
+        this.count = querySnapshot.size
+        console.log(querySnapshot.size);
+      });
+      this.pages = Math.floor(this.count / this.perPage)
+      
+    },
   },
+  mounted() {
+      this.readFromFirestore()
+      this.setNav()
+    }
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+  .companies {
+    display: grid;
+    padding: 1em;
+
+    p, h5 {
+      margin: 0;
+    }
+    p{
+      font-size: .8em;
+    }
+
+    button {
+      background-color: transparent;
+      color: var(--blue-dark);
+      border: none;
+      border-radius: .2em;
+      padding: .5em;
+      font: inherit;
+      font-size: .8em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .4s ease;
+      width: 30px;
+      height: 30px;
+    }
+    button:hover {
+      background-color: var(--blue-dark);
+      color: whitesmoke;
+    }
+
+    .companies__list {
+      li {
+        h5, p {
+          text-align: left;
+        }
+      }
+    }
+
+    .companies__list, .companies__list-header {
+      margin: 0;
+      padding: 0;
+      
+      li {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        align-items: center;
+        border-bottom: 1px solid var(--blue-dark);
+        padding: .5em;
+      }
+    }
+
+    .companies__list-header {
+      font-weight: 600;
+
+      li {
+        background-color: var(--blue-dark);
+        border-radius: .2em;
+      }
+
+      p, h5 {
+        color: whitesmoke;
+      }
+    }
+
+    .navigation {
+      margin-top: .5em;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      height: 30px;
+
+      .page__nav {
+        display: flex;
+
+        button {
+         
+          svg {
+            width: 15px;
+            height: 15px;
+            path {
+              fill: var(--blue-dark);
+            }
+          }
+        }
+        button:hover {
+      
+          svg {
+            path {
+              fill: whitesmoke;
+            }
+          }
+        }
+
+        .page__btns {
+          display: flex;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+
+        }
+      }
+
+      .page__per {
+        display: flex;
+        list-style: none;
+        margin: 0;
+      }
+    }
+  }
+</style>

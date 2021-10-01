@@ -11,6 +11,9 @@
       <li>
         <nuxt-link to="/companies">Companies</nuxt-link>
       </li>
+      <li>
+        <nuxt-link to="/meetings">Sastanci</nuxt-link>
+      </li>
     </ul>
     <a href="#">{{ $nuxt.$fire.auth.currentUser.email }}</a>
   </nav>
@@ -28,7 +31,12 @@ export default {
     grid-template-columns: auto 1fr auto;
     align-items: center;
     padding: .5em;
+    margin: 0;
     border-bottom: 1px solid black;
+    box-shadow: 0px 0px 1px 1px rgba(13, 21, 141, .7);
+    position: fixed;
+    top: 0;
+    width: 100%;
 
     img {
       width: 40px;
@@ -47,9 +55,11 @@ export default {
     text-decoration: none;
     padding: .5em;
     border-radius: .2em;
+    border: 2px solid transparent;
   }
   a:hover {
     text-shadow: 2px 2px 3px rgb(54, 82, 238);
+    border: 2px solid var(--blue-dark);
   }
   a.nuxt-link-active {
     //font-weight: bold;

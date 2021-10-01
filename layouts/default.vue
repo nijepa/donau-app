@@ -259,7 +259,9 @@ h2:after {
 
 
 
-
+section {
+  margin-top: 5em;
+}
 
 .cont {
   display: grid;

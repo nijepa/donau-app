@@ -1,34 +1,24 @@
 <template>
-  <section class="companies">
-    <!-- <button @click="sube">fff</button>
-    <p>{{ comps }}</p>
-    <button @click="vali">check</button> -->
-    <!-- <ul class="companies__list-header">
-      <li>
-        <h5>Firma</h5>
-        <p>Adresa</p>
-        <p>E-mail</p>
-        <p>Telefon</p>
-        <p>Site</p>
-      </li>
-    </ul> -->
-    <div class="companies__header">
+  <section class="meetings">
+        <div class="companies__header">
       <div><h3>606</h3><span> firmi</span></div>
       <button @click="setPage(p)" :class="Number(p) === pageNr && 'btn__active'">
         filter
       </button>
     </div>
     <ul class="companies__list">
-      <li v-for="item in comp" :key="item.id" class="companies__item">
+      <li v-for="item in meet" :key="item.id" class="companies__item">
         <div class="companies__item-count">
           <h3>0</h3>
           <span>sastanaka</span>
         </div>
-        <h5>{{ item.name }}</h5>
-        <p>{{ item.address }}</p>
-        <p>{{ item.email }}</p>
-        <p>{{ item.phone }}</p>
-        <p>{{ item.site }}</p>
+        <a>{{ item.title }}</a>
+        <p class="companies__item-desc">{{ item.description }}</p>
+        <p class="companies__item-company">{{ item.company.title }}</p>
+        <div class="companies__item-user">
+          <p>{{ item.user.name }}</p>
+          <p>{{ $dayjs(item.date.slice(0,10)).format('DD/MM/YYYY') }}</p>
+        </div>
       </li>
     </ul>
     <div class="navigation">
@@ -79,9 +69,2153 @@
 
 <script>
 export default {
-  name: 'company',
   data() {
     return {
+      meetings: [
+        {
+          idFirmePut: 2,
+          idKupca: 203,
+          idRadnika: 1,
+          DatumP: '2015-01-25T00.00.00.000Z',
+          Naslov: 'Redovan obilazak kupaca',
+          Opis: 'Zoran Zvekic, tehnicki direktor fokus im je podizanje litarske tezine sto je moguce vise i aktuelna im je ponuda od ZS -stanjili su debljinu plocice kako bi stedeli na energiji -dnevna proizvodnja: 4400 zid i 3600 pod -okvirna potrosnja bi bila uk.4-5 t- mesecno za pod i 9t za zid, uk. Oko 14 tona -godisnje oko 140t cca 70.000 eur -pocinju da rade krajem februara',
+        },
+        {
+          idFirmePut: 3,
+          idKupca: 204,
+          idRadnika: 1,
+          DatumP: '2015-01-23T00.00.00.000Z',
+          Naslov: 'Redovna poseta',
+          Opis: '-razvijace nove 2 engobe braon i crvenu - boju crepa isto semi glaze -od II meseca pocinju sa radom',
+        },
+        {
+          idFirmePut: 4,
+          idKupca: 211,
+          idRadnika: 1,
+          DatumP: '2015-01-22T00.00.00.000Z',
+          Naslov: 'Godisnji',
+          Opis: '-dostaviti im spisak kompanija koje ce biti na sajmu u Frankfurtu -FKI ce biti 10., 11. i 12.03.2015. -ukoliko Mica bude svratio po povratku iz Poljske da im javimo ako im trebaju uzorci -rekli da njihova boja nije osetljiva na smrzavanje -www.inomontage.hu - firma koja se bavi instaliranjem i prodajom sistema za farbanje -POSLATI IM LISTU FIRMI SA KOJIMA RADIMO ILI KOJIMA SE OBRACAMO -hrvatska je izuzetak i u Makedoniji jedna firma',
+        },
+        {
+          idFirmePut: 5,
+          idKupca: 11,
+          idRadnika: 1,
+          DatumP: '2015-01-22T00.00.00.000Z',
+          Naslov: 'redovan obilazak',
+          Opis: '',
+        },
+        {
+          idFirmePut: 6,
+          idKupca: 139,
+          idRadnika: 1,
+          DatumP: '2015-02-27T00.00.00.000Z',
+          Naslov: 'Isporuka boje i sastanak',
+          Opis: '',
+        },
+        {
+          idFirmePut: 7,
+          idKupca: 11,
+          idRadnika: 1,
+          DatumP: '2015-02-25T00.00.00.000Z',
+          Naslov: 'Poseta za pomoc u razvoju novih peci',
+          Opis: '',
+        },
+        {
+          idFirmePut: 8,
+          idKupca: 9,
+          idRadnika: 1,
+          DatumP: '2015-02-28T00.00.00.000Z',
+          Naslov: 'Redovna poseta',
+          Opis: '-redovna poseta',
+        },
+        {
+          idFirmePut: 9,
+          idKupca: 212,
+          idRadnika: 1,
+          DatumP: '2015-03-10T00.00.00.000Z',
+          Naslov: 'redovan obilazak',
+          Opis: 'redovna posetas sa ZS rade ali "otezano" imAJU 2 KERAJET MASINU(technoferara) za digitalnu dekoraciju -prodaju ex yu i malo francuska, ceska,',
+        },
+        {
+          idFirmePut: 10,
+          idKupca: 214,
+          idRadnika: 1,
+          DatumP: '2015-03-11T00.00.00.000Z',
+          Naslov: 'redovan obilazak',
+          Opis: 'imaju 1 masinu za stampu digitalnu',
+        },
+        {
+          idFirmePut: 11,
+          idKupca: 222,
+          idRadnika: 1,
+          DatumP: '2015-04-01T00.00.00.000Z',
+          Naslov: 'Prvi obilazak kupaca',
+          Opis: 'Doneli potpisan ugovor o zastupanju sa izmenjenom stavkom o eksluzivitetu na trzistu. Gavino Pittalis , tehnicar, specijalista za ink jet stampu g.pittalis@zschimmer-schwarz.com +39 366 7884241 Giancarlo Asolotti , komercijala , g.asolotti@zschimmer-schwarz.com , +39 3358192633 -Ceramco drzi 70% trzista u it. Za deflokulante -Arco firma koja proizvodi sirrovina za formairanje dezena( npr kao Granile, tj sjaj i sl,, treba pitati i uzeti zastupstvo) -System firma koja prodaje glave za inkjet stampace!!! -u svetu ima 250 masina sa mastilima iz Ceramca -Sinisa Kosutic je aagent Sicera za nase trziste',
+        },
+        {
+          idFirmePut: 12,
+          idKupca: 225,
+          idRadnika: 1,
+          DatumP: '2015-04-21T00.00.00.000Z',
+          Naslov: 'Kipar',
+          Opis: 'Razgovor vezano za Kipar. Nije bilo nikakvih najava niti je iko znao za situaciju koja sledi Kipru, a vezano za oduzimanje novca. Uzeto sve preko 100.000.Sudjenja u toku ali verovatno da se nista nece dogoditi.Bila politicka odluka, obveznice koje su Kiparske banke dali grcima ponistene od strane "Evropske banke" radi pomoci Grckoj , i odluke da je Kiparski bankarski sistem predimenzioniran sa bankama.Posledice ozbiljne , ekonomija stala pre svega zbog poverenja. Upucuje na knjiovodju , svog zeta Dzigotanovica , + 357 99 329881',
+        },
+        {
+          idFirmePut: 13,
+          idKupca: 260,
+          idRadnika: 1,
+          DatumP: '2015-10-30T00.00.00.000Z',
+          Naslov: 'Redovna samostalna poseta',
+          Opis: 'Sami proizvode engobe.Engobiraju u novom pogonu.Imaju U kasete.Peku na 1020C uk 20h , u zarnoj zoni 3h. Preko V prometa iz isporuke uzimaju dihtunge za vagone.',
+        },
+        {
+          idFirmePut: 14,
+          idKupca: 212,
+          idRadnika: 1,
+          DatumP: '2015-10-30T00.00.00.000Z',
+          Naslov: 'Redovna Poseta',
+          Opis: 'Obavestiti principale o poseti i traziti dogovoreno',
+        },
+        {
+          idFirmePut: 15,
+          idKupca: 223,
+          idRadnika: 1,
+          DatumP: '2015-12-24T00.00.00.000Z',
+          Naslov: 'Redovan obilazak',
+          Opis: 'poseta zakazana kod Aleksic Djordja, stigao oko 10:45 Keramika Kanjiza radi do 31.12.2015. pa pravi pauzu do februara , ne znaju tacno do kog. U toku januara treba da plate dospela potrazivanja i obezbede finansije za nabavku sledecih sirovina, tj radde na prodaji robe sa lagera. Radili su cca 10% vise nego prethodne ( i u prodaji i u proizvodnji) a plan za sledecu je da povecaju jos za 10%. Izbacili su svu sito stampu, jos neko vreme im ostaje i rotokolor ali i njega izbacuju i ostaju samo na digitalnim masinama.',
+        },
+        {
+          idFirmePut: 16,
+          idKupca: 11,
+          idRadnika: 1,
+          DatumP: '2015-12-24T00.00.00.000Z',
+          Naslov: 'Redovan obilazak',
+          Opis: 'Jozef Balint, kontrola kvaliteta, Kupio ih Winerberger pa je doslo do promena malih -imaju potrebu za frikcionom presom',
+        },
+        {
+          idFirmePut: 17,
+          idKupca: 274,
+          idRadnika: 1,
+          DatumP: '2015-12-01T00.00.00.000Z',
+          Naslov: 'Prva poseta',
+          Opis: 'proizvode 30-40.000.000 komada crepa godisnje Engobiraju i trose oko 20-30t braon i 10-15 t crvene Temperatura pecenja im je oko 880c , glina je specificna, mali koeficijent sirenja 0,1-0,2 exp. Imaju mat bez i sa staklom (?) posebna frita 50-50%  koriste gas i ulje Predati razliciti katalozi Na sastanku Ljubisa Vasic dir.proizvodnje 062 227012  vasic.ljubisa@gmail.com ljubisa.vasic@mladost.co.rs LjubicaSanto@gmail.com , 063 1097200, Nikola Randjelovic nabavka 0631018229, Ivan Stojanovic , tehn. 062 465 811',
+        },
+        {
+          idFirmePut: 18,
+          idKupca: 23,
+          idRadnika: 1,
+          DatumP: '2016-01-22T00.00.00.000Z',
+          Naslov: 'Sezonski obilazak kupaca',
+          Opis: '-razjasnjavanje stanja isporuka vermikulita za proslu godinu i dogovor za novu -razgovori o boji, dihtunzima, staklu -prethodila poseta Duska nasoj firmi i zahtev da se retroaktivno uradi cela godina',
+        },
+        {
+          idFirmePut: 19,
+          idKupca: 16,
+          idRadnika: 7,
+          DatumP: '2016-01-21T00.00.00.000Z',
+          Naslov: 'NOVA SEZONA 2016',
+          Opis: 'poslati Sasi adrese sdrese firmi koje proizvode vatrostalne betone.',
+        },
+        {
+          idFirmePut: 20,
+          idKupca: 163,
+          idRadnika: 7,
+          DatumP: '2016-01-26T00.00.00.000Z',
+          Naslov: 'Vermikulit',
+          Opis: 'kontakt NENAD KRSTIC, nabavka ALFA PLAM',
+        },
+        {
+          idFirmePut: 21,
+          idKupca: 212,
+          idRadnika: 1,
+          DatumP: '2016-02-09T00.00.00.000Z',
+          Naslov: 'Redovan obilazak sa Ceramcom',
+          Opis: '- planiraju pocetak rada od marta -prethodna poseta bila prosle godine , poslati uorci mase i vode na testiranje',
+        },
+        {
+          idFirmePut: 22,
+          idKupca: 283,
+          idRadnika: 1,
+          DatumP: '2016-02-09T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: '-inkerpor kupuje fritu u prahu od FERRA VTR213 i od Torecid-a VO 64957, u prahu , RTU, fritu mesa sa medijumom , SEROIL CS981 P(cena oko 4,42 eur, 600kg mesecno) , vodom i pigmentima i nanosi spricanjem na povrsinu soljica, tanjira...temperatura pecenja je oko 1200C Diletacija je manja od 4,5 ; temp. pecenja 1240C i vreme je 1:45 min u zoni pecenja.Dali su uzorke soljica i tanjira, 6 kom. -koriste Ferrov Medijum za stampu 80431 , cena oko 8,20 eur i trose 1 kantu mesecno -predali uzorak tanjira sa suncem za koji Metalac treba da da ponudu -kupuju od MB swing a ferrovu robu i papir od grfik centra iz Zagreba valjda -potrebno im je zlato, trazili su info ko je Metalcev dobavljac -probali preslikac sa zlatom ali je previse izbledeo , pekli na 840C, trebalo bi da spuste temp,trazili uzorak ponovo',
+        },
+        {
+          idFirmePut: 23,
+          idKupca: 285,
+          idRadnika: 1,
+          DatumP: '2016-03-09T00.00.00.000Z',
+          Naslov: 'Staklo',
+          Opis: 'Rajko Mitic je vlasnik pretpostavljam, 0648281370 Oni "trose"za svoje potrebe tj preprodaju staklo, upitio ih je na nas partner iz Madjarske? Interesuje se za cele table i za restlove 4cm sirine ali ne sa krajeva , zna da su zamuceni na krajevima vec zeli iz sredine -rekao sam mu nacelno da za vece kolicine moze na tablu cena oko 180-200 eur i da je to neka nasa cena za vece kolicine i secenje... Dok mu cenu za 4cm nisam dao -ja bih mu ponudio djuture za restlove neku cenu po m2 pa da vecinu onoga iz staklare izbacimo',
+        },
+        {
+          idFirmePut: 24,
+          idKupca: 312,
+          idRadnika: 1,
+          DatumP: '2016-07-06T00.00.00.000Z',
+          Naslov: 'Prva poseta',
+          Opis: 'Gpc je 100% u vlasnistvu Van Marcka, Belgija Imaju oko 20 zaposlenih , 2 inzenjera � rade nabavku , saradnju , kontrolu kvaliteta posebno sa neevropskim zemljama Isporuka je u Belgiju iako im je sediste na Malti Trguju tj kupuju sa svim za kupatilo!',
+        },
+        {
+          idFirmePut: 25,
+          idKupca: 312,
+          idRadnika: 1,
+          DatumP: '2016-07-07T00.00.00.000Z',
+          Naslov: 'Poseta sa kupcem',
+          Opis: '',
+        },
+        {
+          idFirmePut: 26,
+          idKupca: 322,
+          idRadnika: 1,
+          DatumP: '2016-04-15T00.00.00.000Z',
+          Naslov: 'Prvi sastanak sa kupcem',
+          Opis: 'Komercijalista Boban Milikic, 034 304965, 063686571 www.spincompany.com boban.milikic@spincompany.com Kragujevac Prodaju boje firme Mipa Nemacka (Mislim da jePesifit to ranije koristio) Imaju Mipater do 800C , srebrna I crna Ral 9006 valjda. Takodje imaju do 400 C cena 1042 din -25% rabata - 3% avans. Za godisnje kolicine od cca 2 tone jos 1% rabata',
+        },
+        {
+          idFirmePut: 27,
+          idKupca: 223,
+          idRadnika: 1,
+          DatumP: '2016-09-06T00.00.00.000Z',
+          Naslov: 'Redovan obilazak',
+          Opis: 'Imaju 4 ink jet masine , sve rade I kupuju inke od Colorobie, dobila je posao na tenderu , dali su prosecnu cenu 9 eur za sve aditive. Aleksic rekao da je Olbricht familija kupila Zorka Keramiku  Zainteresovan da proba zlatnu pastu.Poslati mu uzorak koji imamo od Nipon-a 5grama, 10% zlato.',
+        },
+        {
+          idFirmePut: 28,
+          idKupca: 11,
+          idRadnika: 1,
+          DatumP: '2016-09-06T00.00.00.000Z',
+          Naslov: 'Redovan obilazak',
+          Opis: 'Sastanak dogovoren sa Jozefom Balintom. Imaju novog direktora proizvodnje g.dju Ilonu Pajic, 024 873303 lokal 229 , mobilni 063593879 ilona.pajic@tondach.rs  Razmisljaju o kupovini I ulaganju u H kasete tako da treba I o tome razmisljati tj traziti ponudu od Wendela.U Sloveniji kupuju engobu iz centrale, Lukavci,  imaju neku listu odobrenih dobavljaca za npr engobe ali moraju proveriti da li to mozda ne vazi ukoliko se sirovina kupuje od domaceg dobavljaca.',
+        },
+        {
+          idFirmePut: 29,
+          idKupca: 204,
+          idRadnika: 1,
+          DatumP: '2016-09-08T00.00.00.000Z',
+          Naslov: 'Redovan obilazak',
+          Opis: 'Redovan obilazak Firma radi dobro ali podrzava finasijski druge firme iz grupacije, Keramiku � Planiraju mozda I neko investiranje u proizvodnju , proveriti ima li mogucnosti posredovanja za taj posao',
+        },
+        {
+          idFirmePut: 30,
+          idKupca: 279,
+          idRadnika: 1,
+          DatumP: '2016-09-09T00.00.00.000Z',
+          Naslov: 'Redovna poseta',
+          Opis: 'Sastanku prisustvovali Vlada Ristic I Ana Pantelic Sporadicno kupuju neke emajle. Tehnolozi generalno nezadovoljni situacijom u firmi I odnosom pretpostavljenih.Zeleli bi da rade vise sa Wendelom ali misli da su pretpostavljeni problem.Zahtevaju odgvornost za rezultate ali ne daju tehnolozima da biraju sirovine.',
+        },
+        {
+          idFirmePut: 31,
+          idKupca: 330,
+          idRadnika: 1,
+          DatumP: '2016-09-12T00.00.00.000Z',
+          Naslov: 'Redovna poseta',
+          Opis: 'Na sastanku je bio Branko Vagan, javio sam se Miru Jakus. Imaju 2 fabrike, za keramicke oplate I za vatrostalne materijale. Proizvode vatrostalne betone, peku ih na 700C 5-6 h , koriste silubit od ZS za brze isparavanje vode. Zivanovic je direktor njihovog predstavnistva u Arandjelovcu , bivsi direktor samota. Jakus kaze da su imali veliki pad u prodaju I da im vatrostalna radi na ivici,ukoliko se do sledece godine ne poboljsa situacija , razmisljaju I da je ugase tj premeste u postojecu fabriku I smanje kapacitet. Upit domacim fabrikama za paljenim tj starim samotom (samotne I kodiritne kasete iz peci�) U krapini im je proizvodja vatrostalne.',
+        },
+        {
+          idFirmePut: 32,
+          idKupca: 110,
+          idRadnika: 1,
+          DatumP: '2016-12-16T00.00.00.000Z',
+          Naslov: 'Poseta kupcu',
+          Opis: 'Trazili posetu (Novko I Sainovski) radi nastavka saradnje. Ranije krajem Novembra zamolili da im se kupi I posalje autobusom elektro prekidac od firme Inel (cca 20.000 din) sto smo preko racuna naseg I uradili a njima poslali autobusom. Teme - odlivci koji su ranije radjeni u Arandjelovcu, I ostali proizvodi Proizvode oko 40.000 peci, Dimce je napustio firmu, imali veliki problem sa farbom pa su morali da prefarbaju 10.000 peci jer su se javile reklamacije kupaca. Presli tada (polovinom prosle godine) na Weilburger farbu.',
+        },
+        {
+          idFirmePut: 33,
+          idKupca: 105,
+          idRadnika: 1,
+          DatumP: '2017-05-10T00.00.00.000Z',
+          Naslov: 'Evoltex Objasnjenje',
+          Opis: 'Nakon razgovora sa Monicom i objasnjenja situacija je sledeca: -ako ne pise nista uz pletenicu (odnosi se pre svega na pletenice okrugle fi 3,4,5,6...) onda je meka - elasticna , kao sto mi kupujemo sa lagera tj bez jezgra -ako pise PLUS to znaci da ima jezgro - to su tvrdje pletenice  -treccia - pletenica -vetro-staklo -tricote-nacin pletenja , uvek je trikote',
+        },
+        {
+          idFirmePut: 34,
+          idKupca: 16,
+          idRadnika: 1,
+          DatumP: '2017-11-17T00.00.00.000Z',
+          Naslov: 'Telefonski razgovor',
+          Opis: '',
+        },
+        {
+          idFirmePut: 35,
+          idKupca: 110,
+          idRadnika: 1,
+          DatumP: '2017-11-14T00.00.00.000Z',
+          Naslov: 'Poseta',
+          Opis: 'Novko i Sasa su bili u Italiji. Nikola je brat Novkov ali se sa njim nisam video. Sreo se sa Sainovskim u njihovoj kancelariji. Ove godine je plan 45000 pelet peci Za odlivke im rekao da radimo i sa Ilijasom , nisu radili pec za domace trziste pa im ranije radjen uzorak nisu ni dalje kupovali. Uradili su alat tj dobili novi uzorak od firme iz Smedereva koji je ,koliko sam razumeo zadovoljavajuci Dojcinovski im isporucuje staklo za hitne intervencije',
+        },
+        {
+          idFirmePut: 36,
+          idKupca: 234,
+          idRadnika: 1,
+          DatumP: '2017-11-15T00.00.00.000Z',
+          Naslov: 'Redovna poseta',
+          Opis: 'Nakon nezadovoljstva sa radom Nikole , otac preuzeo firmu sa unukom (Nikolinom cerkom) i raspustio veci deo firme. Mence je unuka. Potrebno im je neko vreme da ustanove kakva je situacija u firmu jer su raspustili i knjigovodstvo. Nakon sto utvrde dugovanja , platice i dug nama koji ne smatraju spornim. Obecao sam neko snizenje cene stakla od sledece porudzbine (5% im dati cca od nase marze)  Zele da kupe robot za zavarivanje!',
+        },
+        {
+          idFirmePut: 37,
+          idKupca: 209,
+          idRadnika: 1,
+          DatumP: '2017-11-13T00.00.00.000Z',
+          Naslov: 'redovna poseta',
+          Opis: 'Na sastankju bili Rade, Nenad i njegov otac kratko. Redovno rade prakticno 100% za poznatog kupca Saradjuju i dalje sa FKI sa Bognarom i dolazi i drugi tehnicari i devojka naseg porekla.',
+        },
+        {
+          idFirmePut: 38,
+          idKupca: 163,
+          idRadnika: 1,
+          DatumP: '2017-11-13T00.00.00.000Z',
+          Naslov: 'Redovna poseta',
+          Opis: 'Na sastanku bili Sasa Stojanovic i novi referent Milica Pesic (cerka Srbe Pesica). Milica je zaduzena sada za boje, vermikulit i za pletenice. Milica.pesic@alfaplam.rs Sasa Stojanovic je zaduzen za staklo. Zoran Ilic je zaduzen za pigmente. Jasmina je tehnolog za farbe.',
+        },
+        {
+          idFirmePut: 39,
+          idKupca: 45,
+          idRadnika: 1,
+          DatumP: '2017-11-23T00.00.00.000Z',
+          Naslov: 'Obnova saradnja',
+          Opis: 'dugo nema porudzbina Zvao Marka(12:14) ali je trenutno u guzvi, da zovem malo kasnije',
+        },
+        {
+          idFirmePut: 40,
+          idKupca: 284,
+          idRadnika: 1,
+          DatumP: '2017-11-24T00.00.00.000Z',
+          Naslov: 'Telefonski',
+          Opis: 'Cuo se sa Radom Savovic, zbog ponude preslikaca za trziste Rumunije. Zbog planova posudja da nastupi na trzistu Rumunije, nisu u mogucnosti da prodaju prelikace Ves Rumunija za sada. Mozda im nuditi opciju iz Hrvatske ali zbog odnosa sa Metalcem je pitanje da li se treba mesati.',
+        },
+        {
+          idFirmePut: 41,
+          idKupca: 421,
+          idRadnika: 1,
+          DatumP: '2018-03-05T00.00.00.000Z',
+          Naslov: 'Redovna poseta',
+          Opis: 'Prva poseta, Aleksandar Talovic (0648416019)i Violeta osnovan 2006 ali dugu istoriju proizvodnje imaju 2009 investirali u opremu i prebacili opremu u nov pogon 2009 poceli sa pulver emajliranje (PUESTA)  80-150l bojlere idu PUESTA 80, 100, 120, 200l sa izmenjivacem toplote 30-200 litara bojleri bez 2016 investirali u opremu koja moze i mokro da emajlira RTU uglavnom kupuju 12.2017. investirali u novu pec',
+        },
+        {
+          idFirmePut: 42,
+          idKupca: 330,
+          idRadnika: 1,
+          DatumP: '2018-02-21T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'Elvira Ferk - tehnolog, elvira.ferk@zagorka.hr , +385989519522 Witgert - Rosa Liebig i Michael Liebig',
+        },
+        {
+          idFirmePut: 43,
+          idKupca: 279,
+          idRadnika: 1,
+          DatumP: '2018-03-07T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'Vlada Ristic, Ana Pantelic, Ivan Stamenkovic, Sreli Tamaru Cejovic Wendel - Benedikt Kegel i Julian Wagner -Dragana je napustila Gorenje i na njenom mestu je Ivan Stamenkovic 0648005326 , 022366118 , Tamara p. Cejovic je sef nabavke, +381 64 8005349 tamara.popovic-cejovic@gorenje.com  Gorenje Tiki je oglasen za prodaju koja bi trebalo da se obavi uskoro, razlog je interni , najverovatnije dugovanja Gorenja iz Slovenije, javila se i NIBE grupa Prasice -rade u 3 smene, cca 500.000 bojlera godisnje prozvedu',
+        },
+        {
+          idFirmePut: 44,
+          idKupca: 423,
+          idRadnika: 1,
+          DatumP: '2018-02-19T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'Franc Konjedic i supruga Witgert-Michael L. I Rosa L. Trgovac sirovinama za keramicare dobro opremljeni sa bojama , pigmentima , masama , tockovima , pecima sitnim materijalima, glazurama....',
+        },
+        {
+          idFirmePut: 45,
+          idKupca: 13,
+          idRadnika: 1,
+          DatumP: '2018-02-19T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'Ales Witgert Michael i Rosa Liebig  trgovac keramickim sriovinama, najvise preko Web-a Bavi se i drugim poslom, istrazuje da li moze da ovaj posao zazivi',
+        },
+        {
+          idFirmePut: 46,
+          idKupca: 424,
+          idRadnika: 1,
+          DatumP: '2018-02-19T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'Luca Folco R&D luca.folco@sevenrefractories.com +38651236855 Metod Prelec labor. metod.prelec@sevenrefractories.com +38651672815 Igor Paladin, nabavka Witgert Michael i Rosa Liebig  Kupljen prvo kamion i testoranje materijala je u fabrikama gde ga isporucuju, dobili izvestaj da je ok pa ce nastaviti da kupuju',
+        },
+        {
+          idFirmePut: 47,
+          idKupca: 425,
+          idRadnika: 1,
+          DatumP: '2018-02-20T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'Boris Laubic, direktor +3867055074 Franc Obronek  Witgert , Michael i Rosa Liebig Presli na porcelanato, kupuju od Italijanske firme a masa dolazi iz Srbije iz Uba, transport je iz Italije. Kupuju oko 1000 tona odjednom vozom iz Srbije Sa sacmi -jem su razvili recept Imaju digitalnu stampu Sacmi color HD760 GS 12 jednu, xsar glave, ink-e kupuju od Ferra, Lamberti aditivi, crosfield deflokulanti -novu kupuju sa dimatix glavom , sa monoporozom imaju problem',
+        },
+        {
+          idFirmePut: 48,
+          idKupca: 429,
+          idRadnika: 1,
+          DatumP: '2018-02-20T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa pruincipalom',
+          Opis: 'Witgert:Michael i Rosa Liebig Trgovacka firma koja radi razlicite sirovine, cesto sa vecim fabrikama, silikonske mase za restauraciju, rade prepakivanje robe u manja pakovanja. Rade dosta sa cementnom industrijom. Prodaju dosta kvarca 10-12 radnika',
+        },
+        {
+          idFirmePut: 49,
+          idKupca: 430,
+          idRadnika: 1,
+          DatumP: '2018-02-20T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'Proizvoide engobu koristeci glinu, aditive i pigmente. Ana je laborant - tehnolog koja menja Michaelovog druga koji je "glavni" tehnolog u Wienerbergeru. Koriste i Optapix C126 , i KG50 Isporucuju engobe u Madjarsku i u Kanjizu.',
+        },
+        {
+          idFirmePut: 50,
+          idKupca: 431,
+          idRadnika: 1,
+          DatumP: '0200-02-09T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalopm',
+          Opis: 'Witgert:Michael i Rosa Liebig Kerbek: Ivan Beluzic, Mladen +385989284147 +38269014807 Vesko Crna Gora - javiti za opremu zasaksije Ponuditi im pomoc oko aditiva Zschimmer Schwarz-a',
+        },
+        {
+          idFirmePut: 51,
+          idKupca: 432,
+          idRadnika: 1,
+          DatumP: '2018-02-21T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'Witgert Michael i Rosa Liebig Inker: Natasa Budisa, Ivana Hrkec novi tehnolog za masu je morala da ode pa je nismo upoznali povecali kapacitete za 100% Proizvode samo vitrous china , ne fireclay Sada ne zele da menjaju sirovine i nece moci da testiraju',
+        },
+        {
+          idFirmePut: 52,
+          idKupca: 433,
+          idRadnika: 1,
+          DatumP: '2018-02-21T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'trgovac sa ranije znatno vecim prometom Rade velikoprodaju, sa skolama, maloprodaja, Pitali da zastupaju Witgert tj mozda sa nama da naprave nekakvu saradnju za trziste Hrvatske, da nam oni bud servis',
+        },
+        {
+          idFirmePut: 53,
+          idKupca: 11,
+          idRadnika: 1,
+          DatumP: '2018-02-22T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalom',
+          Opis: 'prva poseta sa Michael Liebig-om Kanjiza:Istvan Lukaci nabavka, Ilona Pajic tehnicki direktor Jozef Balint bio u Wienerberger-u u Sloveniji',
+        },
+        {
+          idFirmePut: 54,
+          idKupca: 163,
+          idRadnika: 1,
+          DatumP: '2017-07-28T00.00.00.000Z',
+          Naslov: '',
+          Opis: 'Izvestaj: MILICA PESIC je novi referent za pletenice, vermikulit, farbu.Sasa Stojanovic je za staklo.Zoran je za pigmente I emajl.Jasmina je tehnolog za farbu, Suzana I Milan Mitrovic su za emajl',
+        },
+        {
+          idFirmePut: 55,
+          idKupca: 163,
+          idRadnika: 1,
+          DatumP: '2018-03-06T00.00.00.000Z',
+          Naslov: '',
+          Opis: 'Prisutni:Zoran nabavka, Jasmina (valjda � pomocnik Milanov), Milan tehnolog za emajl, Stamen - proizvodnja',
+        },
+        {
+          idFirmePut: 56,
+          idKupca: 440,
+          idRadnika: 1,
+          DatumP: '2018-03-15T00.00.00.000Z',
+          Naslov: '',
+          Opis: 'Prisutni:Milan Filipovic, tehnicki director, Velja �tehnicko lice(sajam Ambiente), Marko Rajcevic tehnicki pomocnik, svratio Zoran Markovic, EIC : Brigitte , Alex',
+        },
+        {
+          idFirmePut: 57,
+          idKupca: 9,
+          idRadnika: 1,
+          DatumP: '2018-03-06T00.00.00.000Z',
+          Naslov: '',
+          Opis: 'Prisutni:Vesna Maricki, Branko , Sanja, Wendel : Benedikt Kegel, Julian Wagner',
+        },
+        {
+          idFirmePut: 58,
+          idKupca: 440,
+          idRadnika: 1,
+          DatumP: '2018-03-05T00.00.00.000Z',
+          Naslov: '',
+          Opis: 'Prisutni:Tihomir, Jasna, tehnolozi Jelena Savic I Irena',
+        },
+        {
+          idFirmePut: 59,
+          idKupca: 203,
+          idRadnika: 1,
+          DatumP: '2018-04-20T00.00.00.000Z',
+          Naslov: 'Sajam Gradjevine',
+          Opis: 'prvi sastanak sa Zita Kis (023773231 , 0648994095, zita.kis@nexe.rs), dizajner u Poletu vise godina',
+        },
+        {
+          idFirmePut: 60,
+          idKupca: 375,
+          idRadnika: 1,
+          DatumP: '2018-04-11T00.00.00.000Z',
+          Naslov: 'Sajam Ceramitec',
+          Opis: 'na sajmu bio prisutan Stojan Delic',
+        },
+        {
+          idFirmePut: 61,
+          idKupca: 147,
+          idRadnika: 1,
+          DatumP: '2018-04-14T00.00.00.000Z',
+          Naslov: 'Sastanak sa principalom',
+          Opis: 'redovan sastanak , Poehlmann bio sa sinom Cristophom Trazio sam opet da se definise zastupstvo za Hrvatsku, rekao sam da neke firme nam daju kontrolnu proviziju za svu robu , tj i za onu koju su prodavali pre dogovora -treba da nam posalju spisak boja koje prodaju Hrvatskoj i trazio sam da posalju oficijelno pismo da smo mi zastupnici za Hrvatsku da se ne bismo "lovili" -treba da posalje predlog za posetu Srbiji Cristoph -Za Alfa Plam imaju dekor farbe za emajl -za Tapiker, - botz kupuje od Poehlmann a ali min je 25 kg po boji',
+        },
+        {
+          idFirmePut: 62,
+          idKupca: 445,
+          idRadnika: 1,
+          DatumP: '2018-04-14T00.00.00.000Z',
+          Naslov: 'Prvi Sastanak',
+          Opis: 'Sastanak sa Wolfgang Eppich-om , zeli da prodaje na nasem trzistu i ostvari saradnju na bilo koji nacin Radio je ranijeu vise keramickih firmi, izmedju ostalih i Zschimmer Schwarz , prijatelj sa Poehlmann om i osnovao svoju firmu Prodaje lakove i medijume za sito stampu i konkurencija je Ferru , moguce je nuditi Inker Porcelanu, Metalcu, VES Rumunija, Nudio je specijalni lak za Metalac (Poznaje uglavnom trziste i probao je i sam da nudi) 8727 T (tixotropan) Analizirati cene , traziti uzorke i proslediti pomenutim firmama',
+        },
+        {
+          idFirmePut: 63,
+          idKupca: 260,
+          idRadnika: 1,
+          DatumP: '2018-04-15T00.00.00.000Z',
+          Naslov: 'Ceramitec 2018',
+          Opis: 'sastanak sa  na sajmu sa Marijom Jovic ( bila Maja Vrebalov) Dilj mahom sam proizvodi engobe',
+        },
+        {
+          idFirmePut: 64,
+          idKupca: 446,
+          idRadnika: 1,
+          DatumP: '2018-01-01T00.00.00.000Z',
+          Naslov: 'Sastanci',
+          Opis: 'Vlasnik firme Nicolas koji se bavi vinima, vlasnik Hotela Petrus iz Paracina i tehnolog Ljubinko iz Porcelana Zajecar su zajedno usli u proizvodnju kermaike. Kupili su opremu od porcelana Zajecar i zele da se bave proizvodnjom glinenih proizvoda, uglavnom crvene gline , za reklamne potrebe ili pripremu hrane... Treba im nacelno crvena glina na 1050C Kanjiza im nudila glinu iz njhovog kop-a(ima dosta kalcita) za cca 10.000 din po toni',
+        },
+        {
+          idFirmePut: 65,
+          idKupca: 330,
+          idRadnika: 1,
+          DatumP: '2018-04-15T00.00.00.000Z',
+          Naslov: 'Ceramitec 2018',
+          Opis: 'razgovori sa Elvirom i Ivanom , tehnolozima iz Zagorke. Na kratko se video i Mirom Jakus.',
+        },
+        {
+          idFirmePut: 66,
+          idKupca: 20,
+          idRadnika: 1,
+          DatumP: '2016-04-04T00.00.00.000Z',
+          Naslov: 'poseta principalu',
+          Opis: 'Proizvodnja dleimicno izmestena u Temisvar, deo proizvodnje je u Werheim-u , deo u Waserburg-u i centrala u Hanau. Kupila ih Mitsuo grupa koja ima 13.000 zaposlenih i investiraju puno u zdravstvenu industriju. FE-forschung und entwicklung Bave se jos: -plasticni nokti-mase prodaju -schmuck farbe- za doradu nakita, metali - umesto emajla, ukrasavanje nakita -Veterina-lepak na bazi pulvera, za oboljenje kopita krava- kada im oboli 1 papak, stavi se sa lepkom kao drvena cipela na zdrav papak koji im odbija da bolestan bude na zemlji ( dok ne zaraste), za cca 6 nedelje sama otpadne- tako brze pocen , tj nastavi da daje mleko, ozdravi -auto - industrija, ind. Celika, za testiranje tj pregled na mikroskopu- komad lima se izlije u kalupu, pa se slajfuje -silikon - za abdruck - za pregled otisaka i slicne indutrije  treba pokusati sa veterinarskom industrijom i eventualno za plasticne nokte',
+        },
+        {
+          idFirmePut: 67,
+          idKupca: 421,
+          idRadnika: 1,
+          DatumP: '2018-03-15T00.00.00.000Z',
+          Naslov: 'Poseta sa predstavnicima EIC',
+          Opis: 'Prisutni Milan Filipovic ,Zoran Ognjanovic direktor 0648416069 Potrebaqn im je sistem hemijske pripreme koji sada odradjuju u Metalcu ali je preskupo u ovom trenutku',
+        },
+        {
+          idFirmePut: 68,
+          idKupca: 46,
+          idRadnika: 1,
+          DatumP: '2018-02-23T00.00.00.000Z',
+          Naslov: 'Poseta sa Principalom Witgert',
+          Opis: 'Prva poseta sa principalom. Kupovali vec neke manje kolicine. Na sastanku Jovanka Milosevic  i Vladimir Vucetic 063 272129 vladimir.vucetic@real-s.net',
+        },
+        {
+          idFirmePut: 69,
+          idKupca: 203,
+          idRadnika: 1,
+          DatumP: '2018-02-22T00.00.00.000Z',
+          Naslov: 'Redovna poseta sa principalomn',
+          Opis: 'Zoran Zvekic Bojan Milankov, tehnolog, 064 8994037 bojan.milankov@nexe.rs Imaju ili su uzeli uredja GS-12 XSAR 1003 Clay Line Italija, prave glinu od Turskog felspada i gline iz Srbije.10-13 eur/tona Rade isporuku u Sapcu i to je sabirno mesto odakle isporucuju drugima. Kupuju glazuru od glazure iz Ceske, takodje iz Spanskog Esmaglass-a',
+        },
+        {
+          idFirmePut: 70,
+          idKupca: 446,
+          idRadnika: 1,
+          DatumP: '2018-02-23T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom',
+          Opis: 'Paracin, Ivan , Ljubinko, Petrusin (Valjda, vlasnik hotela)',
+        },
+        {
+          idFirmePut: 71,
+          idKupca: 204,
+          idRadnika: 1,
+          DatumP: '2018-02-22T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom',
+          Opis: 'Proizvode oko 30.000.000 crepova godisnje Temperatura pecenja je oko 1020C',
+        },
+        {
+          idFirmePut: 72,
+          idKupca: 331,
+          idRadnika: 1,
+          DatumP: '2018-02-22T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom',
+          Opis: 'Prisutni Arpad Salkai, Nemanja Bilanovic 063407210 nemanja.bilanovic@keramikakanjiza.com , Djordje Aleksic',
+        },
+        {
+          idFirmePut: 73,
+          idKupca: 52,
+          idRadnika: 7,
+          DatumP: '2018-05-31T00.00.00.000Z',
+          Naslov: 'cene staklo , farba',
+          Opis: '',
+        },
+        {
+          idFirmePut: 74,
+          idKupca: 147,
+          idRadnika: 1,
+          DatumP: '2018-07-31T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom',
+          Opis: 'prva poseta Christoph Poehlmann-a , sina g.Poehlmann-a Od februara su preuzeli "know how" od BASF - a odeljenja za keramicke pigmente (oko 1/2 mil. Eur) BASF je prvi imao crveni dobar pigment-boju i prodavao je do 100t samo te boje godisnje. Poehlmann je pomenuo problem ukoliko Prince isporucuje neki pigment ovde a oni Prince (prakticno isti) , upitao se da li bi onda mogli, ja sam insistirao da moraju , da smo mi zastupnici i da tako samo mozemo izgubiti kupca',
+        },
+        {
+          idFirmePut: 75,
+          idKupca: 9,
+          idRadnika: 1,
+          DatumP: '2018-08-31T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom',
+          Opis: 'poseta sa Christph Poehlmann-om iz Color M Vesna Maricki, Dijana Ristanovic , Branko Pomenuto sa Dijanom da za placanje treba da urgiramo i trazimo koliko nam je hitno, da cemo tako najlakse resiti  Dijana dala crtez i upit za 300 kom stakla 270x240 po ceni 5,13',
+        },
+        {
+          idFirmePut: 76,
+          idKupca: 163,
+          idRadnika: 1,
+          DatumP: '2018-08-01T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom',
+          Opis: 'poseta sa Christoph Poehlmann-om , Color M Alfa:Dubravka, Stamen, Milan, Milena(tehnilog, valjda) , Suzana, Zoran Ilic, Sasa Stojanovic, Milica Pesic,',
+        },
+        {
+          idFirmePut: 77,
+          idKupca: 440,
+          idRadnika: 1,
+          DatumP: '2018-08-02T00.00.00.000Z',
+          Naslov: 'Poseta',
+          Opis: 'redovna poseta sa Color M Aca Markovic je imenaovan za direktora Holding-a',
+        },
+        {
+          idFirmePut: 78,
+          idKupca: 284,
+          idRadnika: 1,
+          DatumP: '2018-08-02T00.00.00.000Z',
+          Naslov: 'Poseta',
+          Opis: 'poseta sa Color M Koriste u svojoj proizvodnji : 1.Medijum za mesanje sa pigmentima , Ferro 80820 , zelatinast, tiksotropan,  .ranije koristili i Heraeus tecni, 221 2.Za stampu kiriste tiksotropan, Ferro 406, lak zuti , vazan je viskozitet,organski rastvarac za preslikace ( na vodenoj bazi im nije odgovarao)',
+        },
+        {
+          idFirmePut: 80,
+          idKupca: 92,
+          idRadnika: 1,
+          DatumP: '2016-09-30T00.00.00.000Z',
+          Naslov: 'Poseta firmi',
+          Opis: 'Prva poseta. Proizvode pelet peci tj grejalice za baste. SKLAPANJE: panel i staklo je odvojeno od donjeg dela. 5h max fire sa peletom trajanje , 6h ince, oko 11kg peleta.(2,5h 5 kg; 4 h 7,5 kg) SIPANJE PELETA:tanjir mora biti u sredini ili moze doci do pozara -pelet mora biti ispod rupa sa kiseonikom -pali se sa bio hepo , ne uljanom jer ce se staklo zamagliti -moze da se ugasi odmah sa poklopcem -moze da se smanji kolicina sa sipkom ( ne dobija se) -ukoliko se pokvari venitl ne bi trebalo nista da se dogovdi -baterija traje 30h i puni se 6-8h (ima led sijalicu koja se ugasi) -ukoliko se zeli produzeno vreme grejanja moze se kupiti jos jedan cilindar -OBAVEZNO testirati 2-3 peleta da se vidi koji je najbolji  Mogu da rade logo bilo koji na metalu na gornjem delu masine, cak i za svaku masinu posebno',
+        },
+        {
+          idFirmePut: 81,
+          idKupca: 241,
+          idRadnika: 1,
+          DatumP: '2018-10-08T00.00.00.000Z',
+          Naslov: 'Izvoz Prevent Jinran Hark',
+          Opis: 'Procedura kada se roba izvozi iz Prveneta ka Harku: Kada iz �elezare jave da je roba spremna za preuzimanje, proveriti sa Mega transom tro�kove prevoza. Cenu zatim sa Mi�om (da li se pove�ava cena ili ostaje tako kako nam je ponu�eno) pa potvrditi sa Harkom. Kada Hark potvrdi da prihvata tro�kove transporta, dati nalog Mega transu za realizaciju transporta. Mega trans treba da po�alje CMR koji se prosle�uje Harku, a Hark na osnovu toga treba da po�alje ATA broj. ATA broj se po�alje Mega transu da daju voza�u, a voza� se sa tim brojem prijavljuje u carinacnicu da bi se obavilo uvozno carinjenje.',
+        },
+        {
+          idFirmePut: 82,
+          idKupca: 458,
+          idRadnika: 1,
+          DatumP: '2018-03-07T00.00.00.000Z',
+          Naslov: 'Poseta firmi',
+          Opis: 'Popovic, izvrsni direktor',
+        },
+        {
+          idFirmePut: 83,
+          idKupca: 331,
+          idRadnika: 1,
+          DatumP: '2018-09-25T00.00.00.000Z',
+          Naslov: 'Sastanak na sajmu u Riminiju',
+          Opis: '',
+        },
+        {
+          idFirmePut: 84,
+          idKupca: 9,
+          idRadnika: 1,
+          DatumP: '2018-03-15T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom',
+          Opis: 'Poseta sa principalima, firmom EIC Francuska, Alex Petiot i EIC Nemacka Brigitte',
+        },
+        {
+          idFirmePut: 85,
+          idKupca: 279,
+          idRadnika: 1,
+          DatumP: '2018-03-15T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom',
+          Opis: 'Prva poseta sa principalom. Alex Petiot, Francuska i Brigitte Reistler-Alt Nemackka. Gorenje Tiki godisnje placa 3 mil. Eur razvoj u Gorenje Velenje 500 zaposlenih i 500.000 bojlera godisnje Zele reparaciju linije  Proizvode bojlere od 10-400l',
+        },
+        {
+          idFirmePut: 86,
+          idKupca: 391,
+          idRadnika: 1,
+          DatumP: '2019-03-06T00.00.00.000Z',
+          Naslov: 'telefonski razgovor',
+          Opis: 'razgovarao sa Beatom za Makedoniju Prodaju Horvat tehnici , cca 90eurm2 seceno i imaju jednog kupca za table , nije pomenulo kog, za cca 5-10% vecoj ceni nego sto mi dobijamo.(151-158 eur/tabla) Zna za firmu u Skoplju koja radi trgovinu sa i zamenu za proizvode , razliccitih materijala pa i stakla. Takodje zna za firmu iz Soluna koja takodje nudi seceno staklo za cca 100eur/m2',
+        },
+        {
+          idFirmePut: 87,
+          idKupca: 163,
+          idRadnika: 1,
+          DatumP: '2019-05-08T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom',
+          Opis: 'poseta sa Weendelom, Danny Pfeiler Zoran Ilic, Marina, Suzana, Milan Mitrovic',
+        },
+        {
+          idFirmePut: 88,
+          idKupca: 439,
+          idRadnika: 1,
+          DatumP: '2019-02-08T00.00.00.000Z',
+          Naslov: 'Ambiente +',
+          Opis: 'Sastanak na samjmu Ambiente i razgovori u Srbiji bez EIC -a Isabele bila, Brigitte bila bolesna.',
+        },
+        {
+          idFirmePut: 89,
+          idKupca: 440,
+          idRadnika: 1,
+          DatumP: '2019-05-07T00.00.00.000Z',
+          Naslov: 'Redovna poseta - Wendel',
+          Opis: 'poseta sa Wendelom- Danny Pfeiler',
+        },
+        {
+          idFirmePut: 90,
+          idKupca: 284,
+          idRadnika: 1,
+          DatumP: '2019-05-07T00.00.00.000Z',
+          Naslov: 'Poseta',
+          Opis: 'Rada Savovic(radi na prodaji), Zeljko Todosijevic- nabavka Rada Savovic zamolila ukoliko mozemo da pomognemo oko prodaje preslikaca za trziste Rumunije i Hrvatske',
+        },
+        {
+          idFirmePut: 91,
+          idKupca: 421,
+          idRadnika: 1,
+          DatumP: '2019-05-07T00.00.00.000Z',
+          Naslov: 'Poseta sa principalom - Metalac Bojler',
+          Opis: 'poseta sa principalom , Wendel - Danny Pfeiler Aca Talovic - rukovodilac tehnologije i razvoja, Jelena Markovic, Ivan Vidakovic- nabavka Violeta- tehnicka sluzba Zoran Ognjanovic svratio na sastanak da se javi cca 50.000 bojlera godisnje',
+        },
+        {
+          idFirmePut: 92,
+          idKupca: 128,
+          idRadnika: 2,
+          DatumP: '2019-06-26T00.00.00.000Z',
+          Naslov: 'Poseta',
+          Opis: '',
+        },
+        {
+          idFirmePut: 93,
+          idKupca: 492,
+          idRadnika: 2,
+          DatumP: '2019-06-26T00.00.00.000Z',
+          Naslov: 'Poseta',
+          Opis: '',
+        },
+        {
+          idFirmePut: 94,
+          idKupca: 493,
+          idRadnika: 2,
+          DatumP: '2019-06-26T00.00.00.000Z',
+          Naslov: 'Sastanak',
+          Opis: '',
+        },
+        {
+          idFirmePut: 95,
+          idKupca: 508,
+          idRadnika: 1,
+          DatumP: '2018-09-25T00.00.00.000Z',
+          Naslov: 'Sastanak na sajmu u Riminiju',
+          Opis: 'sastanak na sajmu u Riminiju na standu Witgert-a Rade kompzitne materijale i zastupnici su Thomas P Gunth-a Moguce nuditi Metalcu za njihove sudopere',
+        },
+        {
+          idFirmePut: 96,
+          idKupca: 106,
+          idRadnika: 1,
+          DatumP: '2018-03-14T00.00.00.000Z',
+          Naslov: 'Poseta',
+          Opis: 'Horj Octavian octavian@metalicaoradea.ro +40729009236 Sada poizvode sa 2 sloja i 2 paljenja, mokro nanosenje Zele ili da unprede staru ili da uznu novu opremu (razmisljaju o prskastom emajliranju) -Proizvode 50% nelo, 25-30% nerdjajuci , (ostalo Braon(1) , crni i bez(2,2) Zele da imaju pripremu i za farbanje i za emajliranje Poslati nacin pripreme povrsine za farbanje(angazovati osobu iz Henkel-a) Imali su problem sa rdjanjem pa su kupili sistem za demineralizaciju vode i aerizaciju Glavni kupac im je Quantex (Ronald Kort) (Treba da ih posete sledeceg meseca) i prodaju im 25.000 lavaboa godisnje(+ 1% rabata kad stignu 25000kom) Ponudice nam istu cenu (mozda) cca 13 eur Imaju Lampart-ove alate i sada rade na njima, smeju da proizvode ali od toga uzimaju dodatak(%) Imaju i svoj alat sa kojim proizvode ali je konstrukcija takva da im pravi problem) Zele da razviju i inox alat sami',
+        },
+        {
+          idFirmePut: 97,
+          idKupca: 331,
+          idRadnika: 1,
+          DatumP: '2019-08-02T00.00.00.000Z',
+          Naslov: 'Poseta',
+          Opis: 'Poseta povodom ponude Premier Dim-a i upoznavanja Nemanja Bilanovic ne radi vise, Zoran Zvekic dolazi u odrzavanje. Na sastanku bili Srdjan Calasan, Lorinc Rudolf, Peter U vlasnistvu su Luke Beograd iza koje stoji Ivana Veselinovic(Beko) Upoznao na izlazu Marinu koja je u Beogradu u nabavci.  Treba im i (silikonsko) ulje za podmazivanje Koristili su kugle za mlin "nieta" ali nisu bili zadovoljni pa sada koriste Bitti  Ostavljeni ostali katalozi i zatrazeno da provere sta je sa Witgert-om  Prethodno mi je Fabio dao informacije o uredjaju u Kanjizi: 8 motora po 4 tocka , = 32 kom champhering 4 tocka Lower cahmphering 4 tocka = 40 (za ostrenje donje ivice - za redjanje plocica jedne do druge lakse) , metal bond ide na ovaj tocak',
+        },
+        {
+          idFirmePut: 98,
+          idKupca: 336,
+          idRadnika: 1,
+          DatumP: '2019-08-21T00.00.00.000Z',
+          Naslov: 'Poseta kupcu',
+          Opis: 'Prva poseta kupcu. Kupuje vatrostalna stakla razlicite vrste. Radio u staklari Pncevo ranije pa otvorio svoju radnju. Od nas kupuje sada po novoj ceni od  Kupovao sa Veljom iz Uzica po 90 eur (kaze sa PDV-om) Velja mu je trazio da uzme min. 10 tabli za tu cenu i da mu doveze kada bude isao za Bg tj Pancevo.(2 table preko racuna , ostalo za kes) Imaju potraznju za crnim staklima za gornje ploce:potrebno je da se raspitamo: -nova cena za stakla i dimenzije. -ranije je kupovao od Alfe Sabac , 99% Keraglas-ovo staklo -za koja stakla je moguca ugradnja tj koje vrste sporeta postoje (da li tamo gde je touch screen nema resenja sem originala) -da li kada je touch ispod sporeta je moguca zamena ploce  -Farba za stakla - pitati opet Poehlamm-a , potrebna mu je bela i crna boja',
+        },
+        {
+          idFirmePut: 99,
+          idKupca: 24,
+          idRadnika: 1,
+          DatumP: '2019-10-03T00.00.00.000Z',
+          Naslov: 'Dihtunzi - pletenice',
+          Opis: 'Razgovarao sa Batom (sin) Leskovac. Kupuju pletenice u Leskovcu , domace (ili kineske) , rekao oko 500 din kotur.',
+        },
+      ],
+      meetingsDet: [
+        {
+          idFirmePutDet: 1,
+          idFirmePut: 2,
+          idKupca: 19,
+          Naslov: 'Litarska i deflokulant',
+          Opis: 'Koristili su ZS aditivi Produkt KV 1945L sa sledecim rezultatima: -za zidne su dodavali 0,2% i dao je dobre rezultate ( do sada su koristili daxelov koji kosta 0,41 eur 0,45%) -za pod im trba ili drugi deflokulant ali bi najbolje bilo ako moze da se za postojeci da niza cena i da koriste samo jedan , to bi nam dalo prednost -veliku ustedu bi imali ako bi deflokulant bio 0,50eur i spremni su da kupuju po toj ceni (0,55 eur je donja granica isplativosti)',
+        },
+        {
+          idFirmePutDet: 2,
+          idFirmePut: 2,
+          idKupca: null,
+          Naslov: '',
+          Opis: '',
+        },
+        {
+          idFirmePutDet: 3,
+          idFirmePut: 3,
+          idKupca: 71,
+          Naslov: 'engobiranje',
+          Opis: '-razvijace nove 2 engobe braon i crvenu - boju crepa isto semi glaze -potrosice ubrzo crnu engobu',
+        },
+        {
+          idFirmePutDet: 4,
+          idFirmePut: 3,
+          idKupca: null,
+          Naslov: '',
+          Opis: '',
+        },
+        {
+          idFirmePutDet: 5,
+          idFirmePut: 4,
+          idKupca: 18,
+          Naslov: 'problem sa bojom',
+          Opis: 'Istrazivanjem je ustanovljeno sledece: -problemi se desavaju na hladnovaljanom limu gde nema peskarenja -stvara se oksidni sloj sto je veca temperatura grejnog tela, na oko 400C se vec javlja problem skidanja farbe -farba se lepi za oksidni sloj i zatim lako odvaja sa tim slojem -toplovaljani lim je obicno debljine 2, 3 ili vise mm-',
+        },
+        {
+          idFirmePutDet: 6,
+          idFirmePut: 4,
+          idKupca: 163,
+          Naslov: 'cena i ponuda',
+          Opis: '-raditi sa alfaplamom na prebacivanju cene po m2 na osnovu utroska u proizvodnji, njjima deluje nemoguca cena koju ima Alfa Plam. -dostaviti im ako je moguce serijski broj boje koju kupuje trenutno Alfa Plam -',
+        },
+        {
+          idFirmePutDet: 7,
+          idFirmePut: 4,
+          idKupca: 16,
+          Naslov: 'saradnja',
+          Opis: '-raditi dalje na saradnji, proveriti poslednji izvestaj o ispitivanju',
+        },
+        {
+          idFirmePutDet: 8,
+          idFirmePut: 4,
+          idKupca: 26,
+          Naslov: 'saradnja',
+          Opis: '-obratio se FKI u , mi smo mu dostavili uzorak sive i crne boje 3. ili 4.02.2015. -da li je testirao',
+        },
+        {
+          idFirmePutDet: 9,
+          idFirmePut: 4,
+          idKupca: 126,
+          Naslov: 'saradnja',
+          Opis: 'javiti im kako ide saradnja , zvati ih za nove kolicine',
+        },
+        {
+          idFirmePutDet: 10,
+          idFirmePut: 4,
+          idKupca: null,
+          Naslov: '',
+          Opis: '',
+        },
+        {
+          idFirmePutDet: 11,
+          idFirmePut: 5,
+          idKupca: 19,
+          Naslov: 'redovan obilazak',
+          Opis: '-kupljeni prosle godine od Wienerbergera -poceli da kupuju sirovine Zschimmer Schwarz-a direktno iz Austrije tj iz Madjarske -radili solidno prosle godine',
+        },
+        {
+          idFirmePutDet: 12,
+          idFirmePut: 6,
+          idKupca: 12,
+          Naslov: 'isporuka nove ass boje',
+          Opis: 'Isporuka prve 2 kante nove ass boje koja se prethodno u testiranju dobro pokazala Zadovoljni saradnjom, cena boje bila diskutabilna jer je od rembrantina dosla jeftinija od standard farbe. Mi smo cca 5 % podigli cenu u odnosu na standard farbu i obavestio sam ih da postoji mogucnost da u buducnosti bude veca cena za jos cca 5%, Dusan se slozio',
+        },
+        {
+          idFirmePutDet: 13,
+          idFirmePut: 6,
+          idKupca: 57,
+          Naslov: 'staklo',
+          Opis: 'Odneo im 1 kom stakla cca 150x40mm da probaju, zele da naprave vizir za grejace da se vidi da li ima plamena... Dusan trazio ponudu za staklene cevi - tube za ghrejanje kafica, restorana, basta : 10 kom fi 60mm 1 m duzine i 5 kom fi 100mm 1,5m duzine Zatraziti ponudu od Keraglass i Irlbacher, zatrazeno  12.03.2015.',
+        },
+        {
+          idFirmePutDet: 14,
+          idFirmePut: 7,
+          idKupca: 57,
+          Naslov: '',
+          Opis: 'Posetu zakazao Halamek povodom razvoja novih proizvoda.Plamen je angazovao dizajnera sa strane koji im razvija nov program peci (u saradnji sa Halamekom).Na diz. Kuci je da dizajnera, nadje resenja i sertifikuje eventuelne nove peci.Cilj je da se usaglase zahtevi i mogucnosti i upoznaju sa Keraglasom. Melanie i Lafarge su bili prisutni i sa druge strane kupac iz Francuske, Halamek, Ivan Matijanic, Otac, drugi Vlasnik , Zeljko Ksenek - razvoj (sa nama), Vesna Justament , nabavka,  Keraglass objasnio da ne moze da jos uvek zbog licence - zastite koju drzi Schott da radi staklo sa 2 zakrivljenja tj radijusa. Podneo je zahtev za probijanjem licence i radi na razvoju tog stakla i obavestice kada dodje do toga. -cca 2 eur je stampa logoa po staklu. Moze da radi 1 ugao, 30,40 ili 60 step., moze da radi pun radijus stakla. Stakla koja su dimanzije 25x230 i manja idu im na drugu sporiju masinu pa su im cene nesto vece, da iskalkulisemo mi da li mozemo dati bolju cenu ili Keraglass opet. Zeljko pokazao farbaru i opisao problematiku za boje, ponudi im FKI ali mi je FKI rekao da ne mogu da prodajem u HR, inace bi im verovatno 2k dobro dosla -wendel su porucili odredjenu kolicinu uzoraka jos da probaju i zele da predju vise na njega za njihov RAF emajl -staklo im je zanimljivo i potrebni su im uzorci',
+        },
+        {
+          idFirmePutDet: 15,
+          idFirmePut: 7,
+          idKupca: 71,
+          Naslov: 'sirovine',
+          Opis: 'narucili nove uzorke , idu na kurs',
+        },
+        {
+          idFirmePutDet: 16,
+          idFirmePut: 7,
+          idKupca: 129,
+          Naslov: 'testiranje',
+          Opis: 'probali svojevremeno neki kamen , nije im se pokazao dobar .- promenio boju, predlozeno im je da novi uzorak posaljemo na osnovu crteza. Vise su se orjentisali na livene peci ali ne iskljucuju mogucnost da probaju ponovo kamen',
+        },
+        {
+          idFirmePutDet: 17,
+          idFirmePut: 7,
+          idKupca: 100,
+          Naslov: '',
+          Opis: 'zanimljive im boje ali nas je FKI obavestio da ne radimo hrvatsku',
+        },
+        {
+          idFirmePutDet: 18,
+          idFirmePut: 7,
+          idKupca: 147,
+          Naslov: '',
+          Opis: 'predocioim mogucnost, mada nam u izvestaju Poehlmanna stoji da je ranije imao neku isporuku pigmenata za Plamen',
+        },
+        {
+          idFirmePutDet: 19,
+          idFirmePut: 7,
+          idKupca: 58,
+          Naslov: '',
+          Opis: 'ponudi im vermikulit i poslao mail sa kontaktima -treba proveravati sa technophisikom da ne posalje plamen direktan upit',
+        },
+        {
+          idFirmePutDet: 20,
+          idFirmePut: 8,
+          idKupca: 105,
+          Naslov: 'poseta',
+          Opis: '-odnet poklon za Branka Kucinara koji je Monica poslala krajem godine -Baca - Vladimir Petrovic se vraca sa bolovanja , bio je odsutan 2 meseca od pre nove godine -zadovoljni i ubuduce ce traziti ponude -solidna godina -opet razgovarali o mini elektriku za koji su uradili sertfikat za nemacko trziste ukoliko mozemo da plasiramo',
+        },
+        {
+          idFirmePutDet: 21,
+          idFirmePut: 9,
+          idKupca: 19,
+          Naslov: 'redovan obilazak',
+          Opis: '-vise rade dekoraciju digitalnom masinom pa su im potrebe za aditivima smanjene koriste Hidra Medijum , imaju 2 masine tehnoferara -inks koriste od ferra uglavnom , uzimali od Sonje Agi trade  -zanimljiv im je Granicer,od Ceramca i Manfred im je obecao da ce poslati 1 kg za testiranje koriste vodeno staklo za deflokulaciju - ponudce im Manfred njihovu cenu, 25 tona mesecno trose',
+        },
+        {
+          idFirmePutDet: 22,
+          idFirmePut: 9,
+          idKupca: 213,
+          Naslov: '',
+          Opis: '-potrebna im je ponuda za belu glinu - gresso, planiraju da mozda zapocnu proizvodnju u buducnosti , trazio od witgerta 12.03.',
+        },
+        {
+          idFirmePutDet: 23,
+          idFirmePut: 9,
+          idKupca: 147,
+          Naslov: '',
+          Opis: '-potrebno je zatraziti im listu pigmenata od ferra koje najcesce koriste oa da im color m ponudi pandam ili te iste',
+        },
+        {
+          idFirmePutDet: 24,
+          idFirmePut: 10,
+          idKupca: 19,
+          Naslov: 'redovan obilazak',
+          Opis: 'redovan obilazak -Vedran Dujic je savetnik direktora za tehnicka pitanja(dir. Je Petar Miljkovic) -za zid im je litarska 1,7 dok za pod im je oko 1,63 i tesko im je da pidignu -trose 1 kamion mesecno i prema analizama materijala im je nudjen produkt kv 1907 -vedran je rekao da su solidni rezultati postignuiti sa njim (0,3 % 53 protok, 1681 lit. I 0,4% 43 protok 1681 litarska) za poluindstrijsku ukoliko ponuda i uzorak budu ok ce im trebati oko 500-600kg -proveriti cenu transporta od ZS do sapca za pun kamion -trose fiksativ oko 3t mesecno, organski je nsa i trose ga 10:1 sa vodom. Cerafix 36 verovatno',
+        },
+        {
+          idFirmePutDet: 25,
+          idFirmePut: 11,
+          idKupca: 223,
+          Naslov: 'prva poseta sa Ceramcom, 01.04.2015.',
+          Opis: 'Aleksic i Salkai ns primili -treba da spreme 15 kg sirovine i 5l vode, deflokulant koji koriste, ukom %, koju litarsku postizu uzorak engobe, glazure, suva i parametri da bi tesirali sa njihovom engobom i glazurom -temperatura peci imaju diskontinuirani mlin -imaju 3 stampaca koja vec rade',
+        },
+        {
+          idFirmePutDet: 26,
+          idFirmePut: 11,
+          idKupca: 5,
+          Naslov: 'prva poseta sa Ceramcom, 01.04.2015.',
+          Opis: 'primila nas Tinde Ilic -rade sa monoporozom i monokoturom , absorpcija ispod 3% -ostavili uzorak Tenicera 500 1l, za cvrstinu plocice -diskontinuirani mlin',
+        },
+        {
+          idFirmePutDet: 27,
+          idFirmePut: 11,
+          idKupca: 203,
+          Naslov: 'prva poseta sa Ceramcom, 01.04.2015.',
+          Opis: 'primila nas Marija Mulic, Zoran bio odsutan taj dan -ponudili aditiv za cvrstocu u koji bi odmah zamesali i deflokulant.Marija smatra da treba zasebno da testiraju sirovine pa ce lako da sastave posle sirovine,  -imaju diskontinuirani mlin, monokotura, monoporoza, duplo pecenje -treba im medijum za brzo susenje, imaju oscilacije zbog temperature velike pa imaju brze isli sporiuje susenje zavisno od godisnjeg doba, Ceramco u ponudi ima koncentrisani medijum za rotokolor koji moze da se razblazuje sa vodom , zimi se dodaje voda da bi se brze susio , leti manje onzirom da je toplije(voda brze isparava od medijuma) -Marija spremila uzorak mase , vode , valjda i deflokulanta za pod (ako naprave dobar deflok. Za pod bice dobar i za zid) i poneli su u Ceramco na testiranje',
+        },
+        {
+          idFirmePutDet: 28,
+          idFirmePut: 11,
+          idKupca: 212,
+          Naslov: 'prva poseta sa Ceramcom, 01.04.2015.',
+          Opis: 'Primila nas Gordana Jurkin i Gabrijela -potreban im je uzorak Bindera za postizanje bolje cvrstine plocice, testirali vec od Lambertija i Daxela, ali nisu bili dobri , poneli su 1,5 l slikera kako bi testirali kod njih u Cermamcu i predlozili najbolji -za testiranje u proizvodnji im treba 100kg -imaju 2 ink jet stampaca , technoferara i koriste, oker, braon, pink, plava i cleaner -kupuju treci i razmisljali su o durst i system(tu su testriali iz Ceramca mastila na vodenoj bazi) -interesantna im je medijum koji moze da postigne efekat dekoracije iz 3. u prvom pecenju , treba im 5kg uzorka da probaju -kada Cermac ispita i predlozi sve , Modus ce poslati kamion na utovar uzoraka u Cermaco -koriste samo Ferra mastila',
+        },
+        {
+          idFirmePutDet: 29,
+          idFirmePut: 13,
+          idKupca: 19,
+          Naslov: 'Redovna poseta',
+          Opis: 'Clan Nexe grupe.Ivan Baric i Marija Jovic, tehnolozi, su prisustvovali. Marija je razvila i sami proizvode engobe, a takodje i glaziraju crep. Imaju U kasete.Nemaju problema ali im treba izloziti mogucnosti aditiva , tj sta mogu da poboljsaju.Koriste tripolifosfat i CNC.',
+        },
+        {
+          idFirmePutDet: 30,
+          idFirmePut: 13,
+          idKupca: 71,
+          Naslov: 'Redovna poseta',
+          Opis: 'Marija je razvila i sami proizvode engobe, a takodje i glaziraju crep.Razvili su engobe uz pomoc Glazure iz Ceske od koje kupuju pigmente. Treba im poslati katalog wendelovih engoba ,sliku sa sajma pa da vide mogucnosti i Wendelu izvestaj.Radili testiranja sa Wednelovom  engobom, cena je bila noza od postojece(mislim crne) ali je bio potreban veci nanos. Temperatura pecenja im je 1020C , i ciklus traje 20 sati.U maksimalnoj zoni pecenja crep je oko 3h.Sve se pece odjednom.Rade sa glazurom iz ceske od koje kupuju frite od pocetka i koji su im pomogli da razviju svoje engobe.',
+        },
+        {
+          idFirmePutDet: 31,
+          idFirmePut: 13,
+          idKupca: 147,
+          Naslov: 'Redovna poseta',
+          Opis: 'Obzirom da sami glaziraju crem potrebni su im pigmenti. Potreban im je sto svetliji crveni pigment, tj koriste oksid zeljeza i treba im najsvetlija nijansa oksid zeljeza. Temperatura pecenja im je 1020C , i ciklus traje 20 sati.U maksimalnoj zoni pecenja crep je oko 3h.',
+        },
+        {
+          idFirmePutDet: 32,
+          idFirmePut: 13,
+          idKupca: 105,
+          Naslov: 'Redovna poseta',
+          Opis: 'Koriste izolacione trake za vagone. Ostavljen katalog i slikan postojeci katalog.',
+        },
+        {
+          idFirmePutDet: 33,
+          idFirmePut: 13,
+          idKupca: 213,
+          Naslov: 'Redovna poseta',
+          Opis: 'Sami prave engobe.Temperatura pecenja im je 1020C , i ciklus traje 20 sati.U maksimalnoj zoni pecenja crep je oko 3h.Potrebna im je glina za proizvodnju engobe.Imaju crvenu glinu.Trebalo bi da kosta manje od 0,5 eur po toni.',
+        },
+        {
+          idFirmePutDet: 34,
+          idFirmePut: 14,
+          idKupca: 19,
+          Naslov: 'Redovna poseta',
+          Opis: 'otkazana bila vec poslata porudzbina. Rade usporeno , ali rade. Odneti kalendari.',
+        },
+        {
+          idFirmePutDet: 35,
+          idFirmePut: 14,
+          idKupca: 222,
+          Naslov: 'Redovna poseta',
+          Opis: 'Radjena ranije ispitivanja aditiva ZS sa glazurama iz Modusa kao i sa jos nekim materijalima: Testirao Modus Amicer 282 grinding glazes i Tenacer 500 kako bi se povecala vezivnost.Test sa Amicer 282 je prosao dobro.Tenacer 500 nije uticao previse na vzivost ali je bio mali test.Trebalo bi ga koristiti u kontinuitetu od 15 dana u proizvodnji kako bi videli eventualnu korist.Receno da mogu poslati 1 tonu Tenacera 500 na probu. Preneo joj Stav Ceramca, tj da su spremni da uzorkuju besplatno materijale koji su se u testiranju pokazali dobri samo da Modus posalje kamion.Trazila je Gordana da joj posaljem izvestaja sta je probano, koji su rezultati i koji je predlog pa ce uskoro odluciti.',
+        },
+        {
+          idFirmePutDet: 36,
+          idFirmePut: 14,
+          idKupca: 147,
+          Naslov: '',
+          Opis: 'Koriste pigmente za dezene od Ferra najvise ili , samo. Treba im traziti listu fero pigmenata koje koriste i traziti kontra pondu od Poehlmana.',
+        },
+        {
+          idFirmePutDet: 37,
+          idFirmePut: 15,
+          idKupca: 222,
+          Naslov: 'Redovan obilazak',
+          Opis: '-planiraju da plate fakture za isporucenu robu u toku januara. -do kraja januara planiraju da plasiraju narednu porudzbinu -zadovoljni su kvalitetom materijala koji ima za sada ujednacen kvalitet sto im je vazno -skoro sve materijale, tj aditive uzimaju od nas tj Ceramca tako da trenutna nova testiranja nemaju smisla -odnet kalendar ZS i sampanjac rade do 31.12.2015. i posle od nekog februara, jos ne znaju kog',
+        },
+        {
+          idFirmePutDet: 38,
+          idFirmePut: 16,
+          idKupca: 71,
+          Naslov: '',
+          Opis: '-engobe dobijaju iz centrale obzirom da ih oni i proizvode , - kupio ih winerberger- obavestiti principala',
+        },
+        {
+          idFirmePutDet: 39,
+          idFirmePut: 16,
+          idKupca: 19,
+          Naslov: 'redovan',
+          Opis: '-i dalje kupuju aditive iz Austrije sada -treba obnoviti ponudu za aditive koje su ranije kupovali: Peptapon 52, Peptapon 205, Giessfix P75, Dolapix PC75 , Dolapix PC 67',
+        },
+        {
+          idFirmePutDet: 40,
+          idFirmePut: 16,
+          idKupca: 222,
+          Naslov: 'novi kupac',
+          Opis: '-uzimaju Zschimmer Schwarz aditive ali direktno iz Austrije , Balint upitao ako je kvalitet isti da im ponudimo alternativu iz Ceramca, isti upit za ZS prolediti i njima -potreban im je specifican materijal - aditiv koji ukrupnjava cestice kako bi mogle da se filtriraju , iz otpadnih voda- vrsi ukrupnjavanje ostataka engobe( oksidi metala , gline, frite ), neka vrsta koagulatora, mogu da posalju uzorak vode ! Da li <Ceramcu treba neki drugi podatak, velicina sita ili sl',
+        },
+        {
+          idFirmePutDet: 41,
+          idFirmePut: 17,
+          idKupca: 71,
+          Naslov: 'prva poseta',
+          Opis: 'trose oko 20-30 t braon i 10-15t crvene engobe Crna mat im je problem , moraju sa dosta frite. T Pecenja 880C,  treba doci do i poslati im uzorak',
+        },
+        {
+          idFirmePutDet: 42,
+          idFirmePut: 17,
+          idKupca: 105,
+          Naslov: '',
+          Opis: '-pomenute mogucnosti, poslati katalog postom',
+        },
+        {
+          idFirmePutDet: 43,
+          idFirmePut: 17,
+          idKupca: 213,
+          Naslov: '',
+          Opis: '-ostavljen katalog, -pomenute mogucnosti',
+        },
+        {
+          idFirmePutDet: 44,
+          idFirmePut: 17,
+          idKupca: 19,
+          Naslov: '',
+          Opis: '-pomenute mogucnosti, ostavljen neki staru katalog i disk?',
+        },
+        {
+          idFirmePutDet: 45,
+          idFirmePut: 17,
+          idKupca: 147,
+          Naslov: '',
+          Opis: '-pomenute mogucnosti',
+        },
+        {
+          idFirmePutDet: 46,
+          idFirmePut: 17,
+          idKupca: 246,
+          Naslov: '',
+          Opis: '-pomenute mogucnosti, ostavljen katalog -zainteresovani za sistem za farbanje sa mesanjem ali im je potrebna brzina mesanja preko 3000 obrtaja , sa regulacijom, pitati Innomontage',
+        },
+        {
+          idFirmePutDet: 47,
+          idFirmePut: 18,
+          idKupca: 58,
+          Naslov: 'isporuke sa lagera',
+          Opis: '-zahtevano azuriranje prethodne godine, svih crteza, drugacije pakovanje na tablu (veci i manji u jednu kocku pa krojna lista) i knjizno odobrenje za isti -uradjena cela godina retroaktivno , uracunate promene crteza i odobreni i viskovi koje bi im dali da smo tako radili. -Sastanku prisustvovali Dusko, Nada i Bojan -pitali su se da li treba da delimo te viskove ili da padnu na nas teret -odobrio sam zbog toga besplatnu isporuku 5 l farbe sive i 1 kantu madjarske crne farbe -potvrdili da se salzu da im uradimo knjizno odobrenje na 292.686,70 (420.863,54 + 164510,00 (viskovi)/2) -nove cene :BTV 340,59;TW 291,94; TW samo donji 255,44; TGV 408,71; TOV 261,99 (kompleti) + viskovi ukljuceni u cenu bez secenja istih , gde ih ima -potvrdili nove cene sa tim da ih prebacimo u evre i jos jednom posaljemo! -pitati Dragana da li moze odobrenje da bude u prosloj godini!',
+        },
+        {
+          idFirmePutDet: 48,
+          idFirmePut: 18,
+          idKupca: 12,
+          Naslov: '',
+          Opis: '-mozemo im poslati ponudu za direktne isporuke iz Beca, uskladiti sa Madjarskim cenama -posalti im uzorak : PERL SCHWARZ 1 kg, CRNA METALIK 250C 1 kg ili koju je vec mica nudio iz kola kada ih je posezio',
+        },
+        {
+          idFirmePutDet: 49,
+          idFirmePut: 18,
+          idKupca: 100,
+          Naslov: '',
+          Opis: '-bolje im se pokazala FKI farba pa nju i treba forsirati -proveriti i ponuditi u skladu sa onim sta su kupovali (eventualno za direktne isporuke ali uskladiti cenu) -najvise trose sivu boju -dogovoreno da im se posalje 5l sive boje i 30kg crne boje besplatno -trebace im sive boje i verovatno ce ih uzimati od nas, mozda sa njima formirati cenu i uvezati od Madjara na nas lager?',
+        },
+        {
+          idFirmePutDet: 50,
+          idFirmePut: 18,
+          idKupca: 57,
+          Naslov: '',
+          Opis: '-nije bilo novih razgovora za staklo niti upita za cene, trebalo bi da uzimaju i dalje -u decembru smo im fakturisali skuplje a u januaru jeftinije , isto staklo PROVERITI I POSLATI ODOBRENJE ILI ZADUZENJE - 444/15 i 7-16',
+        },
+        {
+          idFirmePutDet: 51,
+          idFirmePut: 18,
+          idKupca: 105,
+          Naslov: '',
+          Opis: '-kupuju na kg, nismo ni razgovarali',
+        },
+        {
+          idFirmePutDet: 52,
+          idFirmePut: 18,
+          idKupca: 129,
+          Naslov: '',
+          Opis: '-morace da udju u ovaj program -poslati im informaciju npr od MBS koja je debljina stranice -proveriti za kada je zakazana isporuka za MBS i da li moze serpentino za tada da im spremi uzorak za sajam -njima kamion za sajam krece 21.02. -poslati na Duska i Bojana kataloge Serpentina odmah i preporuciti koje da uzmu -zeleli bi 2 kompleta , jedan uglacaniji , a jedan brusen ili peskaren (svetliji , vise mat)',
+        },
+        {
+          idFirmePutDet: 53,
+          idFirmePut: null,
+          idKupca: null,
+          Naslov: '',
+          Opis: '',
+        },
+        {
+          idFirmePutDet: 54,
+          idFirmePut: 19,
+          idKupca: 12,
+          Naslov: '',
+          Opis: '-SASTANKU PRISUSTVOVALI Sinisa Ljiljak i Ivan Stankovic. Potvrdjeno nam da su se odlucili da kupuju  sivu i crnu farbu od Rembrandtina i Weillburgera u 2016 godini. Sto se tice farbe u bojama, zelena,plava I druge kupovace od Rembrandtina. Konkurencija je ponudila iskljucivo paritet DAP Stara Pazova, uslovi placanja 60 dana. Traziti od Czeschke potvrdu za paritet I jos jednom reviziju cena za Termodur 603 black I Termodur 603 gusgrau. Planiraju da kupe 12 tona boje. Jos uvek se razmisljaju da li da idu direktn ood Rembrandtina ili preko Donau Trade uz uvoznicku marzu. Sto pre poslati ponude.',
+        },
+        {
+          idFirmePutDet: 55,
+          idFirmePut: 19,
+          idKupca: 58,
+          Naslov: '',
+          Opis: 'Potvrdjeno nam je da ce jedini dobavljac za vermikulit biti Techno Physic.Uvozice direktno od njih.',
+        },
+        {
+          idFirmePutDet: 56,
+          idFirmePut: 19,
+          idKupca: 105,
+          Naslov: '',
+          Opis: 'pletenice ce kupovati sa lagera, proveriti kolicine I obnoviti ponude za sve pozicije prema validnom kursu.',
+        },
+        {
+          idFirmePutDet: 57,
+          idFirmePut: 19,
+          idKupca: 57,
+          Naslov: '',
+          Opis: '-dostavice nam specifikaciju stakla koje kupuju , kao I cene od Shotta I Poly m. Traziti ponudu za direktan uvoz od Keraglassa kao I dati sto pre ponudu za staklo sa naseg lagera. Rado bi kupovali od nas ako budemo konkurenti sa cenama. Traze za sve paritet DAP.',
+        },
+        {
+          idFirmePutDet: 58,
+          idFirmePut: 19,
+          idKupca: 135,
+          Naslov: '',
+          Opis: '',
+        },
+        {
+          idFirmePutDet: 59,
+          idFirmePut: 20,
+          idKupca: 58,
+          Naslov: '',
+          Opis: 'Krajem 2015 poslato je nekoliko uzoraka vermikulita a prema zahtevu zahtevu ALFA PLAMA. Ponuda je bila bazirana da Donau sece vermikulit I cena je bila korektna, sto nam je Nenad Krstic I potvrdio telefonski. Nakon razgovora 26.01.2016. Nenad mi je potvrdio da im najvise odgovara da seku vermikulit u Vranju zbog hitnosti isporuka I troskova transporta. Kupuje vermikulit od neke firme iz Vojke. Potvrdila sam mu da na lageru iamo SF 750/25mm I da cu mu poslati novu cenu, tako da moze kupovati I na table za promptne isporuke.',
+        },
+        {
+          idFirmePutDet: 60,
+          idFirmePut: 21,
+          idKupca: 222,
+          Naslov: 'redovna poseta sa principalom',
+          Opis: 'Prethodna poseta od prosle godine , uzeli uzorke neke tada? -Gavino trazio uzorak od 15 kg mase i 5 kg vode da ispitaju zbog deflokulanta -uzimali nesto sitno prosle godine? -ćuzimaju Granicer od konkurencije verovatno -placaju deflokulant (ili treba da bude ) oko 200 eur/tona, Ceramco rekao da moe 0,25-0,35 FCI MODUS -Ceramco da posalje ponudu za Granicer 7043 -',
+        },
+        {
+          idFirmePutDet: 61,
+          idFirmePut: 22,
+          idKupca: 222,
+          Naslov: 'redovna poseta sa principalom',
+          Opis: '-proslediti uzorak medijuma za stampu, medijuma za fritu, frite, i traziti od Ceramca adekvatne uzorke i ponude za medijume',
+        },
+        {
+          idFirmePutDet: 62,
+          idFirmePut: 22,
+          idKupca: 71,
+          Naslov: '',
+          Opis: 'proslediiti Wendelu uzorak frite, soljice , podatke i ako treba uzorak medijuma da da adekvatnu ponudu',
+        },
+        {
+          idFirmePutDet: 63,
+          idFirmePut: 22,
+          idKupca: 19,
+          Naslov: '',
+          Opis: 'povono poslat uzorak im nije dao dobre rezultate, medijum za mesanje sa fritom vodom i pigmentom',
+        },
+        {
+          idFirmePutDet: 64,
+          idFirmePut: 22,
+          idKupca: 284,
+          Naslov: '',
+          Opis: '-traziti ponudu za izradu resenja preslikaca prema predatom uzorku, tj tanjiru',
+        },
+        {
+          idFirmePutDet: 65,
+          idFirmePut: 24,
+          idKupca: 310,
+          Naslov: 'I poseta sa kupcem , II inace',
+          Opis: 'Razgovarali sa Darkom Kuzmanovicem imaju 80 radnika I proizvode 35-40000 komada godisnje Enmon ih zastupa I ima ekskluzivitet na trzistu Srbije, Bih, Hrvatske, Madjarske , Crne gore Kupili firmu koja proizvodi akrilne kade iz Kanjize Mamestaj prvo farbaju u 2 soja poliestera , zbog bolje pokrivnosti I zatim 1 sloj poliretanske boje uz medju smirglanje -mogu da se rade izmene modela ali za min. serije od 50 komada',
+        },
+        {
+          idFirmePutDet: 66,
+          idFirmePut: 25,
+          idKupca: 111,
+          Naslov: 'prva poseta sa potencijalnim kupcem',
+          Opis: 'Sastanak sa Zoranom ,Bojanom (sin) I Nenadom Rade , ne znam za trenutni status sa Enmonom ali uporno pominju da im treba partner za ulaganje I prosirivanje proizvodnje. Proizvode oko 60000 komada godisnje imaju sopstveni razvoj modela , sirovina , sve do zavrsng proizvoda. -Kupuju od Lambertia lepak I jos neke materijale , traziti im specifikaciju I Ceramco upoznati sa Keramikom Leskovac Prezentovali sve, GPC treba da posalje upit za interesantne proizvode',
+        },
+        {
+          idFirmePutDet: 67,
+          idFirmePut: 27,
+          idKupca: 222,
+          Naslov: 'redovan obilazak',
+          Opis: 'Kupuju redovno neke aditive ali su uzimali u kompenzaciji neke takodje pa nisu narucivali u poslednje vreme. Za ink jet stampace trenutnu nema prostora.Aleksic ce biti na sajmu pa mu odgovara sastanak u cetvrtak sa Ceramcom',
+        },
+        {
+          idFirmePutDet: 68,
+          idFirmePut: 27,
+          idKupca: 213,
+          Naslov: 'mogucnost saradnje',
+          Opis: 'Planiraju da proizvode gres plocice pa im treba ponuda za gres, plasticnu glinu.Istovar kamionima ili brodom , moze istovar Senta.Moze sastanak sa Witgertom u Riminiju , u utorak ili sredu.',
+        },
+        {
+          idFirmePutDet: 69,
+          idFirmePut: 27,
+          idKupca: null,
+          Naslov: '',
+          Opis: '',
+        },
+        {
+          idFirmePutDet: 70,
+          idFirmePut: 28,
+          idKupca: 19,
+          Naslov: 'redovan obilazak',
+          Opis: 'Nakon uzimanja iz direkcije poceli opet da kupuju I trebalo bi da nastave. Za pecenje crepova imaju u kasete.Crepovi se engobiraju I u potpuno suvom stanju slazu I salju na pecenje.Vezivanje je na 1050C gde se engoba rastapa I spaja sa povrsinom. Prilikm topljenja engobe imaju kontaktne tacke , koje su smanjili na minimum ali im ipak imaju.Crepovi se lepe I prilikom odvajanja dolazi do manjih pucanja engobe.Da li imaju nedi premaz kojim bi se mazala bilo suva engoba bilo povrsina ili kontaktne tacke crepa na koji je naslonjen kako bi doslo do lakseg odvajanja.',
+        },
+        {
+          idFirmePutDet: 71,
+          idFirmePut: 28,
+          idKupca: 71,
+          Naslov: 'redovan obilazak',
+          Opis: 'Kupuju standardne engobe.Ostaje da se u narednom periodu proveri da li lista , koja je tajna, je obavezna I za domace dobavljace, tj ako bi kupovali Wendelovu engobu sa naseg lagera da li se to ne bi vodilo pod tom listom. Preneti pitanje koje smo imali za Zschimmer Schwarz I njima.Engobu kupuju preko centrale iz Slovenije.Prodati su Wienerbergeru.',
+        },
+        {
+          idFirmePutDet: 72,
+          idFirmePut: 28,
+          idKupca: 329,
+          Naslov: 'nova saradnja',
+          Opis: 'Prosledili su nam upit za aditivom za preciscavanje vode iz Watermarka I zele da mi uvozimo. Ubrzati zato sto imje hitno.Kontakt sa Watermark-om za ostalu saradnju.',
+        },
+        {
+          idFirmePutDet: 73,
+          idFirmePut: 29,
+          idKupca: 71,
+          Naslov: 'testiranje novih enbgoba',
+          Opis: '-nova, testirana crna engoba im deluje bolje.Potrebno je da je stave na testni krov kako bi jos jednom proverili.Deluje da je I manji utrosak engobe tj da se postize pokrivnost sa manjim utroskom. -radili su testiranje sa zelenom engobom koju smo im poslali Boja je lepa I iz prodaje su zadovoljni , tj dali su joj prednost u odnosu na zelenu od kinkurencije(Groethe) ali je pokrivnost bila losa I sa vecim I sa manjim nanosom. Mozda je bila retka, maksimalni nanos koji su postigli je bio 26gr I vec se slivala.Litarska im je bila 1,368 dok je viskozitet bio 12,2sekunde.Imaju jos 50 kg za sledecu probu pa im je potreban savet da li da nesto menjaju u odnosu na poslate reference.',
+        },
+        {
+          idFirmePutDet: 74,
+          idFirmePut: 30,
+          idKupca: 71,
+          Naslov: 'redovan oblilazak / prosirivanje saradnje',
+          Opis: 'Najvece porudzbine im idu od Ema Celje(RTU 1,45) I od Gyzema(RTU 1,85) Poslati za posetu Kolmanu najavu za 38.nedelju kada bi trebalo da je u firmi. Potrebna im je ponuda za : 1.VP7080/2 za godisnju kolicinu od 12 tona 2.Ponuda instrumenta za merenje provodljivosti 3.poslati im MSDS za materijal VP 7080/2 na srpskom',
+        },
+        {
+          idFirmePutDet: 75,
+          idFirmePut: 30,
+          idKupca: 329,
+          Naslov: 'nova tema',
+          Opis: 'Prilikom preciscavanja vode koju izlivaju u prirodu: Koriste flokulant Nalko 9901 W Koriste I Antipenusavac Kronisol(ovo se mozda tice I emajla ali nisam siguran)',
+        },
+        {
+          idFirmePutDet: 76,
+          idFirmePut: 31,
+          idKupca: 19,
+          Naslov: 'redovna poseta',
+          Opis: '-imali neplacenu fakturu na cca 300 eur iz pocetka godine, nije im jasno zasta je ova faktura, obicno sve placaju avansno pa pitaju o cemu se radi?Na fakturi koju ja imam je stellmittel -u vatrostalnoj koriste silubit , za brze isparavanje vlage.Masu za vatrostalne betone pripremaju , dodaju Bindout BA122(placaju ga 1,2 eur/litri) I trose oko 1t godisnje) , tecnost za usporavanje vezivanja brzosusecih vatrostalni betona, treba da uspori proces dok se proces vibracije ne zavrsi.Silubit stavljaju u tu istu smesu.Smese se peku na 700 C 5-6h. Neke aditive nekad uzimaju od lokalnih dilera.',
+        },
+        {
+          idFirmePutDet: 77,
+          idFirmePut: 31,
+          idKupca: 213,
+          Naslov: 'redovna poseta',
+          Opis: 'Masu za redovnu proizvodnju keramickih obloga uzimaju od Stephan Smitda.Jos uvek nisu pominjali zamenu mase ali obzirom na finansijsku situaciju , mozda se pojavi mogucnost u skorijoj buducnosti.Obavezno posle sajma poslati neku novu ponudu! Za proizvodnju vatrostalne koriste oko 500tona paljenog I 700 tona novog samota.Paljeni kupuju (sada je nestasica) za oko 80e/t na domacem trzistu sa transportom , dok obican kupuju u Ceskoj za oko 160eur/tona , sa transportom izadje oko 210 eur tona.Kupuju granulacije 0 -0,5 ; 0,5-1,5 ; 1,5-3 ; 3-6 ali moze I generalno od 0-6.Idealno je 38-40 Al2O3 ali moze od 30% Kupuju takodje boksite, korudne , kaolin, talk. Paljeni , tj stari samot im je poprilicno interesantnan jer ga nije bilo ove godine na trzistu toliko.',
+        },
+        {
+          idFirmePutDet: 78,
+          idFirmePut: 31,
+          idKupca: 71,
+          Naslov: 'prva poseta',
+          Opis: 'Za farbanje keramickih oplata koriste gotove, RTU glazure u prahu, najvise koriste bordo boju koja je sa olovom , a to bi naravno zeleli da izbegnu. Kupuju ovu masu od Colorobie.Biskvit se pece na 900C dok se nakon nanosenja pece sve na 1040 C Odgovaralo bi im kada bi mogli da rade sve na monopaljenje.Kupuju u vrednosti od oko 200.000 ukupno…trebalo bi da je oko 90% bordo Zapoceti sa Wendelom…',
+        },
+        {
+          idFirmePutDet: 79,
+          idFirmePut: 32,
+          idKupca: 48,
+          Naslov: 'livenje',
+          Opis: 'Poslali nam crteze, uradjeni alati, izliveno porbno 200 komada odlivaka.Odlivci bili grubo bruseni, nije se dobro rotirao deo lozista gde pepeo treba da propada.Delovalo je prema Sainovskom kao da alat ima ekscentricnost. I dalje im je aktuelan taj odlivak.To je namenjeno za njihovu pec (valjda na cvrsto gorivo?) koju zele da razviju za sledecu sezonu ali zele da imaju odlican kvalitet.Smatraju da ce im trebati do 5.000 komada odlivaka. Predlozena izrada novih uzoraka u Sartagu ili Bosni , Mica preuzeo predmet.Zeli da odnese alat u livnicu u Bosnu da se tamo lije.Odneo im neki stari uzorak I pokazao , koji je bio boljeg kvaliteta.',
+        },
+        {
+          idFirmePutDet: 80,
+          idFirmePut: 32,
+          idKupca: 58,
+          Naslov: 'uzorci',
+          Opis: 'Potrebna im je ponuda u tabli I vec secen.Debljina najverovatnije 30mm ali treba da posalju dimenzije komada.',
+        },
+        {
+          idFirmePutDet: 81,
+          idFirmePut: 32,
+          idKupca: 12,
+          Naslov: '',
+          Opis: 'Imali veliki problem sa postojanoscu farbe pred leto I zamenili dobavljac a, presli sa Rembrandtina na Weilburger. Zele da testiraju neku drugu farbu, spansku ili madjarsku, trenutno ne zele da razgovaraju o Rembrandtinu.',
+        },
+        {
+          idFirmePutDet: 82,
+          idFirmePut: 32,
+          idKupca: 57,
+          Naslov: 'nova ponuda',
+          Opis: 'Nisu bili zadovoljni staklom koje im je stiglo od nas.Smatrajau da mi nemamo odgovarajuce uslove za secenje stakla za kvalitet koji je njima potreban tj da moze doci do ogrebotina , riseva I sl.Verovatno je I staklo koje smo im poslali imalo sitnijih riseva po sebi.Reklamacija se verovatno odnosi na nacin obrade stakla, mozda su koriscenje neadekvatne rukavice I sl. Potrebna im je ponuda za staklo dimenzija 205x285 I 205x430. Ove dve dimenzije trose oko 40.000 komada ukupno. Trenutno kupuju Keraglasovo staklo ali ga dobijaju u nekom obilku kompenzacije od svog sadasnjeg kupca , firme AMG Spa Italy po nizoj ceni od koje smo im ponudili.Od Keraglasa traziti adekvatnu ponudu , koja treba bilti niza od cene koju oni nude AMG Italija a da ukljucuje nasu proviziju.Iznos provizije moze biti predmet diskusije. Potreban im je takodje predlog za ciscenje stakla kod peci koje su vec lozene, da li ima neko sredstvo ili preporuceni postupak.',
+        },
+        {
+          idFirmePutDet: 83,
+          idFirmePut: 32,
+          idKupca: 105,
+          Naslov: 'obnova ponude',
+          Opis: 'Prethodno su im bili dostavljeniuzorci ali nisu bili zadovoljni istim , ali je I diskutabilno da li smo ih adekvatno poslali I oni dobro ispitali jer su tada imali reklamaciju za boju. Sada su dostavili nova 2 uzorka pletenice , koju trenutno kupuju od Texpack-a. Nase su im bile pregrube.Poslati uzorci na ispitivanje u Evoltex 13.01.2016.',
+        },
+        {
+          idFirmePutDet: 84,
+          idFirmePut: 34,
+          idKupca: 105,
+          Naslov: 'podaci',
+          Opis: 'Prestali sa kupovinom sa naseg lagera. Po inerciji smo im prodavali sa lagera i kada su povecali kolicine. Zarada sa lagera koja je bila veca nego za direktne isporuke i recimo za 12mm meksi kvalitet koji uzimaju iz Belgije - Keramab su stvorili sliku da smo preskupi i da imamo prevelike marze pa su prestali sve da uzimaju. Skoro sve uzimaju od Keramaba Belgija. Dogovoreno da nam posalju godisnje potrebe i spreme iuzorke pletenica koje trenutno kupuju kako bismo poslali odgovarajucu ponudu.Poslat mail',
+        },
+        {
+          idFirmePutDet: 85,
+          idFirmePut: 35,
+          idKupca: 12,
+          Naslov: '',
+          Opis: 'Problem sa kvalitetom je bio sa samo jednom isporukom, Sainovski verujem da je kvalitet dobar ali im njihov kupac nije odobrio. Treba imati strpljenja , i verovatno ce se opet raditi testovi. Predlozio sam da kada budu spremni pre kupovine dodjemo sa Czeschkom u posetu.',
+        },
+        {
+          idFirmePutDet: 86,
+          idFirmePut: 35,
+          idKupca: 105,
+          Naslov: '',
+          Opis: 'Kupuju od Texpack-a , uzimaju od Italijanskog kupca u kompenzaciji. Nisu protiv ali je predlog ( moj) da Evoltex kontaktira direktno dobavljaca u Italiji. Saznati od Sainovskog ko je kupac.',
+        },
+        {
+          idFirmePutDet: 87,
+          idFirmePut: 35,
+          idKupca: 58,
+          Naslov: '',
+          Opis: 'nisu vodjeni posebni razgovori o Technophysik  u , ali nisu razvili proizvod za domace trziste. Trazili ranije neku ponudu proveriti da li smo im uopste uradili ponudu.',
+        },
+        {
+          idFirmePutDet: 88,
+          idFirmePut: 35,
+          idKupca: 57,
+          Naslov: '',
+          Opis: 'Staklo dobijaju od Keraglasa ali iz Italije - kompenzacija, kada im zafalai kupuju manje kolicine od Dojcinovskog od koga uzimaju i pelet Treba traziti dimenziju stakla od Sainovskog da im ponudimo od Poly M-a ili mi sa lagera da proverimo.',
+        },
+        {
+          idFirmePutDet: 89,
+          idFirmePut: 36,
+          idKupca: 12,
+          Naslov: '',
+          Opis: 'Kupuju redovno Rembrandtin. Potrebno je poslati im skalu boja na plocici ukoliko imamo ili katalog , kako bi uveli mozda i neke nove boje.',
+        },
+        {
+          idFirmePutDet: 90,
+          idFirmePut: 36,
+          idKupca: 105,
+          Naslov: '',
+          Opis: 'Imaju domaceg dobavljaca sa kojim rade za denarre vec 15 godina. Bez obzira treba ih podsetiti da posalju godisnji upit kada se malo konsoliduju i da im dostavimo odgovarajucu ponudu za cca 6 mesecne kolicine i koliko bi odlozeno placanje moglo da bude.',
+        },
+        {
+          idFirmePutDet: 91,
+          idFirmePut: 37,
+          idKupca: 12,
+          Naslov: '',
+          Opis: 'Ranije testirali ali farba dimila puno i njima treba kvalitetnija farba Videti sa Czeschkom koju farbu sa sto vecom kolicinom suve materije da im ponudimo za sto bolju povrsinu. Poslati im skalu boja od Rembrandtina.',
+        },
+        {
+          idFirmePutDet: 92,
+          idFirmePut: 37,
+          idKupca: 105,
+          Naslov: '',
+          Opis: 'Kupuju redovno sa naseg lagera odredjene pletenice',
+        },
+        {
+          idFirmePutDet: 93,
+          idFirmePut: 37,
+          idKupca: 58,
+          Naslov: '',
+          Opis: 'nismo pricali o Technophysik u ali ih treba podsetiti.',
+        },
+        {
+          idFirmePutDet: 94,
+          idFirmePut: 37,
+          idKupca: 57,
+          Naslov: '',
+          Opis: 'uzimaju sa naseg lagera po porudzbini redovno. Odneo im dodatna 2 kom za koja je bila promena domenzije.',
+        },
+        {
+          idFirmePutDet: 95,
+          idFirmePut: 38,
+          idKupca: 105,
+          Naslov: '',
+          Opis: 'Uzimaju od nas pletenice ali je otprilike 1/4 onoga sto im treba. Dogovoreno da dostave uzorke onih koje ne kupuju kako bismo ih poslali u Evoltex i uradili kontra ponudu. Uzorci preuzeti 15.11.2017.: 5mm bela (god.potrebe 250.000m) 14mm crna(160.000m velika razlika u ceni) 3x15mm bela samolepljiva (30.000m) 12mm bela (45.000m) 3x15mm crna samolepljiva (40.000m) 8x1mm samolepljiva crna 6mm crna 8mm crna Za poslednje 3 treba zamoliti Milicu da dostavi godisnje potrebe i za sve ako je moguce okvirnu cenu ili barem koliko nam je potrebno cca da bi ponuda bila prihvatljiva.Uzorke poslati u Evoltex (poslati 16.11.)',
+        },
+        {
+          idFirmePutDet: 96,
+          idFirmePut: 38,
+          idKupca: 12,
+          Naslov: '',
+          Opis: 'Imaju odredjenu kolicinu farbe koja im se pokazala ok i treba serijski da je testiraju.Proizvod je planiran da se radi u I 2018 pa ce posle toga i biti izvestaj. Poslati Milici listu tj skalu boja , ali i na plocicama isto da mogu da pogledaju boju. Zainteresovana da uvede Rembrandtin kao drugog dobavljaca da ipak ne zavise toliko samo od Weilburgera. Jasmina je  tehnolog za farbe.',
+        },
+        {
+          idFirmePutDet: 97,
+          idFirmePut: 38,
+          idKupca: 58,
+          Naslov: '',
+          Opis: 'Milica je zaduzena i za Technophysik, treba joj traziti listu vermikulita koji kupuju i pripremiti uzorke(traziti godisnje kolicine) i cene.',
+        },
+        {
+          idFirmePutDet: 98,
+          idFirmePut: 38,
+          idKupca: 372,
+          Naslov: '',
+          Opis: 'Poslati skalu sa cenama stakla kod Irlbacher a koja mi uzimamo iz Uzica. Uporediti zaradu. Videti u odnosu na godisnje kolicine da li se isplati da mi drzimo na lageru to staklo. Odneti uzorak nije ok , slikano. Sasa slao ranije , trazio mu sada pa i ponovio upit za kaljenim staklima za rernu.Poslao crteze, pa traziti ponudu od Irlbacher-a i eventualno od Poly M a',
+        },
+        {
+          idFirmePutDet: 99,
+          idFirmePut: 38,
+          idKupca: 57,
+          Naslov: '',
+          Opis: 'Preneo kako je i Keraglas najavio da bi u toku 2018 trebalo da pocnu sa radom ida obezbede dovoljne kolicine stakla. Alfa Plam je uzimao uzorke i sada prvu kolicinu stakla od Eurokere za plotne.Videti sa Micom i sa Keraglasom da li mi imamo proviziju ili ne posto su poceli da kupuju.',
+        },
+        {
+          idFirmePutDet: 100,
+          idFirmePut: 41,
+          idKupca: 71,
+          Naslov: 'prva poseta',
+          Opis: '2010 radjene probe pa smo stali, poizvode oko 70.000 bojlera od cega 65000 rade puesta tehnikom (pulver - elektrostatika), uglavnom sve nova oprema.Trose oko 40tona pPUESTA i oko 3-4 tone emajla tehnikom mokrog nanosenja Imaju problem sa agresivnim vodama na kosovu, vode iz artemskih bunara...pritisak varira od 4-15 bara- poslace izvestaj o analizi vode pa prevesti iproslediti Wendelu.Problemi im se javljaju u gornjem delu bojlera. Priprema:odmascivanje- hidro ispitna stanica sa deterdzentom(60-70C)- pod pritiskom mere bojlere na 9 bara , susenje , sacmarenje i emajliranje(zele jos da investiraju u novu susaru) Preporucene vrednosti hrapavosti - 3-5 Ra koja je preporuka Wendela? Priprema za mokro je bajcovanje i to rade u posudju sada i zele da investiraju Koriste limove DC04 EK i DC01EK hladno valjani limovi Glavni dobavljac im je Gyzem Pulver peku na 835 a mokro emajlirane bojlere na 845C Debljinu proveravaju i krece se od 150-400(500) mikrona Sa Wendelom dogovoreno da im ponudi sa belim tackama (za meke vode) i standardni plavi, i isto to za PUESTA nanosenje (u nekim slucajevima koriste i S235JR toplovaljani lim)',
+        },
+        {
+          idFirmePutDet: 101,
+          idFirmePut: 41,
+          idKupca: 422,
+          Naslov: 'prva poseta',
+          Opis: '-Zakazana poseta za 15.03. sa predstavnicima EIC koji spremaju ponudu. -trba im ponuditi i postolje i opremu zaemajliranje. Investirali u novu liniju, odmascivanje, pec za pecenje i nanosenje mokrog emajla, ostaje investicija u bajcovanje.',
+        },
+        {
+          idFirmePutDet: 102,
+          idFirmePut: 42,
+          idKupca: 213,
+          Naslov: 'Poseta sa principalom',
+          Opis: 'Zagorka ranije kupovala masu od Sibelca, sada im je FSFA vise od 4% Liju pod pritiskom -preneto im da ce morati da koriste cca 20% iz sekundarnih sirovina po direktivi EU ali se ne zna od kada ce se primenivati -Samoti uzorci dogovoreni od otpada (facin bricks) fasadne cigle i od otpada steatita(ne uzima vodu kada slury stoji) -bitan koeficijent termalne ekspanzije -imaju ponekad problem pucanja , desava se i pre i posle paljenja Uzimaju glinu iz Nemacke (Stephan Schmidt Gruppe) , dolomit, felspad Koriste cca 500t samota godisnje, granulacija 0-0,5 0-1 i 0,2-1',
+        },
+        {
+          idFirmePutDet: 103,
+          idFirmePut: 42,
+          idKupca: 19,
+          Naslov: '',
+          Opis: 'kupuju odredjene aditive Vrlo im je znacajna poseta Manfreda Wuest-a zbog pomoci oko aditiva!!!',
+        },
+        {
+          idFirmePutDet: 104,
+          idFirmePut: 42,
+          idKupca: 147,
+          Naslov: '',
+          Opis: 'Kupili su neke pigmente tj firma im je poznata, svakako im treba onuditi',
+        },
+        {
+          idFirmePutDet: 105,
+          idFirmePut: 43,
+          idKupca: 71,
+          Naslov: 'redovna poseta sa principalom',
+          Opis: 'Nova osoba u nabavci , Ivan zamenio Draganu Krnjajic Ana je sada u HS, u principu nezadovoljna Wendel doneo WRAS izvestaj, zvanican sertifikat tek treba da posalje Benedikt pomenuo specijalnu pasivaciju bojlera spolja koju rade neki proizvodjaci kako ih ne bi emajlirali, treba da posalje informaciju koja je to tehnika , a zanimljivo je svima zbog problema obostranog emajliranja kada dolazi do ljuspanja emajla Zainteresovani su za kurs - II nedelji septembra je uobicajeno.Sastoji se iz 3 dela , nakon cega se polaze i dobija sertifikat od DEV email verband Nemacke - u godini kada je prvi , u martu je prvo basic course koji je u okviru Wendela na kojem sam vec bio. Sa sertifikatom bi trebalo da nam se pruzi mogucnost da mozda i vise isporucujemo.Ostaje otvoreno da probaju 1 kamion radi pravih rezultata. Gorenju je potreban jos jedan dobavljac. Trose oko 250-300 tona godisnje.',
+        },
+        {
+          idFirmePutDet: 106,
+          idFirmePut: 43,
+          idKupca: 19,
+          Naslov: '',
+          Opis: 'Vlada Ristic je ranije trazio misljenje i trebalo bi da proba antifoaming(deaering agent) agens jer mu se javljaju mehurici u emajlu Treba sa njim proveriti kada tacno se javlja taj problem , da li je prejako mesanje ...',
+        },
+        {
+          idFirmePutDet: 107,
+          idFirmePut: 43,
+          idKupca: 422,
+          Naslov: '',
+          Opis: 'Vlada je zatrazio posetu jer je potrebno da rade obnovu citave linije, nije radjeno nista od kada su je kupili. Vec su dogovorili sa VET  - Klisch-om reparaciju peci... Kupuju pistolje za emajliranje od EIC-a',
+        },
+        {
+          idFirmePutDet: 108,
+          idFirmePut: 44,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'Kupuju s vremena na vreme mase i gline Trazili da im se posalje kriva pecenja Mont Blanc mase, cca 40 kataloga prilikom sledece porudzbine,  Michael savetovao da se kvasi povrsina predmeta pre glaziranja zbog bolje i ujednacenije glazure, brisanje otvara pore dok poliranje ubacije jos i prasinu u pore pa se jos vise javlja problem pinholes (rupice u glazuri) -ponudjena skolska glina susiva na vazduhu ,vrtici...moze u rerni na 110C 2 h, pakovanje 12x2,5kg Granilacija skolske gline je 0,5-0,2 - neujednacen je kvalitet tj boja od isporuke do isporuke ali je zato ta i cena Poslati kontakt Technophysik-a , poslat',
+        },
+        {
+          idFirmePutDet: 109,
+          idFirmePut: 45,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'uzimaju odredjene kolicine Trazili da im se posalje cca 50 kom kataloga kao i web katalog sa sledecom porudzbinom pitali za DAS masu? Uzimaju Sibelcove mase 2502 i 2505 , treba Witgert da posalje svoje koje su pandam Nudjen materijal za namestaj za peci koji je razvijen za proizvodjace - topionice stakla',
+        },
+        {
+          idFirmePutDet: 110,
+          idFirmePut: 46,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'Witgert nudio materijale od sekundarnih sirovina, sa niskom aluminom i gvozdjem, koderit samot od H kaseta od proizvodjaca crepa, -poslace uzorke cca 10kom po 5 kg, TDS i SDS na mail -Kaolin Austrija?',
+        },
+        {
+          idFirmePutDet: 111,
+          idFirmePut: 46,
+          idKupca: 19,
+          Naslov: 'redovna poseta',
+          Opis: 'Kupovali ranije ali zbog promena cena nezadovoljni bili Obavestiti Manfreda da sam bio, poslat mail',
+        },
+        {
+          idFirmePutDet: 112,
+          idFirmePut: 47,
+          idKupca: 213,
+          Naslov: '',
+          Opis: '-kupuju sada procelanato masu iz Srbije vozom po 1000t., iz UB-a sa Sacmi-em razvili recept 1200C 2 gline mesaju -Witgert treba da posalje ponudu i pogleda mogucnosti zbog transporta',
+        },
+        {
+          idFirmePutDet: 113,
+          idFirmePut: 47,
+          idKupca: 19,
+          Naslov: '',
+          Opis: '-ranije radili probe pa sve stalo, sada kupuju aditive od Lamberti-a i deflokulante od Crosfield-a -Inks kupuju od Ferra Imaju Sacmi Color HD 760 GS 12 sa XSAR glavom i treba da kupe jos jednu masinu sa diamatix glavom ISTI IZVESTAJ I ZA CERAMCO',
+        },
+        {
+          idFirmePutDet: 114,
+          idFirmePut: 47,
+          idKupca: 427,
+          Naslov: '',
+          Opis: 'Obavestiti ih da smo ostavili katalog sa opcijama i poslati im kontakte.',
+        },
+        {
+          idFirmePutDet: 115,
+          idFirmePut: 47,
+          idKupca: 426,
+          Naslov: '',
+          Opis: 'Obavestiti ih da smo ih posetili i dati kontakte',
+        },
+        {
+          idFirmePutDet: 116,
+          idFirmePut: 47,
+          idKupca: 428,
+          Naslov: '',
+          Opis: 'Obavestiti ih da smo ih posetili i ostavili kontakte',
+        },
+        {
+          idFirmePutDet: 117,
+          idFirmePut: 48,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'prva poseta, dogovorena nacelno dalja saradnja.',
+        },
+        {
+          idFirmePutDet: 118,
+          idFirmePut: 49,
+          idKupca: 213,
+          Naslov: '',
+          Opis: '-Prodaju im glinu vec duze vreme 2017 im prodali preko 70.000 eur Koriste najvise glinu Ton 360 Ukljuciti se povremeno u komunikaciju.',
+        },
+        {
+          idFirmePutDet: 119,
+          idFirmePut: 49,
+          idKupca: 147,
+          Naslov: '',
+          Opis: 'Ranije imali neki kontakti poslali im uzorke. Treba obnoviti saradnju tj podsetiti je na uzorke.',
+        },
+        {
+          idFirmePutDet: 120,
+          idFirmePut: 49,
+          idKupca: 19,
+          Naslov: '',
+          Opis: 'Isporucuje neke manje kolicine aditiva ali bi trebalo da mogu mnogo vise. Preneti Manfredu da sam bio i poslati mu kontakt osobu.',
+        },
+        {
+          idFirmePutDet: 121,
+          idFirmePut: 49,
+          idKupca: 71,
+          Naslov: '',
+          Opis: 'Sami prave engobu tako da Wendel nema interes.',
+        },
+        {
+          idFirmePutDet: 122,
+          idFirmePut: 50,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'Kupuju 50 tona nedeljno crvene mase, (belicaste sada) Traze novog liferanta, trose oko 80% belicaste i oko 20% crvene mase  Sada uzimaju belu cistu samo kada rade ciste bele saksije, 980C Sada cesto pale 2 x zbog dekoracije, tj prvi put peku glinu a II glazuru. Treba im uzorak crvene mase 2kg i : Zele da prilagode novu masu glazuri za 1.pecenje na 980C 2.Sa kalcitom jer im kalcit daje porpoznost glini , samim tim je masa laksa (transport mase ) kao i gotova saksija je laksa',
+        },
+        {
+          idFirmePutDet: 123,
+          idFirmePut: 50,
+          idKupca: 19,
+          Naslov: '',
+          Opis: 'Obavestiti Manfera o poseti i upitati da li ima da predlozi neke aditive imajuci u vidu nacin proizvodnje Koriste neko ulje za odvajanje iz kalupa, mozda ZS ima bolji predlog',
+        },
+        {
+          idFirmePutDet: 124,
+          idFirmePut: 51,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'Sada ne zele da menjaju sirovine i nece da testiraju 1 glina je interesantna i 1 sekundarna sirovina',
+        },
+        {
+          idFirmePutDet: 125,
+          idFirmePut: 51,
+          idKupca: 19,
+          Naslov: '',
+          Opis: 'redovna saraadnja, kupuju i komuniciraju direktno',
+        },
+        {
+          idFirmePutDet: 126,
+          idFirmePut: 52,
+          idKupca: 433,
+          Naslov: '',
+          Opis: 'prva poseta Imaju svoj lager, ranije prodavali i preko 100t gline Sada kupe cesto 1 kamion pa prodjau sa lagera Vazno im je da se masa poklapa sa Esmaglass glazurom na koju su im navikli kupci. Imali upit za livackim masama za nize temperaturama Witgert obecao da ce im poslati sa sledecom porudzbinom od 1t 100 kg materijala besplatno na testiranje',
+        },
+        {
+          idFirmePutDet: 127,
+          idFirmePut: 53,
+          idKupca: 11,
+          Naslov: '',
+          Opis: 'Poslati mail Witgert-u za Istvan Lukaci-a Rade vec neko vreme , u 2017 im bio promet cca 7500 eur, Ton 360 Vratili su im kamion Big bags i trazili da pakovanje bude po 280 kg koliko im je bure gde mesaju sa vodom i nanose , to je tzv natur crep (sa tom crvenom engobom) Witgert rekao da im treba cca 2 nedelje od porudzbine do isporuke Za 2-3 GODINE PLANIRAJU DA ULOZE U H KASETE!!! TREBA SPREMITI NEKOG PONUDJACA -Dolaze na sajam 10 i 11.04.',
+        },
+        {
+          idFirmePutDet: 128,
+          idFirmePut: 53,
+          idKupca: 19,
+          Naslov: '',
+          Opis: 'uzimaju standardno i nastavice preko nas da mi radimo carinjenje',
+        },
+        {
+          idFirmePutDet: 129,
+          idFirmePut: 53,
+          idKupca: 337,
+          Naslov: '',
+          Opis: 'uzimace i dalje kako su i do sada deflokulant za otpadne vode',
+        },
+        {
+          idFirmePutDet: 130,
+          idFirmePut: 54,
+          idKupca: 105,
+          Naslov: '',
+          Opis: 'proveriti debljinu pletenice 8x2 I 10x2 imali primedbe',
+        },
+        {
+          idFirmePutDet: 131,
+          idFirmePut: 54,
+          idKupca: 57,
+          Naslov: '',
+          Opis: 'Vratili staklo koje je bilo neodgovarajuce- efekat ogledala.Dubravka insistirala da se utvrdi procedura rada , da se uspostavi metoda uzorka, kako ce resiti proble I u kom roku. Pitanje dodatnih troskova ubuduce jer moraju sva stakla da proveravaju.Pitali kada ce svoje kapacitete da povecaju I da uspostave opet stare cene.',
+        },
+        {
+          idFirmePutDet: 132,
+          idFirmePut: 55,
+          idKupca: 71,
+          Naslov: 'praškasti emajl',
+          Opis: 'Imaju vec praskasto emajliranje (PUESTA) ali samo belo I crno, rade mokro grund(sloj 40-50 mikrona u suvom) I zatim praskasto pokrivno 100-120 mikrona) I jedno pecenje na 840C. Koriste EK kvalitet lima iz Zelezare Smederevo za jednostrano I ED lim iz Acerol Mital-a Makedonija za obostrano emajliranje(debljine lima 0,8-1,2mm) Braon koriste direktan emajl. Zanima ih pravac kretanja praskastih emajla , pre svega po pitanju razlicitih boja, tj Wendelovo misljenje.Ukoliko je smisleno bi prosirili praskasto emajliranje za jos jedan uredjaj. Zanima ih koje boje Wendel im standardno u svom proizvodnom programu. Da li jos neko koristi PUESTA emajle u  proizvodnji sporeta I da li je njihov kupac. Zanima ih temperature pecenja crvenog mokrog emajla. Wendel je obecao da ce poslati plocice sa nanesenim praskastim emajlom u bojama koje imaju. Benedikt misli da imaju beli I zeleni pokrivni, crni, crni mat, sivi (7034), sivi sjajni, plavi (5022)  koji se kod jednog kupca koristi kao grund(skup je za to ) a moze se koristiti I kao direktni (valjda su plavi, sivi, sivi sjajni direktni) ali mora da proveri jer je to u drugom odeljenju.Pitali da li Wendel ima braon praskasti.',
+        },
+        {
+          idFirmePutDet: 133,
+          idFirmePut: 56,
+          idKupca: 439,
+          Naslov: 'peć za pečenje posuđa ,gasna',
+          Opis: 'Imaju sve elektro peci I zele pre svega zbog ustede da uvedu jednu gasnu. Pitali za energetsku efikasnost motora.Treba EIC da ubaci I konvejere u ponudu.Gasnoj treba 1h30 min da uspostavi stabilnu temperature u zarnoj zoni I onda prelazi na ekonomsku potrosnju.Kalkulise se brzina komada u zarnoj zoni, to odredjuje duzinu zarne zone I peci, broj nosaca.Ukoliko se zeli veca brzina mora duza zarna zona, sto je onda I veca tonaza proizvoda(broj nosaca na konvejeru x maximalna tezina)- to odredjuje snagu gorionika. Gasne peci imaju metalne cevi koje greju I koji odasilju toplotu dok elektro nemaju.Gasne imaju toleranciju +-5 C dok su elektro podesavanja +-2C. Metalac trazi 4 nedelje vreme montaze. Maksimalna tezina robe Metalca, vreme u zarnoj zoni (2-3 min) I maksimalna brzina konvejera. EIC treba da revidira ponudu. Cenovno smo slicni kao I VET',
+        },
+        {
+          idFirmePutDet: 134,
+          idFirmePut: 57,
+          idKupca: 71,
+          Naslov: '',
+          Opis: 'Vec duze vreme stoji ponuda Wendel a za 1 t grund emajla , za koji daju 50% popusta za testiranje.Ponovo obnoviti ovu ponudu.Trose oko 130t grunda (Keskim), 50t beli, 10 t crveni mokro, 10 t krem(1015), 10t braon (grund mesaju sa braon pigmentom) Ne koriste kiselootporni.Pitala da li Wendel proizvodi pigmente.',
+        },
+        {
+          idFirmePutDet: 135,
+          idFirmePut: 57,
+          idKupca: 439,
+          Naslov: '',
+          Opis: 'Ponuditi pistolje za emajliranje',
+        },
+        {
+          idFirmePutDet: 136,
+          idFirmePut: 57,
+          idKupca: 12,
+          Naslov: '',
+          Opis: 'I dalje je neravnomerna boja na vratima peci magnum, bude sarenolika, moraju dva puta da isprskaju.Savetovao joj je Mica da isto proizvod drugacije pripremi (odmascivanje) zbog sumnje da je peskarenje pregrubo.Kada je bio Helios I ja , izvestaj koji je Helios poslao je to potvrdio I savetovao je da koriste drugu boju sto se Vesni nije svidelo, ukljucujuci I komentar za ozbiljnost. To im je boja koju najvise kupuju pa I ne mogu tek tako da je menjaju. Kolika je sarza kod Rembrandtina, Vesni javiti. Aqua joj se oljustila na 550C, javiti Rembrandtinu!',
+        },
+        {
+          idFirmePutDet: 137,
+          idFirmePut: 58,
+          idKupca: 71,
+          Naslov: 'testiranje prethodno slatih uzoraka I buduca saradnja',
+          Opis: 'Trose oko 50t grunda I 15tona transparentne frite mesecno, belog emajla 10-15t mesecno Cena grunda im je ispod 1 eur, bela oko 1 eur, pokrivni oko 2(manje od 2 cca)(Gizem najvise) Grund-slat grund , oni mesaju 3 frite, Wendel je poslao vec promesane, treba da posalje opet po 5 kg zasebno pa ce oni sami da odredjuju ratio-prethodno je vezivnost bila solidna ali bi povrsina mogla biti bolja. Takodje treba da posalju 5 kg frite za pokrivni I roze, lila , purpurni pigment (uvek sui m potrebni ovi pigmenti kojima pokusavaju da zamene koriscenje zlata I koji su uvek skupi. Imamo kod Wendela 4% provizije dok kod POehlmann a 5-10% I vec isporucujemo pigmente) Metalik frita im je zanimljiva , da posalje Wendel po 2 kg – bakar, srebro… “treba im efekat crnih tacki u friti ali da je kiselo otporan” Poslati cenu za transparentnu fritu koju su testirali 7381. Transparentnu mesaju sa pigmentima I to im daje pokrivni emajl. Sivi pigment koji su testirali 8039 bi voleli kada bi mogao biti malo svetliji.',
+        },
+        {
+          idFirmePutDet: 138,
+          idFirmePut: 59,
+          idKupca: 428,
+          Naslov: 'sastanak sa principalom',
+          Opis: 'Nacho Colomer predstavio Ziti Kis iz firme Polet Keramika, dizajnerka svoj proizvod Non slip ink i ponudi posetu i testiranje.',
+        },
+        {
+          idFirmePutDet: 139,
+          idFirmePut: 60,
+          idKupca: 213,
+          Naslov: '',
+          Opis: '-kada bude imao zahtev za materijalima poslace',
+        },
+        {
+          idFirmePutDet: 140,
+          idFirmePut: 60,
+          idKupca: 19,
+          Naslov: '',
+          Opis: 'Manfred obecao da ce poslati predlog zavatrostalni kit Stojan treba da posalje upit za torket betone , opise problem sa kojim se suocava kod torket betona kao i da posalje predloge za ubrzivac /beschwindigung i usporivac /',
+        },
+        {
+          idFirmePutDet: 141,
+          idFirmePut: 63,
+          idKupca: 71,
+          Naslov: 'sastanak na sajmu',
+          Opis: 'Uglavnom sami rade engobe ali su im bili zanimljivi specijalni dezeni i specijalne boje',
+        },
+        {
+          idFirmePutDet: 142,
+          idFirmePut: 63,
+          idKupca: 19,
+          Naslov: 'sastanak na sajmu',
+          Opis: 'Sastanak sa Claduiom Istel koja je zaduzena aplikacione tehnologije na keramici i sada radi na testiranju stampe na cigli i crepu -napravljen je ink jet stampac za crep i ciglu, trenutno je jedan u testiranju u Spaniji(prototip) Primer 013 im menja engobu za stampu na crepu , definicija je bolja i moze i na suvom i mokrom crepu Ona misli da ce veca biti primena na ciglama i specificnih dekora na crepu (ravnom) PROJECTA ENGINEERING radi stampace za ink jet za stampu na ravnom crepu -treba da joj se posalju uzorci Peptapon 205 koji sluzi podesavanju viskoziteta i Optapix G108 koji je lepak ,zamena CNC,  sluzi za brze susenje, tecan je i ne uzima vodu , dodaje se 0,3do 1%',
+        },
+        {
+          idFirmePutDet: 143,
+          idFirmePut: 63,
+          idKupca: 213,
+          Naslov: 'sastanak na sajmu',
+          Opis: '-zanimljivi su im uzorci gline za testoranje a engobiranje -treba poslati Witgert -u adresu i mail od Marije za uzorke 3 kom po 2 kg, poslati poslao uzorke u medjuvremenu',
+        },
+        {
+          idFirmePutDet: 144,
+          idFirmePut: 65,
+          idKupca: 19,
+          Naslov: 'poseta standu',
+          Opis: 'Prisutni bili Elvira i Ivana, sa strane Z&S Udo Martin ,odeljenje vatrostalne (u.martin@zschimmer-schwarz.com mob +49 1717070569 )i posle Manfred Wuest. Nacelno dogovoreno da Zagorka posalje uzorak mase u Z&S na analiziranje i predlog aditiva - samotne i livacke mase Treba im tecni deflokulant za glazuru da je razredi , predlog bi trebalo da je Giesfix G10 Ponudjen im je Giesfix P75 za vatrostalne cigle Proveriti da li su u komunikaciji direktno sa Udo Martinom, poslao sam mail ZS - Manfredu i Veri',
+        },
+        {
+          idFirmePutDet: 145,
+          idFirmePut: 65,
+          idKupca: 71,
+          Naslov: 'poseta standu',
+          Opis: 'Bio prisutan Julian Wagner. Imali su uzorke Wendela za neki projekat pre 2 godine Zanimljiva im je pourple glazura i ral 270? Poslati info mail Zagorki da li treba nesto da radimo',
+        },
+        {
+          idFirmePutDet: 146,
+          idFirmePut: 65,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'DOPUNITI',
+        },
+        {
+          idFirmePutDet: 147,
+          idFirmePut: 66,
+          idKupca: 330,
+          Naslov: '',
+          Opis: 'Trebalo je poslati uzorak i izvestaj o poseti Heraeus Kulzer Moguca popravka i izolatora (Elektron Arandjelovac i Elektron Novi Sad)',
+        },
+        {
+          idFirmePutDet: 148,
+          idFirmePut: 66,
+          idKupca: 432,
+          Naslov: '',
+          Opis: 'Trebalo je poslati izvestaj o poseti Almi Brlek,',
+        },
+        {
+          idFirmePutDet: 149,
+          idFirmePut: 68,
+          idKupca: 213,
+          Naslov: 'poseta sa principalom',
+          Opis: '-kupili nekoliko puta (proveriti) -imaju dosta porcelanskog elektro restla, kupuju od elektroporcelana Novi Sad, Witgert bi kupovao Tesko se takmice sa cenama jer se dosta proizvodi jeftinijih materijala Koderit se koristi za proizvodnju U i H kaseta (proizvodnja crepova)',
+        },
+        {
+          idFirmePutDet: 150,
+          idFirmePut: 68,
+          idKupca: 19,
+          Naslov: '',
+          Opis: 'Voleli bi da ih poseti poseti neko iz Zschimmer & Schwarz - a',
+        },
+        {
+          idFirmePutDet: 151,
+          idFirmePut: 69,
+          idKupca: 222,
+          Naslov: '',
+          Opis: 'Kupuju deflokulant odDaxel-a po 0,28 tecni, EXW',
+        },
+        {
+          idFirmePutDet: 152,
+          idFirmePut: 69,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'Kupuju KN 83 od Ukrajinske firme cca 370 eur/tona, kupuju oko 50 tona godisnje Mozemo im poslati uzorak kaolina, 2 vrste jedan iz Nemacka ? I drugi iz Austrije',
+        },
+        {
+          idFirmePutDet: 153,
+          idFirmePut: 70,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'Ljubinko je uradio testove sa glinom koja mu je poslata i zadovoljan je Trebalo bi da probaju 1 tonu 310. (na 1050 - 1100 C) Prvo je predlog bio 50-50% za probnu proizvodnju ali je onda Witgert ponudo da da besplatno ali da oni organizuju transport',
+        },
+        {
+          idFirmePutDet: 154,
+          idFirmePut: 71,
+          idKupca: 213,
+          Naslov: 'Poseta sa principalom',
+          Opis: 'prva poseta sa principalom Zanimljive Mariji Vrebalov engobe 310, 762, 660 Oko 700.000 engobiraju Imaju U kasete Zelela bi po 1 kg od svih uzoraka za probu.',
+        },
+        {
+          idFirmePutDet: 155,
+          idFirmePut: 72,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'Zainteresovani za materijal iz Witgerta, cena brodskog transporta? 1000t - do 3000t brod Prosle godine uzeli 6000 tona gline i 3000t felspada Trazili probe...',
+        },
+        {
+          idFirmePutDet: 156,
+          idFirmePut: 73,
+          idKupca: 377,
+          Naslov: '',
+          Opis: 'Telefonskim razgovorom date sledeće cene: -THERMOBARP SIVA 4,6 eur/kg ( crnu kupio po 4,50 eur/kg ) -720 kg na lageru - Staklo 240x150, povećanje od naredne isporuke za 2,5 %  Stara cena 3,80 eur/kom    Nova cena 3,90 eur/kom, ukljucen PDV u obe cene - Termodur 603 417436 crna, ulubljene kante , cena 820,00 din+pdv=984,00 din',
+        },
+        {
+          idFirmePutDet: 157,
+          idFirmePut: 74,
+          idKupca: 9,
+          Naslov: 'poseta sa principalom',
+          Opis: '-razgovori sa Vesnom Maricki i Dijanom Ristanovic -nije bilo specijalnih zahteva, uglavnom sve kupuju od Color M-a i malo od turaka',
+        },
+        {
+          idFirmePutDet: 158,
+          idFirmePut: 74,
+          idKupca: 163,
+          Naslov: 'poseta sa principalom',
+          Opis: 'Prva poseta sa principalom.Prisutni Dubravka, Zoran, Stamen, Milena?(mladji tehnolog), Milan, Suzana, Sasa , Milica Pesic Koriste stare dekor boje, treba da im Color M posalje uzorke u prahu nove, koristice ih i ubuduce Trazeno placanje opet kao ranije 50% avans , 50% 30 dana od racuna, dogovoreno da ce se tolerisati 45 dana od datuma izdavanja jer Color M izdaje racun cim prijavi carinjenje a roba biva preuzeta kasnije pa je bilo kasnjenj u placanju u tom smislu. Zoran je obecao da ce poslati listu pigmenata koje uzimaju od drugih dobavljaca kako bi Color M ponudio svoje. (posalo vec listu sa godisnjim potrebama)',
+        },
+        {
+          idFirmePutDet: 159,
+          idFirmePut: 74,
+          idKupca: 440,
+          Naslov: 'poseta sa principalom',
+          Opis: 'Tihomir, Jasna, Jelena i Milica tehnolozi.Aca Markovic je novi generalni korporacije. Genrelano zadovoljni.Potpisali ugovor sa cenama.Fiksirane cene Cobalt-a do I 2019 i do tada nece biti promena ( ni na nize iako je cobalt nesto pao)Pred kraj godine treba obnmoviti pregovore i u smislu cene cobalt-a ispratiti da li ce bit snizenja...(sada je oko 55 eur/kg) Uvedene boje color 648 i F5604.0 - pink 1.Potreban im je pandam boje Svia , slat uzorak pre 2-3 godine ali smo stali sa prvim izvestajem, trose oko 1t godisnje i ima indicija da ima problema sa tom (ja mislim Prince bojomali mozda i  Ferro) (ako je njihova boja).DAT JE UZORAK Poehlmann-u da da adekvatan kontra uzorak. 2."KORAL" boja 77416 im je i dalje interesantna, prvi uzorak koji je Color M poslao nije bio ok, pokrivnost je bila nesto slabija, Poehlmann je dobio plocicu sa zeljenom bojom koju treba da postignu 3.Obzirom da su preuzeli BASF, Color M treba da posalje uzorke njihove pink i iron red i takodje ako ima nesto drugo interesantno',
+        },
+        {
+          idFirmePutDet: 160,
+          idFirmePut: 74,
+          idKupca: 284,
+          Naslov: 'poseta sa principalom',
+          Opis: 'Zeljko i Dragana i Ana iz dekora ( i stariji tehnolkog koji poznaje Micu) TR2500 Prince - Koral boja ZELE I TREBA da im Poehlmann posalje: 1.Paleta boja koja bi bila pandam Heraeus 64 ili Ferro-Indio paleta, to je po tehnolozima najbolja paleta koja je radjena za boje za stampu na emajlu. COLOR M ce razviti i poslati sta moze u startu od tih osnovnih boja 2.Cetvorobojna paleta je ranije postojala, Color M treba da posalje svoju - uzorke Metalac je trazio prvo na emajlu ispecenu ali obzirom da nema i da su frite razlicite i uslovi pecenja poslace uzorke boje. PRILIKOM stampe koriste: Medijum za mesanje sa pigmentima , Ferro 80820 , zelatinast je , (tiksotropan) ili (koristili su ranije) Heraeus 221 , tecni. Za lak za transfer preslikaca koriste zuti , tiksotropan Ferro 406 , bitan je viskozitet, potreban je organski rastvarac za lak - nije im odgovarao na vodenoj bazi) Zapoceli su prosle godine testiranja sa medijumima i lakovima od We Print-a ali nije nastavljeno.Zele da nastave ali uzimajuci u obzir izvestaj koji imaju od prethodnog testiranja.',
+        },
+        {
+          idFirmePutDet: 161,
+          idFirmePut: 75,
+          idKupca: 129,
+          Naslov: '',
+          Opis: '-urgirano placanje kako bi dobili isporuku Platili 14000 od cca 24000 i treba ostatak da plate u narednih cca 10 dana',
+        },
+        {
+          idFirmePutDet: 162,
+          idFirmePut: 76,
+          idKupca: 58,
+          Naslov: '',
+          Opis: 'Nudjeni ranije materijali ali su im delovali skupi.Zeleli bi da imaju i domaceg dobaljaca.Dubravka takodje zainteresovana za vermikulit i saradnju i oko njega. Dogovoreno da posalju kompletne crteze za nekoliko najvaznijih proizvoda.Mi treba da prosledimo te crteze Technophysik-u da predlozi gustinu i debljinu ali je verovatno bolje drzati se zahteva njihove proizvodnje tj tehnicke sluzbe. Mi treba da im ponudimo 3 opcije:Cena EXW AUSTRIJA, cena EXW SLOVENIJA i cena EXW Beli potok iseceno na meru/table. Probali su i ceski emajl ali im je transport skuplji.',
+        },
+        {
+          idFirmePutDet: 163,
+          idFirmePut: 76,
+          idKupca: 57,
+          Naslov: '',
+          Opis: 'Reklamacija bila za prethodno staklo sa efektom ogledala, zbog promene nacina pakovanja najverovatnije. Ranije bile reklamacije , pa krajem prosle godine promenili pakovanje i to je bilo ok. Ove godine je Keraglas poslao staklo ali opet promenio pakovanje i opet nije bilo dobro. Trazili su da posalju upakovano kao prosle godine iz 11. ili 12. meseca. Sasa je pitao sta se dogadja sa porudzbinom iz II 2018 (ima porudzbina i stakla sa efektom ogledala i 100 kompleta od Eurokere.Informisati ga.',
+        },
+        {
+          idFirmePutDet: 164,
+          idFirmePut: 76,
+          idKupca: 71,
+          Naslov: '',
+          Opis: 'Stamen je misljena da nismo dovoljno aktivni.(Koriste emajle od Ferra , Gyzem - preselio fabriku , Emo , Colorobia) Trenutno su imali problem sa emajlom iz Emo Celja. U prethodnoj poseti je dogovoreno da Wendel posalje uzorke PUESTA emajla u bojama koje imaju u proizvodnji i da se Alfa onda odluci koje zele da dobiju u prahu kako bi testirali.Nisu jos zauzeli stav i Milan Mitrovic se seca toga ali Stamen svejedno misli da treba da probaju i sami. SADA KORISTE(MILAN tehnolog): PREMIX - GRUND - u tecnom stanju, peku ga na 840-850C i trose oko 200 kg dnevno Preko njega BELI POKRIVNI Ferro cca RAL 9003, praskasto , suvi nanos (PUESTA - elektrostaticki)(jedno pecenje sa grundom 840-850C)) Nezavisno, koriste OSNOVNI,PRASKASTI, KISELOOTPORNI, CRNI, u prahu elektrostaticki (1 pecenje) Kod Suzane u enajlirnici koriste tecno nanosenje razlicite boje. 1.BRAON , Direktni, Tecni , RAL 8016-8017 koriste sada ali bi voleli da imaju praskasti.Mokro nanosenje ,klasicna tehnologija) Treba im i 8022 ali mora biti kiselootporan.Potrebo poslati im uzorak u prahu ili sliker.(PRIORITET) 2.CRVENI POKRIVNI , ide na Grund od EMO Celje(820C), pa pokrivni(frita po recepturi) u koju ubacuju pigment R113, RAL 820 (ne postoji?) , 2 pecenja(crveni na 820C) , klasicna tehnilogija , dostavili uzorak plocice sa zeljenom bojom(PRIORITET)Koriste 2 crvena emajla - Emo Celje koji daje osetljivu povrsinu , dodirom prsta(tj od vlage) ostavlja "maglu" koja se tesko ili ne moze da se brise;takodje koriste i turski koji daje bolji rezultat ali ima specificne uslove pecenja.Pigment mesaju sa transparentom fritom prema resepturi.  3.SIVI (7045, 7046, 7004) potreban im je emajl u toj boji, direktan , tecni, PRIORITET 4.DIREKTNI PRASKASTI ANTRACIT Dostavili plocice 1.osnovnog crnog kiselootpornog, braon direktnog tecnog(cca RAL 8017) i belog pokrivnog na grundu(cca ral 9003)',
+        },
+        {
+          idFirmePutDet: 165,
+          idFirmePut: 76,
+          idKupca: 105,
+          Naslov: '',
+          Opis: 'nije bilo razgovora u ovom trenutku, proveriti sta je sa listom koju su dostavili sta sve jos trose....!',
+        },
+        {
+          idFirmePutDet: 166,
+          idFirmePut: 76,
+          idKupca: 129,
+          Naslov: '',
+          Opis: 'nije bilo razgovora u ovom trenutku',
+        },
+        {
+          idFirmePutDet: 167,
+          idFirmePut: 76,
+          idKupca: 439,
+          Naslov: '',
+          Opis: 'Rekli da EIC instalira opremu sad u avgustu, tj njihov bivsi kolega iz Slovenija. Zoran Ilic rekao da je on sa svojim radom i EIC pistoljima bio povoljniji cca 10.000 eur. Poslao vec pitanje EIC ali sada treba napraviti nov mail sa novom strategijom jer je pitanje da li se oni medjusobno ogovaraju, preko nas.Verovatno podrzati i traziti proviziju bez obzira.',
+        },
+        {
+          idFirmePutDet: 168,
+          idFirmePut: 76,
+          idKupca: 12,
+          Naslov: '',
+          Opis: 'Sa rembandtinom smo usli i treba pratiti za sada. Dubravka zeli da bud oprezna ali treba obnoviti temu kada potrose ovu farbu i obavezno pitati za izvestaj nakon farbanja.',
+        },
+        {
+          idFirmePutDet: 169,
+          idFirmePut: 77,
+          idKupca: 71,
+          Naslov: '',
+          Opis: '-Jasna je pomenula da smo sa Wendelom stali i da je ostalo da posaljemo cene jos od prosle posete, proveriti?',
+        },
+        {
+          idFirmePutDet: 170,
+          idFirmePut: 78,
+          idKupca: 445,
+          Naslov: '',
+          Opis: 'Prethodno u 2017 radili testiranja sa njihovim materijalima: MEDIJUMI ZA MESANJE SA PIGMENTIMA: -Ceraflux 20 (pandam Heraeus 221 - tecan)(moze se mestai sa drugim uljima u bilo kom odnosu), dobar za blok stampu, ili mesanje sa Ceragel 82 ili 86 -CeraGel 82 thix (Pandam za Ferro 80820 sto Metalac sada koristi, najbolji za absorpciju pigmenta -CeraGel 86 thix (pandam za Ferro 801016)(bestselle ru Nemackoj odnos cena / kvalitet) TRANSFER LAK  over Coat "CeraCoat thix" pandam Ferro L406 thix CoverCoat"CeraCoat Antibloc) ne treba mu papir za nanosenje kao za Decoflux CL 8727 od Z&S Rezultati: Prema izvestaju iz Metalca, MEDIJUMI Ceragel 82 i 86 daju guscu boju koja se grupise i ostaje na zidovima trovaljka , posebno izrazeno za belu boju , i sa povecanjem odnosa sa 10:6,5 na 10:7  se pojava ne gubi Ceraflux 20 , mesanje 10:5 i 10:6 ali slicna pojava LAK ZA STAMPU: Ceracoat Antiblock bi mogao da ima primenu ali nema potrebe za mat izgledom , bolja im je zuca boja zbog vidljivosti u proizvodnji CeraCoatThixYellow je potrebno razvijati u pogledu tecljivosti(3 sec) dok Ferro L406 ima vise od 5 minuta Raspraviti sa WE PRINT--om u kom pravcu ici (on je predlozio CeraCoat thix SE Yellow i CeraFlux 80)  Isto nuditi i InkerPor i VES Rumunija tj pitati sta koriste',
+        },
+        {
+          idFirmePutDet: 171,
+          idFirmePut: 82,
+          idKupca: 71,
+          Naslov: 'redovna poseta',
+          Opis: 'Uradili testnu seriju sa prvom kolicinom emajla , isporucili.Imaju jos materijala. Sada treba da rade II kamion.Pun kamion je 1408 boca.  Wendel rekao da je isporuka 4 nedelje od porudzbine.',
+        },
+        {
+          idFirmePutDet: 172,
+          idFirmePut: 83,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'Na sastanku bili Aleksic Djordje i Nemanja Bilanovic. Prethodno Kanjiza kupila sleper gline za testiranje , cilj je obogacivanje njihove gline kako bi poboljsali kvalitet mase za izradu plocica vecih formata. Dobili su solidne rezultate ali nasa glina 1026.1 nije dovoljno plasticna pa je potrebno mesanje u vecem procentu (ili potpuna zamena) sa domacom sto je onda preskupo. Witgert ce predloziti Ukrajinske gline koje su plasticnije i sastav im je odgovarajuci.(1 iz Nemacke i 3 iz Ukrajine) Takodje postoji i vatrostalna glina iz Bavarske sa nesto vecim sadrzajem ugljenika (0,5% , sto je prihvatljivije od 1% koliko imaju lokalne) i Fe2O3 sto ne bi trebalo da bude problem.',
+        },
+        {
+          idFirmePutDet: 173,
+          idFirmePut: 55,
+          idKupca: 57,
+          Naslov: '',
+          Opis: 'Sasa Stojanovic pitao za posetu Francuskoj kako smo ranije razgovarali i da li dolaze na sajam (u Beogradu) Pitao za okruglo staklo da li smo pormasili dimenziju(da li isporuka iz Uzica ili uzorak iz Irlbacher-a koji je bio okviran) Da li okruglo moze biti kaljeno i kako je secenje posle.(Nema posle obrade) Njima treba za do 280C.',
+        },
+        {
+          idFirmePutDet: 174,
+          idFirmePut: 84,
+          idKupca: 439,
+          Naslov: 'prva poseta',
+          Opis: 'Imaju 2 peci, jednu staru elektro koja nije u funkciji i jednu noviju gasnu za koju treba da rade reparaciju peci, nema III vazdusne zone, izolacija nedostaje, grejaci popucali Elektro pec koja nije u funkciji ne radi , fali neki deo Ponuditi reparaciju i dijagnostiku peci koja ne radi!',
+        },
+        {
+          idFirmePutDet: 175,
+          idFirmePut: 85,
+          idKupca: 422,
+          Naslov: 'prva poseta sa principalom',
+          Opis: 'Gorenje ima njihovu liniju koja nije radjena od kada je kupljena. -pri emajliranju iznutra zele da promene brzinu rotacije , ali ne mogu, regulator se pokvario -ventilator filtera im ne radi Kontrolna tabla ? (ili im pravi problem ili ...) Imaju takodje "malu Tiki masinu" za emajliranje bojlera 5-15 l. I masinu za 50-120l Manja im "malo radi , malo ne radi" Ako Gorenje poruci novu (za bojlere od 50-120l) E.I.C-u treba 2-3 meseca da uradi',
+        },
+        {
+          idFirmePutDet: 176,
+          idFirmePut: 87,
+          idKupca: 71,
+          Naslov: 'poseta sa principalom',
+          Opis: 'Problem uvek bila cena pa nikada nismo stigli do proizvodnje. Izvestaj prethodni poslati i Danny -u (mozda vec ima) Beli praskasti emajl , cca 100 tona godisnje(PUESTA) Crni 100 t, Scrveni ca 20T Ukupno trose oko 500T emajla  Puesta rade dva nanosa jedno pecenje, Premix tecni pa onda pokrivni suvo (beli) Vezivnost emajla nije bila dobra., dogovor je da se od Poehlmann-a trazi da posalju Wendelu pigmente (5827 i 5826).Treba ili da posalju i njihov grund ili da poboljsaju vezivnostili da daju sugestiju da li da grund bude meksi ili tvdji(jer verovatno veza grunda i Wendelovog pokrivnog nije bila dobra) (trebalo bi da sve vreme govorimo o crvenom emajlu, morko nanosenje) Takodje imaju problem sa "maglom" na crvenom emajlu.  Milan i Marija Uzorci belog praskastog (poslate plocice) otisli sada vise u zuto u odnosu na postojecu boju. Imaju prakticno samo jednog dobavljaca sto im je problem.Dobro bi bilo da imaju odobrenog drugog dobavljaca tehnoloski i po boji.',
+        },
+        {
+          idFirmePutDet: 177,
+          idFirmePut: 87,
+          idKupca: 147,
+          Naslov: 'poseta sa Wendelom',
+          Opis: 'Pokusati da se ostvari saradnja izmedju Wendela i Color M a za Alfa Plam. Alfa Plam zeli da kupuje i dalje postojece pigmente od Color M, a da Wendel razvije i ponudi crveni emajl koji bi razvio sa njihovim pigmentima i dao preporuku o kolicini za njihove pigmente.  Uputiti zahtev Color M u i Wendelu. Nakon razgovora telefonskog sa Milanom Mitrovicem po pitanju dekor farbi izvestaji su sledeci: -najbolja im je bila pasta R45405 koju su kupili od Color M-a jos 2014.Ona je postojanija i na visim temperaturama i boja im odgovara.Na svim slikama ona bi trebalo da je ona najdonja. Slike Can1 i Can2 je bez koja je bila ok ali je vise ne koriste. Samples New 1,2,3,4 su slike uzoraka koji su poslati, dole bi trebalo da je R45405 i pecena je na cca 830-840C (ne mogu uvek da cekaju da se spusti temp.peci jer peku u peci gde peku emajl na 830-840C) Sample+R45405 T750C je uzorak (neki od poslatih) koji je bio ok ali im boja nije ok , a donji bi trebalo da je R45405 Sada im je hitna crvena, dok im je definitvno R45405 najbolja i uzimace je i u buduce. Ne trebaju im velike kolicine ali je vazno da ih servisiramo.',
+        },
+        {
+          idFirmePutDet: 178,
+          idFirmePut: 88,
+          idKupca: 440,
+          Naslov: 'poseta na sajmu Ambiente 2019',
+          Opis: 'Razgovarao sa Acom Markovicem na sajmu.Rekao da nisu odustali od gasne peci ali ne za ovu godinu svakako. Ukoliko rade gasnu pec, nece je raditi pre leta 2020 sto znaci da bi ugovor trebalo da potpisu septembra prethodne  da bi se radilo na leto sledece kada uobicajeno imaju remont.',
+        },
+        {
+          idFirmePutDet: 179,
+          idFirmePut: 88,
+          idKupca: 163,
+          Naslov: '',
+          Opis: 'Obnoviti ponude',
+        },
+        {
+          idFirmePutDet: 180,
+          idFirmePut: 88,
+          idKupca: 279,
+          Naslov: '',
+          Opis: 'Obnoviti ponude',
+        },
+        {
+          idFirmePutDet: 181,
+          idFirmePut: 88,
+          idKupca: 478,
+          Naslov: '',
+          Opis: 'zele da rade neke investicije pa ukoliko je moguca poseta pre ISH bilo bi dobro.',
+        },
+        {
+          idFirmePutDet: 182,
+          idFirmePut: 89,
+          idKupca: 71,
+          Naslov: 'poseta sa principalom',
+          Opis: 'Tihomir, Jasna, Jelena Savic Kolorni oksidi su skuplji cca 16% U Ground friti Metalac Posudje prihvata i nikl , mozda moze i Wendel da ponudi sa niklom(ako vec nema) Trenutno su skuplje oko 80-90% i zatvaramo pricu dok ne budu znacajnije nize cene  Metalic frita -C3293 - nije ista nijansa ali je lepa pa ce napraviti nove uzorke (Metalac valjda) Lako cistece frite - dostavljen uzorak 1 kg , uradjeni testovi, prijanjanje je bilo lose ( pa nisu isli u dalja ispitivanja) ali je povrsina bila ok, temperature pecenja su bile 781-831-784, dodali su 60%vode (preporuka bila 80% - nije videla Jelena) ali ne bi to trebalo da je bio problem.Wendel treba da proveri i posalje novi uzorak. RTU im je ok za uzorke ali kupuju u komponentama.',
+        },
+        {
+          idFirmePutDet: 183,
+          idFirmePut: 89,
+          idKupca: 422,
+          Naslov: 'investicija gasne peci',
+          Opis: 'Marko Rajcevic dosao na sastanak. Investicija za pec je trenutno odlozena, zbog odnosa cene gasa i struje , koji se i u medjuvremenu promenio. Ako cena struje poskupi jos moguce da se brze skutalizuje pitanje investicije. Imaju 4 elektro peci koje rade. Treba da ulazu u automatizaciju- opremu za emajliranje posudja.Treba da im posaljemo za koga je EIC radio slicnu opremu . Referenc listu',
+        },
+        {
+          idFirmePutDet: 184,
+          idFirmePut: 91,
+          idKupca: 71,
+          Naslov: 'poseta sa principalom',
+          Opis: 'Sada kupuju od Gyzem-a, trose PUESTA oko 35t i tecnog oko 3t Rade sa debljinom celika 1,8-2,2 mm - peku na 830 C prah - PUESTA i i na limu 2,0-2,5 mm peku na 845C - tecni Opremu je instalirao VET - Klisch, prethodno je u EIC radio Teil i davao neke ponude? Ranije im nudjen i proban emajl VP5066 Dogovoreno je da se krenu probe od laboratorije.Danny obecao uzorke za 2-3 nedelje, treba da posalje SDS i TDS za uzorke , Puesta i tecni,',
+        },
+        {
+          idFirmePutDet: 185,
+          idFirmePut: 91,
+          idKupca: 422,
+          Naslov: 'poseta',
+          Opis: 'VET im je isntalirao opremu -klisc Znaju da i mi nudimo opremu , trenutno im ne treba nista, preskupo im je da rade opremu za bajcovanje , u ovom trenutku',
+        },
+        {
+          idFirmePutDet: 186,
+          idFirmePut: 92,
+          idKupca: 391,
+          Naslov: 'Cena stakla i komercijalni uslovi',
+          Opis: 'Poly M je Dojčinovskom prodao Schott-ovo staklo u dva navrata, ukupno 6 buntova, po ceni od 68,69eur/m2, sa odloženim plaćanjem na 90 dana. Poslati Dojčinovskom da ćemo im i mi dati identične uslove pri sledećoj isporuci.',
+        },
+        {
+          idFirmePutDet: 187,
+          idFirmePut: 93,
+          idKupca: 320,
+          Naslov: 'Isporuka',
+          Opis: 'Odvojiti 5 kanti farbe Griss oscuro za Safeta iz firme Kamin Gostivar.',
+        },
+        {
+          idFirmePutDet: 188,
+          idFirmePut: 92,
+          idKupca: 320,
+          Naslov: 'Lager i isporuke u Srbiji',
+          Opis: 'Dojčinovski treba da traži ponudu od Barprima za farbu od 400stepeni za Alfa plam. Tu cenu treba da podigne za 20%, da 10% ide Dojčinovskom a 10% nama.  Treba da se poruči 1t sive i 1t crne farbe za Jovanov lager, polovinu finansira Mića. Lim produkt bi trebalo da kupi po 1t crne i sive farbe, Mića će probati da ga nagovori.',
+        },
+        {
+          idFirmePutDet: 189,
+          idFirmePut: 94,
+          idKupca: 493,
+          Naslov: 'saradnja',
+          Opis: 'Gal group je dao cenu Schott stakla 64eur/m2 Treba pitati Keraglass za cenu dva bunta stakla, proveriti da li je uključena provizija, ako jeste, oduzeti je, i tako umanjenu cenu poslati Bugarima. Ako daju istu cenu, (tu nižu za Keraglassovo staklo), DAP Beograd, onda od njih poručiti. Za crno staklo ponudili su cenu 125eur/m2.',
+        },
+        {
+          idFirmePutDet: 190,
+          idFirmePut: 67,
+          idKupca: 439,
+          Naslov: 'poseta sa principalom',
+          Opis: 'U zoni pecenja im je bojler 3,5 min -otvor na bojleru je fi60 ali bi zeleli da prosire na fi 72 -treba obratiti paznju na tretman otpadnih voda -da li na njihovoj liniji postoji mogucnost prosirenja ukoliko poraste potraznja VET im je radio neku opremu',
+        },
+        {
+          idFirmePutDet: 191,
+          idFirmePut: 96,
+          idKupca: 71,
+          Naslov: '',
+          Opis: 'Kupuju sve zasebno- frita, felspad, pigmenti, sami prave mesavinu Imaju crne tacke u "Utility sink"-u uglavnom tamo im se javljaju (ili zute) Zele da rade mokro mokro - jedno paljenje(prethodno sam notirao dva paljenja) i mokro , susenje, prah pa paljenje Instalirali su u "SILVI" opremu za emajliranje gusanog posudja. Emajliraju sa 2 nanosenja (mokro) i 2 paljenja na 820C Rade bele proizvode 50% , 25% braon i ostalo druge boje crna, bez... Pitali kako Alape emajlira',
+        },
+        {
+          idFirmePutDet: 192,
+          idFirmePut: 96,
+          idKupca: 422,
+          Naslov: 'poseta sa predstavnicima',
+          Opis: 'Poseta sa Brigitte i Alex-om Zanima ih oprema za pripremu(Degreasing) Takodje im je potrebna ponuda za pistolje za emajliranje Imali su problem sa rdjanjem pa su kupili sistem za demineralizaciju vode i aerizaciju Glavni kupac im je Quantex (Ronald Kort) (Treba da ih posete sledeceg meseca) i prodaju im 25.000 lavaboa godisnje(+ 1% rabata kad stignu 25000kom) Ponudice nam istu cenu (mozda) cca 13 eur Imaju Lampart-ove alate i sada rade na njima, smeju da proizvode ali od toga uzimaju dodatak(%) Imaju i svoj alat sa kojim proizvode ali je konstrukcija takva da im pravi problem) Zele da razviju i inox alat sami Zele da rade mokro mokro - jedno paljenje(prethodno sam notirao dva paljenja) i mokro , susenje, prah pa paljenje Instalirali su u "SILVI" opremu za emajliranje gusanog posudja.',
+        },
+        {
+          idFirmePutDet: 193,
+          idFirmePut: 96,
+          idKupca: 147,
+          Naslov: '',
+          Opis: 'Pigmenti za emajl jer sami prave mesavinu Traziti da posalju uzorak Color M u i od Color M a da im posalje kontra uzorak',
+        },
+        {
+          idFirmePutDet: 194,
+          idFirmePut: 96,
+          idKupca: 213,
+          Naslov: '',
+          Opis: 'kupuju glinu za emajl , pitati ih i ponuditi im',
+        },
+        {
+          idFirmePutDet: 195,
+          idFirmePut: 97,
+          idKupca: 427,
+          Naslov: 'aktuelna ponuda',
+          Opis: 'Imaju Ancora BT masinuza rektifikaciju (suvu) dry squaring. Ancora je u vlasistvu 75% od Diatex-a koji proizvode kamen isto. Kanjiza koristi masinu za sledece plocice: 60x60 12 kom u min, 20x80 20 kom u min, 15x60, 45x45, 30x60 17 kom u min. -kolicina skidanja sa svake strane je 2,5mm -debljina plocice njihove je 8,3mm -precnik kamena od Diatex-a koji koriste je 300mm Do sada su uradili cca 42100 m2 i imaju jos 12mm na prvom kamenu druge linije Treba im i (silikonsko) ulje za podmazivanje',
+        },
+      ],
       comp2: [
         {
           IdKupca: 1,
@@ -22335,8 +24469,145 @@ export default {
           IDVrsteF: 10,
         },
       ],
-      comp: [],
+      rad: 	[
+		{
+			"idRadnika":1,
+			"Ime":"Nemanja",
+			"Prezime":"Ranđić",
+			"JMBG":"1201978710076",
+			"Ulica":"Borivoja Stevanovica 37",
+			"Grad":1,
+			"tel":2447610,
+			"tel2":0,
+			"mob":641180544,
+			"mob2":0,
+			"rMesto":4,
+			"email":"",
+			"brLK":""
+		},
+		{
+			"idRadnika":2,
+			"Ime":"Radovan",
+			"Prezime":"Ranđić",
+			"JMBG":"1602947710153",
+			"Ulica":"Misarska 5",
+			"Grad":1,
+			"tel":3906344,
+			"tel2":null,
+			"mob":641384608,
+			"mob2":63212069,
+			"rMesto":3,
+			"email":"",
+			"brLK":"007088920"
+		},
+		{
+			"idRadnika":3,
+			"Ime":"Zorica",
+			"Prezime":"Novicic",
+			"JMBG":"",
+			"Ulica":"",
+			"Grad":null,
+			"tel":null,
+			"tel2":null,
+			"mob":null,
+			"mob2":null,
+			"rMesto":4,
+			"email":"",
+			"brLK":""
+		},
+		{
+			"idRadnika":4,
+			"Ime":"Zorica",
+			"Prezime":"Novicic",
+			"JMBG":"",
+			"Ulica":"",
+			"Grad":1,
+			"tel":null,
+			"tel2":null,
+			"mob":null,
+			"mob2":null,
+			"rMesto":4,
+			"email":"",
+			"brLK":""
+		},
+		{
+			"idRadnika":5,
+			"Ime":"Predrag",
+			"Prezime":"Radusin",
+			"JMBG":"0602977660009",
+			"Ulica":"",
+			"Grad":null,
+			"tel":null,
+			"tel2":null,
+			"mob":null,
+			"mob2":null,
+			"rMesto":1,
+			"email":"radusinpetar@gmail.com",
+			"brLK":"003246620"
+		},
+		{
+			"idRadnika":6,
+			"Ime":"Zoran",
+			"Prezime":"Radakovic",
+			"JMBG":"",
+			"Ulica":"",
+			"Grad":null,
+			"tel":null,
+			"tel2":null,
+			"mob":null,
+			"mob2":null,
+			"rMesto":2,
+			"email":"",
+			"brLK":"006710815"
+		},
+		{
+			"idRadnika":7,
+			"Ime":"Marina",
+			"Prezime":"Slavkovic",
+			"JMBG":"",
+			"Ulica":"",
+			"Grad":null,
+			"tel":null,
+			"tel2":null,
+			"mob":null,
+			"mob2":null,
+			"rMesto":4,
+			"email":"",
+			"brLK":"004233603"
+		},
+		{
+			"idRadnika":8,
+			"Ime":"Jelena",
+			"Prezime":"Pavićević",
+			"JMBG":"1501976715066",
+			"Ulica":"",
+			"Grad":null,
+			"tel":null,
+			"tel2":null,
+			"mob":null,
+			"mob2":null,
+			"rMesto":4,
+			"email":"",
+			"brLK":"003113937"
+		},
+		{
+			"idRadnika":9,
+			"Ime":"Stojanka",
+			"Prezime":"Petrović",
+			"JMBG":"0304980185868",
+			"Ulica":"",
+			"Grad":null,
+			"tel":null,
+			"tel2":null,
+			"mob":null,
+			"mob2":null,
+			"rMesto":2,
+			"email":"",
+			"brLK":"005590477"
+		}
+	    ],
       zu: [],
+      meet: [],
       last: null,
       first: null,
       count: 0,
@@ -22346,83 +24617,27 @@ export default {
       pageNr: 1,
     }
   },
-  computed: {
-    comps() {
-      return this.comp.length
-    },
-  },
   methods: {
-    vali() {
-      //const validation = this.comp.every(item =>  item.Zemlja === '' );
-
-      this.zu = this.comp.map((c) => {
-        const contacts = [
-          { name: c.Direktor, phone: c.TelD, mob: c.MobD, email: c.EmailD },
-          { name: c.Kontakt1, phone: c.TelK1, email: c.Email1 },
-          { name: c.Kontakt2, phone: c.TelK2, email: c.Email2 },
-        ]
-        return {
-          id: c.IdKupca,
-          name: c.NazivF,
-          address: c.Adresa1,
-          cityId: c.PTT,
-          phone: c.Tel1,
-          phone2: c.Tel2,
-          phone3: c.Tel3,
-          fax1: c.Fax1,
-          fax2: c.Fax2,
-          email: c.Email,
-          site: c.WebSite,
-          pib: c.PIB,
-          matBr: c.MatBr,
-          sifDel: c.SifDel,
-          delatnost: c.delatnost,
-          ziro1: c.Ziro1,
-          ziro2: c.Ziro2,
-          ostalo: c.ostalo,
-          isCustomer: c.DaLiKupac,
-          isSupplier: c.DaLiDobavljac,
-          typeId: c.IDVrsteF,
-          contacts,
-        }
-      })
-
-      console.log(this.zu)
-      //console.log(zu)
-    },
-    async writeToFirestore(user) {
-      const messageRef = this.$fire.firestore.collection('companies')
-      console.log(messageRef)
-      try {
-        await messageRef.doc(user.id.toString()).set({
-          ...user,
-        })
-      } catch (e) {
-        alert(e)
-        return
-      }
-      //alert('Success.')
-    },
     async readFromFirestore(nav = null) {
       let messageRef = null
       if (nav) {
         nav === 'n'
           ? (messageRef = await this.$fire.firestore
-              .collection('companies')
-              .orderBy('name')
+              .collection('meetings')
+              .orderBy('date', "desc")
               .startAfter(this.last)
               .limit(this.perPage)
               .get())
           : (messageRef = await this.$fire.firestore
-              .collection('companies')
-              .orderBy('name')
+              .collection('meetings')
+              .orderBy('date', "desc")
               .endBefore(this.first)
               .limitToLast(this.perPage)
               .get())
       } else {
         messageRef = await this.$fire.firestore
-          .collection('companies')
-          .orderBy('name')
+          .collection('meetings')
+          .orderBy('date', "desc")
           .limit(this.perPage)
           .get()
       }
@@ -22435,17 +24650,10 @@ export default {
           const bio = doc.data()
           return { ...bio }
         })
-        this.comp = messageDoc
+        this.meet = messageDoc
       } catch (e) {
         alert(e)
         return
-      }
-    },
-    sube() {
-      this.readFromFirestore()
-      //this.vali()
-      for (let i = 0; i < 30; i++) {
-        //this.writeToFirestore(this.zu[i])
       }
     },
     nextRec() {
@@ -22466,13 +24674,50 @@ export default {
 
     async setNav() {
       await this.$fire.firestore
-        .collection('companies')
+        .collection('meetings')
         .get()
         .then((querySnapshot) => {
           this.count = querySnapshot.size
           console.log(querySnapshot.size)
         })
       this.pages = Math.floor(this.count / this.perPage)
+    },
+    vali(){
+      //const validation = this.comp.every(item =>  item.Zemlja === '' );
+      
+      this.zu = this.meetings.map(c => {
+        const contacts = this.meetingsDet.filter(m => m.idFirmePut === c.idFirmePut).map(p => {
+          return {id: p.idFirmePutDet, title: p.Naslov, description: p.Opis, user: {id: 1, name: 'Nemanja Ranđić'}}
+        })
+        const fi = this.comp2.find(f => f.IdKupca === c.idKupca)
+        const company = {companyId: c.idKupca, title: fi.NazivF}
+        const ra = this.rad.find(f => f.idRadnika === c.idRadnika)
+        const user = {userId: c.idRadnika, name: ra.Ime + ' ' + ra.Prezime}
+
+        return {id: c.idFirmePut, companyId: c.idKupca, company: company, user: user, 
+                date: c.DatumP, title: c.Naslov, description: c.Opis, contacts }
+      })
+
+      console.log(this.zu)
+    },
+    async writeToFirestore(user) {
+      const messageRef = this.$fire.firestore.collection('meetings')
+      console.log(messageRef)
+      try {
+        await messageRef.doc(user.id.toString()).set({
+          ...user,
+        })
+      } catch (e) {
+        alert(e)
+        return
+      }
+      //alert('Success.')
+    },
+    sube() {
+      this.vali()
+      for (let i = 0; i < 97; i++) {
+        //this.writeToFirestore(this.zu[i])
+      }
     },
   },
   mounted() {
@@ -22487,7 +24732,7 @@ export default {
     background-color: var(--blue-dark) !important;
     color: whitesmoke !important;
   }
-.companies {
+.meetings {
   display: grid;
   padding: 1em;
 
@@ -22538,6 +24783,7 @@ export default {
     li {
       display: grid;
       grid-template-columns: auto 1fr 1fr;
+      gap: .5em;
       padding: .5em;
       border-bottom: 1px solid #c4d0fa;
       transition: all .4s ease;
@@ -22559,12 +24805,36 @@ export default {
         }
       }
 
-      h5{
+      a {
         grid-column: 2/4;
+        text-align: left;
+        color: var(--blue-dark);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .4s ease;
+      }
+      a:hover {
+        color: #6e8dfc;
       }
 
-      p {
-        text-align: center;
+      .companies__item-desc {
+        grid-column: 2/4;
+        text-align: left;
+      }
+
+      .companies__item-company {
+        font-weight: 600;
+        text-align: left;
+        background-color: #8da5fc;
+        border-radius: .2em;
+        justify-self: start;
+        padding: .5em;
+      }
+      .companies__item-user {
+        display: flex;
+        gap: .5em;
+        justify-self: end;
+        align-self: center;
       }
     }
 
@@ -22668,3 +24938,4 @@ export default {
   }
 }
 </style>
+

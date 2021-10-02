@@ -1,8 +1,8 @@
 <template>
-  <div class="">
+  <section class="">
     <h1>{{ $nuxt.$fire.auth.currentUser.email }}</h1>
     <button @click="signout"><div>signout</div></button>
-  </div>
+  </section>
 </template>
 
 <script>

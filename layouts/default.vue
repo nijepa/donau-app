@@ -29,7 +29,7 @@ export default {
   //font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  //text-align: center;
   color: #2c3e50;
   /* background-image: radial-gradient(
     circle,
@@ -261,6 +261,9 @@ h2:after {
 
 section {
   margin-top: 5em;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cont {
@@ -276,7 +279,7 @@ h1 {
   cursor: pointer;
   width: 230px;
 }
-svg {
+.svg__logo {
   width: 240px;
   height: 240px;
 }
@@ -320,6 +323,7 @@ label {
   margin: 20px 0 0 0;
   position: relative;
   display: inline-block;
+  justify-self: start;
 }
 
 label > span {
@@ -328,6 +332,8 @@ label > span {
   position: absolute;
   left: 0;
   top: 0;
+  font: inherit;
+  font-size: .8em;
   letter-spacing: 1px;
   transition: 0.2s;
   transition-timing-function: ease;
@@ -343,7 +349,8 @@ input {
   border: 2px solid transparent;
   border-bottom: 2px solid var(--blue-dark);
   border-radius: 0.2em;
-  font-size: 1.2em;
+  font: inherit;
+  font-size: .8em;
   font-weight: 600;
   transition: all 0.4s ease-in-out;
   //border: 2px solid transparent;
@@ -354,7 +361,7 @@ input:hover {
 input:focus {
   background: var(--blue-lighter);
   border: 2px solid var(--blue-dark) !important;
-  box-shadow: 0 0 3px 2px var(--blue-dark) inset;
+  box-shadow: 0 0 1px 1px var(--blue-dark) inset;
   outline: none;
   //box-shadow: 0 0 0px 1000px #000 inset;
   //background-color: var(--blue-lighter) !important;

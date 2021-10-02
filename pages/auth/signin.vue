@@ -6,7 +6,7 @@
     >
       DONAU
     </h1>
-    <svg
+    <svg class="svg__logo"
       width="60mm"
       height="60mm"
       viewBox="0 0 6000 6000"

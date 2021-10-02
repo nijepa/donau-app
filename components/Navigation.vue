@@ -15,7 +15,7 @@
         <nuxt-link to="/meetings">Sastanci</nuxt-link>
       </li>
     </ul>
-    <a href="#">{{ $nuxt.$fire.auth.currentUser.email }}</a>
+    <!-- <a href="#">{{ $nuxt.$fire.auth.currentUser.email || '' }}</a> -->
   </nav>
 </template>
 
@@ -37,6 +37,7 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
+    background-color: whitesmoke;
 
     img {
       width: 40px;
@@ -56,6 +57,7 @@ export default {
     padding: .5em;
     border-radius: .2em;
     border: 2px solid transparent;
+    transition: all .4s ease;
   }
   a:hover {
     text-shadow: 2px 2px 3px rgb(54, 82, 238);

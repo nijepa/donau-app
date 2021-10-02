@@ -1,10 +1,38 @@
 <template>
   <section class="meetings">
-        <div class="companies__header">
-      <div><h3>606</h3><span> firmi</span></div>
-      <button @click="setPage(p)" :class="Number(p) === pageNr && 'btn__active'">
-        filter
-      </button>
+    <nuxt-link to="/meetings/meeting" class="btn__new">
+      Novi sastanak
+      <svg
+        width="24px"
+        height="24px"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill="whitesmoke"
+          d="M13 2c.55 0 1 .45 1 1v7h7c.55 0 1 .45 1 1v2c0 .55-.45 1-1 1h-7v7c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-7H3c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1h7V3c0-.55.45-1 1-1h2m0-2h-2C9.346 0 8 1.346 8 3v5H3c-1.654 0-3 1.346-3 3v2c0 1.654 1.346 3 3 3h5v5c0 1.654 1.346 3 3 3h2c1.654 0 3-1.346 3-3v-5h5c1.654 0 3-1.346 3-3v-2c0-1.654-1.346-3-3-3h-5V3c0-1.654-1.346-3-3-3z"
+        />
+      </svg>
+    </nuxt-link>
+    <div class="companies__header">
+      <div>
+        <h3>{{ count }}</h3>
+        <span> sastanaka</span>
+      </div>
+      <div class="">
+        <button
+          @click="setPage()"
+          :class="'btn__active'"
+        >
+          filter
+        </button>
+        <button
+          @click="setPage()"
+          :class="'btn__active'"
+        >
+          sort
+        </button>
+      </div>
     </div>
     <ul class="companies__list">
       <li v-for="item in meet" :key="item.id" class="companies__item">
@@ -12,12 +40,12 @@
           <h3>0</h3>
           <span>sastanaka</span>
         </div>
-        <a>{{ item.title }}</a>
+        <a @click="$router.push({to:'/meetings/meeting', params:{id:item.id}})">{{ item.title }}</a>
         <p class="companies__item-desc">{{ item.description }}</p>
         <p class="companies__item-company">{{ item.company.title }}</p>
         <div class="companies__item-user">
           <p>{{ item.user.name }}</p>
-          <p>{{ $dayjs(item.date.slice(0,10)).format('DD/MM/YYYY') }}</p>
+          <p>{{ $dayjs(item.date.slice(0, 10)).format('DD MMM YYYY') }}</p>
         </div>
       </li>
     </ul>
@@ -38,12 +66,15 @@
         </button>
         <ul class="page__btns">
           <li v-for="(p, i) in pages" :key="i">
-            <button @click="setPage(p)" :class="Number(p) === pageNr && 'btn__active'">
+            <button
+              @click="setPage(p)"
+              :class="Number(p) === pageNr && 'btn__active'"
+            >
               {{ p }}
             </button>
           </li>
         </ul>
-        <button @click="nextRec">
+        <button @click="nextRec" v-if="pageNr < pages">
           <svg
             width="24px"
             height="24px"
@@ -60,7 +91,12 @@
       </div>
       <ul class="page__per">
         <li v-for="(p, i) in perPageOptions" :key="i">
-          <button @click="setPerPage(p)" :class="perPage === Number(p) && 'btn__active'">{{ p }}</button>
+          <button
+            @click="setPerPage(p)"
+            :class="perPage === Number(p) && 'btn__active'"
+          >
+            {{ p }}
+          </button>
         </li>
       </ul>
     </div>
@@ -24469,143 +24505,143 @@ export default {
           IDVrsteF: 10,
         },
       ],
-      rad: 	[
-		{
-			"idRadnika":1,
-			"Ime":"Nemanja",
-			"Prezime":"Ranđić",
-			"JMBG":"1201978710076",
-			"Ulica":"Borivoja Stevanovica 37",
-			"Grad":1,
-			"tel":2447610,
-			"tel2":0,
-			"mob":641180544,
-			"mob2":0,
-			"rMesto":4,
-			"email":"",
-			"brLK":""
-		},
-		{
-			"idRadnika":2,
-			"Ime":"Radovan",
-			"Prezime":"Ranđić",
-			"JMBG":"1602947710153",
-			"Ulica":"Misarska 5",
-			"Grad":1,
-			"tel":3906344,
-			"tel2":null,
-			"mob":641384608,
-			"mob2":63212069,
-			"rMesto":3,
-			"email":"",
-			"brLK":"007088920"
-		},
-		{
-			"idRadnika":3,
-			"Ime":"Zorica",
-			"Prezime":"Novicic",
-			"JMBG":"",
-			"Ulica":"",
-			"Grad":null,
-			"tel":null,
-			"tel2":null,
-			"mob":null,
-			"mob2":null,
-			"rMesto":4,
-			"email":"",
-			"brLK":""
-		},
-		{
-			"idRadnika":4,
-			"Ime":"Zorica",
-			"Prezime":"Novicic",
-			"JMBG":"",
-			"Ulica":"",
-			"Grad":1,
-			"tel":null,
-			"tel2":null,
-			"mob":null,
-			"mob2":null,
-			"rMesto":4,
-			"email":"",
-			"brLK":""
-		},
-		{
-			"idRadnika":5,
-			"Ime":"Predrag",
-			"Prezime":"Radusin",
-			"JMBG":"0602977660009",
-			"Ulica":"",
-			"Grad":null,
-			"tel":null,
-			"tel2":null,
-			"mob":null,
-			"mob2":null,
-			"rMesto":1,
-			"email":"radusinpetar@gmail.com",
-			"brLK":"003246620"
-		},
-		{
-			"idRadnika":6,
-			"Ime":"Zoran",
-			"Prezime":"Radakovic",
-			"JMBG":"",
-			"Ulica":"",
-			"Grad":null,
-			"tel":null,
-			"tel2":null,
-			"mob":null,
-			"mob2":null,
-			"rMesto":2,
-			"email":"",
-			"brLK":"006710815"
-		},
-		{
-			"idRadnika":7,
-			"Ime":"Marina",
-			"Prezime":"Slavkovic",
-			"JMBG":"",
-			"Ulica":"",
-			"Grad":null,
-			"tel":null,
-			"tel2":null,
-			"mob":null,
-			"mob2":null,
-			"rMesto":4,
-			"email":"",
-			"brLK":"004233603"
-		},
-		{
-			"idRadnika":8,
-			"Ime":"Jelena",
-			"Prezime":"Pavićević",
-			"JMBG":"1501976715066",
-			"Ulica":"",
-			"Grad":null,
-			"tel":null,
-			"tel2":null,
-			"mob":null,
-			"mob2":null,
-			"rMesto":4,
-			"email":"",
-			"brLK":"003113937"
-		},
-		{
-			"idRadnika":9,
-			"Ime":"Stojanka",
-			"Prezime":"Petrović",
-			"JMBG":"0304980185868",
-			"Ulica":"",
-			"Grad":null,
-			"tel":null,
-			"tel2":null,
-			"mob":null,
-			"mob2":null,
-			"rMesto":2,
-			"email":"",
-			"brLK":"005590477"
-		}
-	    ],
+      rad: [
+        {
+          idRadnika: 1,
+          Ime: 'Nemanja',
+          Prezime: 'Ranđić',
+          JMBG: '1201978710076',
+          Ulica: 'Borivoja Stevanovica 37',
+          Grad: 1,
+          tel: 2447610,
+          tel2: 0,
+          mob: 641180544,
+          mob2: 0,
+          rMesto: 4,
+          email: '',
+          brLK: '',
+        },
+        {
+          idRadnika: 2,
+          Ime: 'Radovan',
+          Prezime: 'Ranđić',
+          JMBG: '1602947710153',
+          Ulica: 'Misarska 5',
+          Grad: 1,
+          tel: 3906344,
+          tel2: null,
+          mob: 641384608,
+          mob2: 63212069,
+          rMesto: 3,
+          email: '',
+          brLK: '007088920',
+        },
+        {
+          idRadnika: 3,
+          Ime: 'Zorica',
+          Prezime: 'Novicic',
+          JMBG: '',
+          Ulica: '',
+          Grad: null,
+          tel: null,
+          tel2: null,
+          mob: null,
+          mob2: null,
+          rMesto: 4,
+          email: '',
+          brLK: '',
+        },
+        {
+          idRadnika: 4,
+          Ime: 'Zorica',
+          Prezime: 'Novicic',
+          JMBG: '',
+          Ulica: '',
+          Grad: 1,
+          tel: null,
+          tel2: null,
+          mob: null,
+          mob2: null,
+          rMesto: 4,
+          email: '',
+          brLK: '',
+        },
+        {
+          idRadnika: 5,
+          Ime: 'Predrag',
+          Prezime: 'Radusin',
+          JMBG: '0602977660009',
+          Ulica: '',
+          Grad: null,
+          tel: null,
+          tel2: null,
+          mob: null,
+          mob2: null,
+          rMesto: 1,
+          email: 'radusinpetar@gmail.com',
+          brLK: '003246620',
+        },
+        {
+          idRadnika: 6,
+          Ime: 'Zoran',
+          Prezime: 'Radakovic',
+          JMBG: '',
+          Ulica: '',
+          Grad: null,
+          tel: null,
+          tel2: null,
+          mob: null,
+          mob2: null,
+          rMesto: 2,
+          email: '',
+          brLK: '006710815',
+        },
+        {
+          idRadnika: 7,
+          Ime: 'Marina',
+          Prezime: 'Slavkovic',
+          JMBG: '',
+          Ulica: '',
+          Grad: null,
+          tel: null,
+          tel2: null,
+          mob: null,
+          mob2: null,
+          rMesto: 4,
+          email: '',
+          brLK: '004233603',
+        },
+        {
+          idRadnika: 8,
+          Ime: 'Jelena',
+          Prezime: 'Pavićević',
+          JMBG: '1501976715066',
+          Ulica: '',
+          Grad: null,
+          tel: null,
+          tel2: null,
+          mob: null,
+          mob2: null,
+          rMesto: 4,
+          email: '',
+          brLK: '003113937',
+        },
+        {
+          idRadnika: 9,
+          Ime: 'Stojanka',
+          Prezime: 'Petrović',
+          JMBG: '0304980185868',
+          Ulica: '',
+          Grad: null,
+          tel: null,
+          tel2: null,
+          mob: null,
+          mob2: null,
+          rMesto: 2,
+          email: '',
+          brLK: '005590477',
+        },
+      ],
       zu: [],
       meet: [],
       last: null,
@@ -24624,20 +24660,20 @@ export default {
         nav === 'n'
           ? (messageRef = await this.$fire.firestore
               .collection('meetings')
-              .orderBy('date', "desc")
+              .orderBy('date', 'desc')
               .startAfter(this.last)
               .limit(this.perPage)
               .get())
           : (messageRef = await this.$fire.firestore
               .collection('meetings')
-              .orderBy('date', "desc")
+              .orderBy('date', 'desc')
               .endBefore(this.first)
               .limitToLast(this.perPage)
               .get())
       } else {
         messageRef = await this.$fire.firestore
           .collection('meetings')
-          .orderBy('date', "desc")
+          .orderBy('date', 'desc')
           .limit(this.perPage)
           .get()
       }
@@ -24667,10 +24703,9 @@ export default {
     setPerPage(nr) {
       this.perPage = nr
       this.readFromFirestore()
+      this.setNav()
     },
-    setPage(nr) {
-
-    },
+    setPage(nr) {},
 
     async setNav() {
       await this.$fire.firestore
@@ -24678,24 +24713,38 @@ export default {
         .get()
         .then((querySnapshot) => {
           this.count = querySnapshot.size
-          console.log(querySnapshot.size)
         })
       this.pages = Math.floor(this.count / this.perPage)
     },
-    vali(){
+    vali() {
       //const validation = this.comp.every(item =>  item.Zemlja === '' );
-      
-      this.zu = this.meetings.map(c => {
-        const contacts = this.meetingsDet.filter(m => m.idFirmePut === c.idFirmePut).map(p => {
-          return {id: p.idFirmePutDet, title: p.Naslov, description: p.Opis, user: {id: 1, name: 'Nemanja Ranđić'}}
-        })
-        const fi = this.comp2.find(f => f.IdKupca === c.idKupca)
-        const company = {companyId: c.idKupca, title: fi.NazivF}
-        const ra = this.rad.find(f => f.idRadnika === c.idRadnika)
-        const user = {userId: c.idRadnika, name: ra.Ime + ' ' + ra.Prezime}
 
-        return {id: c.idFirmePut, companyId: c.idKupca, company: company, user: user, 
-                date: c.DatumP, title: c.Naslov, description: c.Opis, contacts }
+      this.zu = this.meetings.map((c) => {
+        const contacts = this.meetingsDet
+          .filter((m) => m.idFirmePut === c.idFirmePut)
+          .map((p) => {
+            return {
+              id: p.idFirmePutDet,
+              title: p.Naslov,
+              description: p.Opis,
+              user: { id: 1, name: 'Nemanja Ranđić' },
+            }
+          })
+        const fi = this.comp2.find((f) => f.IdKupca === c.idKupca)
+        const company = { companyId: c.idKupca, title: fi.NazivF }
+        const ra = this.rad.find((f) => f.idRadnika === c.idRadnika)
+        const user = { userId: c.idRadnika, name: ra.Ime + ' ' + ra.Prezime }
+
+        return {
+          id: c.idFirmePut,
+          companyId: c.idKupca,
+          company: company,
+          user: user,
+          date: c.DatumP,
+          title: c.Naslov,
+          description: c.Opis,
+          contacts,
+        }
       })
 
       console.log(this.zu)
@@ -24729,9 +24778,27 @@ export default {
 
 <style lang="scss" scoped>
 .btn__active {
-    background-color: var(--blue-dark) !important;
-    color: whitesmoke !important;
-  }
+  background-color: var(--blue-dark) !important;
+  color: whitesmoke !important;
+}
+.btn__new {
+  border: 2px solid transparent;
+  background-color: var(--blue-dark);
+  color: whitesmoke;
+  font: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  justify-self: center;
+  padding: .5em 1em;
+  border-radius: .2em;
+  cursor: pointer;
+  transition: all .4s ease;
+}
+.btn__new:hover {
+  background-color: rgb(28, 28, 194);
+}
 .meetings {
   display: grid;
   padding: 1em;
@@ -24749,10 +24816,10 @@ export default {
     align-items: center;
     justify-content: space-between;
 
-    div{
+    div {
       display: flex;
       align-items: center;
-      column-gap: .5em;
+      column-gap: 0.5em;
       h3 {
         margin: 0;
       }
@@ -24779,29 +24846,30 @@ export default {
 
   .companies__list {
     padding: 0;
+    margin-top: .5em;
 
     li {
       display: grid;
       grid-template-columns: auto 1fr 1fr;
-      gap: .5em;
-      padding: .5em;
+      gap: 0.5em;
+      padding: 0.5em;
       border-bottom: 1px solid #c4d0fa;
-      transition: all .4s ease;
+      transition: all 0.4s ease;
 
       .companies__item-count {
         grid-row: 1/4;
         align-self: center;
-        
+
         //border: 1px solid var(--blue-dark);
-        border-radius: .2em;
-        padding: .2em .5em;
+        border-radius: 0.2em;
+        padding: 0.2em 0.5em;
         h3 {
           font-size: 1.2em;
-          color: var(--blue-dark);
+          color: #abadc4;
         }
         span {
-          font-size: .7em;
-          color: var(--blue-dark);
+          font-size: 0.7em;
+          color: #abadc4;
         }
       }
 
@@ -24811,7 +24879,7 @@ export default {
         color: var(--blue-dark);
         font-weight: 600;
         cursor: pointer;
-        transition: all .4s ease;
+        transition: all 0.4s ease;
       }
       a:hover {
         color: #6e8dfc;
@@ -24825,14 +24893,14 @@ export default {
       .companies__item-company {
         font-weight: 600;
         text-align: left;
-        background-color: #8da5fc;
-        border-radius: .2em;
+        background-color: #c4d0fa;
+        border-radius: 0.2em;
         justify-self: start;
-        padding: .5em;
+        padding: 0.5em;
       }
       .companies__item-user {
         display: flex;
-        gap: .5em;
+        gap: 0.5em;
         justify-self: end;
         align-self: center;
       }
@@ -24938,4 +25006,3 @@ export default {
   }
 }
 </style>
-

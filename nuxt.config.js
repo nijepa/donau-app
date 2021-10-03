@@ -25,13 +25,15 @@ export default {
     // for snow theme
     'quill/dist/quill.snow.css',
     // for bubble theme
-    'quill/dist/quill.bubble.css'
+    'quill/dist/quill.bubble.css',
+
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~plugins/nuxt-quill-plugin', ssr: false },
     { src: '~/plugins/vue-datepicker', ssr: false },
+    { src: '~plugins/persistedstate.js' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -55,6 +57,8 @@ export default {
     '@nuxtjs/dayjs',
 
     'nuxt-vue-select',
+
+    'nuxt-izitoast',
 
     [
       '@nuxtjs/firebase',

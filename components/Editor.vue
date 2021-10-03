@@ -42,6 +42,11 @@
         }
       }
     },
+    watch: {
+      desc() {
+        this.content = this.desc
+      }
+    },
     mounted() {
 
   

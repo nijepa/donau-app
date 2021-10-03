@@ -43,7 +43,7 @@
         >
         <v-select
           :options="companies"
-          label="name"
+          label="title"
           v-model="meeting.company"
           placeholder="Izaberi firmu"
           class="style-chooser"
@@ -80,7 +80,7 @@
             </svg>
             <div>Sačuvaj</div>
           </button>
-          <button @click="save">
+          <button @click="$router.push({name:'meetings'})">
             <svg
               width="24px"
               height="24px"
@@ -130,9 +130,10 @@ export default {
         date: new Date(),
         company: null,
         user: {
-          userId: $nuxt.$fire.auth.currentUser,
+          userId: $nuxt.$fire.auth.currentUser.toString(),
           name: $nuxt.$fire.auth.currentUser.email,
         },
+        contacts: []
       },
       companies: [],
     }
@@ -140,15 +141,28 @@ export default {
   methods: {
     changedDesc(desc) {
       this.meeting.description = desc
-    },
+    }, 
     async save() {
-      const messageRef = this.$fire.firestore.collection('meetings')
-      try {
-        await messageRef.doc().set(this.meeting)
-      } catch (e) {
-        alert(e)
-        return
+      if (this.$route.params.id) {
+        const id =this.$route.params.id
+        const messageRef = this.$fire.firestore.collection('meetings').doc(id.toString())
+        try {
+          await messageRef.update(this.meeting)
+        } catch (e) {
+          alert(e)
+          return
+        }
+      } else {
+        const messageRef = this.$fire.firestore.collection('meetings')
+        try {
+          await messageRef.doc().set(this.meeting)
+          this.$route.push({name:'meetings'})
+        } catch (e) {
+          alert(e)
+          return
+        }
       }
+      
       //alert('Success.')
     },
     async getCompanies() {
@@ -160,7 +174,7 @@ export default {
 
       try {
         this.companies = await messageRef.docs.map((doc) => {
-          return { name: doc.data().name, companyId: doc.data().id }
+          return { title: doc.data().name, companyId: doc.data().id }
         })
         //this.comp = messageDoc
       } catch (e) {
@@ -170,14 +184,18 @@ export default {
     },
     async getMeeting() {
       let docRef = null
+      const id =this.$route.params.id
+      console.log('eeee' + id)
       docRef = await this.$fire.firestore
         .collection('meetings')
-        .doc(this.id)
+        .doc(id)
 
       docRef.get().then((doc) => {
           if (doc.exists) {
-              console.log("Document data:", doc.data());
+              //console.log("Document data:", doc.data());
               this.meeting = doc.data()
+              this.meeting.id = doc.id
+              this.meeting.date = doc.data().date.toDate()
           } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");
@@ -189,7 +207,7 @@ export default {
   },
   mounted() {
     this.getCompanies()
-    if(this.id) this.getMeeting()
+    if(this.$route.params.id) this.getMeeting()
   },
 }
 </script>

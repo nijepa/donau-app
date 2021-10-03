@@ -37,15 +37,43 @@
     <ul class="companies__list">
       <li v-for="item in meet" :key="item.id" class="companies__item">
         <div class="companies__item-count">
-          <h3>0</h3>
-          <span>sastanaka</span>
+          <h3 :style="item.comments.length && 'color: var(--blue-dark);'">{{ item.comments.length }}</h3>
+          <span :style="item.comments.length && 'color: var(--blue-dark);'">kom.</span>
         </div>
-        <a @click="$router.push({to:'/meetings/meeting', params:{id:item.id}})">{{ item.title }}</a>
-        <p class="companies__item-desc">{{ item.description }}</p>
+        <svg @click="item.active = !item.active" width="20px" height="20px" :class="item.active || 'svg__active'" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 21c-.512 0-1.024-.195-1.414-.586l-6-6c-.78-.78-.78-2.047 0-2.828.78-.78 2.047-.78 2.828 0L8 16.172 20.586 3.586c.78-.78 2.047-.78 2.828 0 .78.78.78 2.047 0 2.828l-14 14c-.39.39-.902.586-1.414.586z" fill="#494c4e" fill-rule="evenodd"/>
+        </svg>
+        <a @click="$router.push({name:'meetings-meeting', params:{id:item._id}})">{{ item.title }}</a>
+        <div class="action__btns">
+          <svg @click="item.bookmarked = !item.bookmarked" width="20px" height="20px" :class="item.bookmarked && 'svg__active'" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#494c4e" d="M17-.01H7.01c-1.65 0-3 1.35-3 3L4 22c0 .74.41 1.42 1.06 1.76.29.16.62.24.94.24.39 0 .77-.11 1.11-.34L12 20.4l4.89 3.26c.34.23.72.34 1.11.34.32 0 .65-.08.94-.24.65-.34 1.06-1.02 1.06-1.76V2.99c0-1.65-1.35-3-3-3zM18 22s-5.45-3.63-5.46-3.63c-.16-.1-.34-.16-.54-.16-.19 0-.37.05-.52.15C11.47 18.36 6 22 6 22l.01-19.01c0-.54.46-1 1-1H17c.54 0 1 .46 1 1V22z"/>
+          </svg>
+          <svg @click="item.favorited = !item.favorited" width="20px" height="20px" :class="item.favorited && 'svg__active'" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#494c4e" d="M11.998 2l3.092 6.585L22 9.652l-5 5.114L18.184 22l-6.18-3.425-6.18 3.405L7 14.75 2 9.62l6.91-1.044L11.998 2m0-2c-.774 0-1.48.448-1.81 1.15L7.555 6.758 1.7 7.642c-.74.112-1.357.63-1.596 1.34-.24.712-.06 1.497.464 2.034l4.297 4.408L3.85 21.66c-.124.754.195 1.514.82 1.955.344.243.748.366 1.153.366.33 0 .664-.08.965-.247L12 20.86l5.215 2.89c.3.167.635.25.968.25.405 0 .808-.123 1.15-.365.628-.44.947-1.202.824-1.958l-1.02-6.237 4.293-4.39c.524-.537.704-1.32.467-2.032-.237-.71-.852-1.23-1.592-1.344l-5.857-.904-2.64-5.62C13.48.448 12.775 0 12 0z"/>
+          </svg>
+          <button
+            @click="setPage"
+          >
+            edit
+            <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#494c4e" d="M22.707 5.536l-4.243-4.243.707-.707c.782-.78 2.048-.78 2.83 0L23.413 2c.78.78.78 2.047 0 2.828l-.707.708zM17.38 5.208l1.412 1.412-4.586 4.586-2.53 2.53-5.756 5.756L4.852 20l-1.507.656L4 19.15l.51-1.068 5.755-5.756 2.53-2.53 4.585-4.588m0-2.828l-6 6-2.53 2.53-6 6-.67 1.41-2.15 4.94c-.04.12-.04.25 0 .37.04.07.1.13.16.18.05.06.11.12.18.16.06.02.12.03.19.03.06 0 .12-.01.18-.03l4.94-2.15 1.41-.67 6-6 2.53-2.53 6-6-4.24-4.24z"/>
+            </svg>
+          </button>
+          <button
+            @click="deleteMeeting(item.id)"
+          >
+            del
+          <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#494c4e" d="M20 2h-4v-.85C16 .52 15.48 0 14.85 0h-5.7C8.52 0 8 .52 8 1.15V2H4c-1.1 0-2 .9-2 2 0 .74.4 1.38 1 1.73v14.02C3 22.09 4.91 24 7.25 24h9.5c2.34 0 4.25-1.91 4.25-4.25V5.73c.6-.35 1-.99 1-1.73 0-1.1-.9-2-2-2zm-1 17.75c0 1.24-1.01 2.25-2.25 2.25h-9.5C6.01 22 5 20.99 5 19.75V6h14v13.75z"/>
+            <path fill="#494c4e" d="M8 20.022c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm8 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm-4 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1z"/>
+          </svg>
+          </button>
+        </div>
+        <p class="companies__item-desc" v-html="item.description"></p>
         <p class="companies__item-company">{{ item.company.title }}</p>
         <div class="companies__item-user">
           <p>{{ item.user.name }}</p>
-          <p>{{ $dayjs(item.date.slice(0, 10)).format('DD MMM YYYY') }}</p>
+          <p>{{ $dayjs(item.date.toDate()).format('DD MMM YYYY') }}</p>
         </div>
       </li>
     </ul>
@@ -104,7 +132,10 @@
 </template>
 
 <script>
+import actionsNotify from '~/mixins/actionsNotify';
+import getData from '~/firebase/firestoreRead'
 export default {
+  mixins: [actionsNotify],
   data() {
     return {
       meetings: [
@@ -24673,7 +24704,7 @@ export default {
       } else {
         messageRef = await this.$fire.firestore
           .collection('meetings')
-          .orderBy('date', 'desc')
+          .orderBy('title', 'desc')
           .limit(this.perPage)
           .get()
       }
@@ -24683,8 +24714,10 @@ export default {
           //nav !== 'p' ?
           this.last = messageRef.docs[messageRef.docs.length - 1] //:
           this.first = messageRef.docs[0]
+          const _id = doc.id
+          console.log(_id)
           const bio = doc.data()
-          return { ...bio }
+          return { _id, ...bio }
         })
         this.meet = messageDoc
       } catch (e) {
@@ -24714,13 +24747,13 @@ export default {
         .then((querySnapshot) => {
           this.count = querySnapshot.size
         })
-      this.pages = Math.floor(this.count / this.perPage)
+      this.pages = Math.ceil(this.count / this.perPage)
     },
     vali() {
       //const validation = this.comp.every(item =>  item.Zemlja === '' );
 
       this.zu = this.meetings.map((c) => {
-        const contacts = this.meetingsDet
+        const comments = this.meetingsDet
           .filter((m) => m.idFirmePut === c.idFirmePut)
           .map((p) => {
             return {
@@ -24737,13 +24770,16 @@ export default {
 
         return {
           id: c.idFirmePut,
-          companyId: c.idKupca,
           company: company,
+          active: false,
+          bookmarked: false,
+          favorited: false,
           user: user,
-          date: c.DatumP,
+          date: this.$fireModule.firestore.Timestamp.fromDate(new Date(c.DatumP.toString().slice(0, 10))),
           title: c.Naslov,
           description: c.Opis,
-          contacts,
+          created_at: this.$fireModule.firestore.FieldValue.serverTimestamp(),
+          comments,
         }
       })
 
@@ -24753,7 +24789,7 @@ export default {
       const messageRef = this.$fire.firestore.collection('meetings')
       console.log(messageRef)
       try {
-        await messageRef.doc(user.id.toString()).set({
+        await messageRef.doc().set({
           ...user,
         })
       } catch (e) {
@@ -24762,21 +24798,127 @@ export default {
       }
       //alert('Success.')
     },
+    async deleteMeeting(id) {
+      this.$notify.question({
+            timeout: 0,
+            close: false,
+            overlay: true,
+            toastOnce: true,
+            id: 'question',
+            zindex: 999,
+            position: 'center',
+            buttons: [
+              [
+                `<button><b>DA</b></button>`,
+                (instance, toast) => {
+                  instance.hide(
+                    {
+                      transitionOut: 'fadeOut',
+                      onClosing: async (instance, toast, closedBy) => {
+                        console.info('closedBy: ' + closedBy)
+                        await this.delEx(id)
+                      },
+                    },
+                    toast,
+                    true
+                  )
+                },
+              ],
+              [
+                '<button>NE</button>',
+                (instance, toast) => {
+                  instance.hide(
+                    {
+                      transitionOut: 'fadeOutUp',
+                      onClosed: function (instance, toast, closedBy) {
+                        console.info('closedBy: ' + closedBy)
+                      },
+                    },
+                    toast,
+                    false
+                  )
+                },
+              ],
+            ],
+            onClosing: function (instance, toast, closedBy) {
+              console.info('Closing | closedBy: ' + closedBy)
+            },
+            onClosed: function (instance, toast, closedBy) {
+              console.info('Closed | closedBy: ' + closedBy)
+            },
+      }
+      )
+      //this.delClient()
+/*       this.$notify.success(
+          'Uspješno sačuvano!',
+          'OK',
+          this.notificationSystem.options.success
+        ); */
+      /* if (this.getErrors.length) {
+        this.$notify.error(
+          'Greška! ' + this.getErrors,
+          'OK',
+          this.notificationSystem.options.error
+        );
+        this.clearErrors();
+      } else {
+        this.$notify.success(
+          'Uspješno sačuvano!',
+          'OK',
+          this.notificationSystem.options.success
+        );
+        this.$router.push('/clients');
+      } */
+      /* this.$notify.success({
+        title: 'Hooray',
+        message: 'I am using iziToast!'
+      }) */
+
+    },
+    async delEx(id) {
+      alert(id)
+      const messageRef = this.$fire.firestore.collection('meetings')
+        try {
+          await messageRef.doc(id).delete().then(() => {
+            this.$notify.success(
+              'Uspješno sačuvano!',
+              'OK',
+              this.notificationSystem.options.success);
+            }).catch((error) => {
+                console.error("Error removing document: ", error);
+            });
+        } catch (e) {
+          alert(e)
+          return
+        }
+/*       db.collection("cities").doc("DC").delete().then(() => {
+          console.log("Document successfully deleted!");
+      }).catch((error) => {
+          console.error("Error removing document: ", error);
+      }); */
+    },
     sube() {
       this.vali()
-      for (let i = 0; i < 97; i++) {
+      for (let i = 0; i < 10; i++) {
         //this.writeToFirestore(this.zu[i])
       }
     },
   },
-  mounted() {
-    this.readFromFirestore()
-    this.setNav()
+  async mounted() {
+    //this.sube()
+    //this.readFromFirestore()
+    this.meet = await getData.getFirestoreCol(this.$fire.firestore, 'meetings', 'title')
+    //this.setNav()
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.svg__active {
+  path {
+    fill: var(--blue-dark);
+  }
+}
 .btn__active {
   background-color: var(--blue-dark) !important;
   color: whitesmoke !important;
@@ -24857,8 +24999,9 @@ export default {
       transition: all 0.4s ease;
 
       .companies__item-count {
-        grid-row: 1/4;
+        grid-row: 1/3;
         align-self: center;
+        text-align: center;
 
         //border: 1px solid var(--blue-dark);
         border-radius: 0.2em;
@@ -24872,9 +25015,19 @@ export default {
           color: #abadc4;
         }
       }
-
+      svg {
+        grid-row: 3/4;
+        justify-self: center;
+        align-self: center;
+        cursor: pointer;
+      }
+      svg:hover {
+        path {
+          fill: var(--blue-dark);
+        }
+      }
       a {
-        grid-column: 2/4;
+        grid-column: 2/3;
         text-align: left;
         color: var(--blue-dark);
         font-weight: 600;
@@ -24883,6 +25036,24 @@ export default {
       }
       a:hover {
         color: #6e8dfc;
+      }
+
+      .action__btns {
+        justify-self: end;
+        
+        button {
+          border: none;
+          background-color: transparent;
+          color: whitesmoke ;
+          cursor: pointer;
+        }
+
+        button:hover {
+          //background-color: var(--blue-dark) ;
+          svg path {
+            fill: var(--blue-dark);
+          }
+        }
       }
 
       .companies__item-desc {

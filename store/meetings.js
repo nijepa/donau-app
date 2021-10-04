@@ -1,4 +1,5 @@
 //const URL = process.env.VUE_APP_BACKEND_URL;
+import getData from '~/firebase/firestoreRead'
 
 const state = {
   meeting: {},
@@ -7,7 +8,7 @@ const state = {
 
 /* -------------------------------------- GETTERS -------------------------------------- */
 const getters = {
-  getAllMeetings: (state) => state.meetings,
+  getMeetings: (state) => state.meetings,
   getMeeting: (state) => state.meeting,
 };
 
@@ -45,28 +46,10 @@ const mutations = {
 
 /* -------------------------------------- ACTIONS -------------------------------------- */
 const actions = {
-  async fetchMeetings({ commit }) {
+  async fetchMeetings({ commit }, opts) {
+    const response = await getData.getFirestoreCol(opts)
     //const response = await axios.get(URL + 'attendances');
-    let messageRef = null
-    messageRef = await this.$fire.firestore
-          .collection('meetings')
-          .orderBy('title', 'desc')
-          .limit(this.perPage)
-          .get()
-    try {
-      const messageDoc = await messageRef.docs.map((doc) => {
-        //nav !== 'p' ?
-        this.last = messageRef.docs[messageRef.docs.length - 1] //:
-        this.first = messageRef.docs[0]
-        const id = doc.id
-        const bio = doc.data()
-        return { id, ...bio }
-      })
-    } catch (e) {
-      alert(e)
-      return
-    }
-    commit('SET_MEETINGS', messageDoc);
+    commit('SET_MEETINGS', response);
   },
 
   async fetchhMeeting({ commit }, data) {

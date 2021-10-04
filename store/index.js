@@ -1,42 +1,15 @@
-const state = () => ({
-  user: null
-})
+import auth from './auth';
+import meetings from './meetings';
+import Vuex from 'vuex';
 
-const getters = {
-  getUser(state) {
-    return state.user
-  }
-}
-
-const mutations = {
-  SET_USER(state, user) {
-    state.user = user
-  }
-}
-
-const actions = {
-  async onAuthStateChangedAction(state, { authUser, claims }) {
-    if (!authUser) {
-      // claims = null
-      // Perform logout operations
-      state.commit('SET_USER', null)
-      this.$router.push({
-        path: 'auth/login'
-      })
-    } else {
-      const { uid, email} = authUser
-      state.commit('SET_USER', {
-        uid,
-        email
-      })
-      // Do something with the authUser and the claims object...
+const createStore = () => {
+  return new Vuex.Store({
+    //namespaced: true,
+    modules: {
+      auth,
+      meetings,
     }
-  }
-}
+  });
+};
 
-export default {
-  state,
-  getters, 
-  mutations, 
-  actions
-}
+export default createStore

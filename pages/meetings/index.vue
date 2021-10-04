@@ -20,53 +20,98 @@
         <span> sastanaka</span>
       </div>
       <div class="">
-        <button
-          @click="setPage()"
-          :class="'btn__active'"
-        >
-          filter
-        </button>
-        <button
-          @click="setPage()"
-          :class="'btn__active'"
-        >
-          sort
-        </button>
+        <button @click="setPage()" :class="'btn__active'">filter</button>
+        <button @click="setPage()" :class="'btn__active'">sort</button>
       </div>
     </div>
     <ul class="companies__list">
       <li v-for="item in meet" :key="item.id" class="companies__item">
         <div class="companies__item-count">
-          <h3 :style="item.comments.length && 'color: var(--blue-dark);'">{{ item.comments.length }}</h3>
-          <span :style="item.comments.length && 'color: var(--blue-dark);'">kom.</span>
-        </div>
-        <svg @click="item.active = !item.active" width="20px" height="20px" :class="item.active || 'svg__active'" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 21c-.512 0-1.024-.195-1.414-.586l-6-6c-.78-.78-.78-2.047 0-2.828.78-.78 2.047-.78 2.828 0L8 16.172 20.586 3.586c.78-.78 2.047-.78 2.828 0 .78.78.78 2.047 0 2.828l-14 14c-.39.39-.902.586-1.414.586z" fill="#494c4e" fill-rule="evenodd"/>
-        </svg>
-        <a @click="$router.push({name:'meetings-meeting', params:{id:item._id}})">{{ item.title }}</a>
-        <div class="action__btns">
-          <svg @click="item.bookmarked = !item.bookmarked" width="20px" height="20px" :class="item.bookmarked && 'svg__active'" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#494c4e" d="M17-.01H7.01c-1.65 0-3 1.35-3 3L4 22c0 .74.41 1.42 1.06 1.76.29.16.62.24.94.24.39 0 .77-.11 1.11-.34L12 20.4l4.89 3.26c.34.23.72.34 1.11.34.32 0 .65-.08.94-.24.65-.34 1.06-1.02 1.06-1.76V2.99c0-1.65-1.35-3-3-3zM18 22s-5.45-3.63-5.46-3.63c-.16-.1-.34-.16-.54-.16-.19 0-.37.05-.52.15C11.47 18.36 6 22 6 22l.01-19.01c0-.54.46-1 1-1H17c.54 0 1 .46 1 1V22z"/>
-          </svg>
-          <svg @click="item.favorited = !item.favorited" width="20px" height="20px" :class="item.favorited && 'svg__active'" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#494c4e" d="M11.998 2l3.092 6.585L22 9.652l-5 5.114L18.184 22l-6.18-3.425-6.18 3.405L7 14.75 2 9.62l6.91-1.044L11.998 2m0-2c-.774 0-1.48.448-1.81 1.15L7.555 6.758 1.7 7.642c-.74.112-1.357.63-1.596 1.34-.24.712-.06 1.497.464 2.034l4.297 4.408L3.85 21.66c-.124.754.195 1.514.82 1.955.344.243.748.366 1.153.366.33 0 .664-.08.965-.247L12 20.86l5.215 2.89c.3.167.635.25.968.25.405 0 .808-.123 1.15-.365.628-.44.947-1.202.824-1.958l-1.02-6.237 4.293-4.39c.524-.537.704-1.32.467-2.032-.237-.71-.852-1.23-1.592-1.344l-5.857-.904-2.64-5.62C13.48.448 12.775 0 12 0z"/>
-          </svg>
-          <button
-            @click="setPage"
+          <h3 :style="item.comments.length && 'color: var(--blue-dark);'">
+            {{ item.comments.length }}
+          </h3>
+          <span :style="item.comments.length && 'color: var(--blue-dark);'"
+            >kom.</span
           >
+        </div>
+        <svg
+          @click="item.active = !item.active"
+          width="20px"
+          height="20px"
+          :class="item.active || 'svg__active'"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 21c-.512 0-1.024-.195-1.414-.586l-6-6c-.78-.78-.78-2.047 0-2.828.78-.78 2.047-.78 2.828 0L8 16.172 20.586 3.586c.78-.78 2.047-.78 2.828 0 .78.78.78 2.047 0 2.828l-14 14c-.39.39-.902.586-1.414.586z"
+            fill="#494c4e"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <a
+          @click="
+            $router.push({ name: 'meetings-meeting', params: { id: item._id } })
+          "
+          >{{ item.title }}</a
+        >
+        <div class="action__btns">
+          <svg
+            @click="item.bookmarked = !item.bookmarked"
+            width="20px"
+            height="20px"
+            :class="item.bookmarked && 'svg__active'"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#494c4e"
+              d="M17-.01H7.01c-1.65 0-3 1.35-3 3L4 22c0 .74.41 1.42 1.06 1.76.29.16.62.24.94.24.39 0 .77-.11 1.11-.34L12 20.4l4.89 3.26c.34.23.72.34 1.11.34.32 0 .65-.08.94-.24.65-.34 1.06-1.02 1.06-1.76V2.99c0-1.65-1.35-3-3-3zM18 22s-5.45-3.63-5.46-3.63c-.16-.1-.34-.16-.54-.16-.19 0-.37.05-.52.15C11.47 18.36 6 22 6 22l.01-19.01c0-.54.46-1 1-1H17c.54 0 1 .46 1 1V22z"
+            />
+          </svg>
+          <svg
+            @click="item.favorited = !item.favorited"
+            width="20px"
+            height="20px"
+            :class="item.favorited && 'svg__active'"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#494c4e"
+              d="M11.998 2l3.092 6.585L22 9.652l-5 5.114L18.184 22l-6.18-3.425-6.18 3.405L7 14.75 2 9.62l6.91-1.044L11.998 2m0-2c-.774 0-1.48.448-1.81 1.15L7.555 6.758 1.7 7.642c-.74.112-1.357.63-1.596 1.34-.24.712-.06 1.497.464 2.034l4.297 4.408L3.85 21.66c-.124.754.195 1.514.82 1.955.344.243.748.366 1.153.366.33 0 .664-.08.965-.247L12 20.86l5.215 2.89c.3.167.635.25.968.25.405 0 .808-.123 1.15-.365.628-.44.947-1.202.824-1.958l-1.02-6.237 4.293-4.39c.524-.537.704-1.32.467-2.032-.237-.71-.852-1.23-1.592-1.344l-5.857-.904-2.64-5.62C13.48.448 12.775 0 12 0z"
+            />
+          </svg>
+          <button @click="setPage">
             edit
-            <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#494c4e" d="M22.707 5.536l-4.243-4.243.707-.707c.782-.78 2.048-.78 2.83 0L23.413 2c.78.78.78 2.047 0 2.828l-.707.708zM17.38 5.208l1.412 1.412-4.586 4.586-2.53 2.53-5.756 5.756L4.852 20l-1.507.656L4 19.15l.51-1.068 5.755-5.756 2.53-2.53 4.585-4.588m0-2.828l-6 6-2.53 2.53-6 6-.67 1.41-2.15 4.94c-.04.12-.04.25 0 .37.04.07.1.13.16.18.05.06.11.12.18.16.06.02.12.03.19.03.06 0 .12-.01.18-.03l4.94-2.15 1.41-.67 6-6 2.53-2.53 6-6-4.24-4.24z"/>
+            <svg
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="#494c4e"
+                d="M22.707 5.536l-4.243-4.243.707-.707c.782-.78 2.048-.78 2.83 0L23.413 2c.78.78.78 2.047 0 2.828l-.707.708zM17.38 5.208l1.412 1.412-4.586 4.586-2.53 2.53-5.756 5.756L4.852 20l-1.507.656L4 19.15l.51-1.068 5.755-5.756 2.53-2.53 4.585-4.588m0-2.828l-6 6-2.53 2.53-6 6-.67 1.41-2.15 4.94c-.04.12-.04.25 0 .37.04.07.1.13.16.18.05.06.11.12.18.16.06.02.12.03.19.03.06 0 .12-.01.18-.03l4.94-2.15 1.41-.67 6-6 2.53-2.53 6-6-4.24-4.24z"
+              />
             </svg>
           </button>
-          <button
-            @click="deleteMeeting(item.id)"
-          >
+          <button @click="deleteMeeting(item.id)">
             del
-          <svg width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#494c4e" d="M20 2h-4v-.85C16 .52 15.48 0 14.85 0h-5.7C8.52 0 8 .52 8 1.15V2H4c-1.1 0-2 .9-2 2 0 .74.4 1.38 1 1.73v14.02C3 22.09 4.91 24 7.25 24h9.5c2.34 0 4.25-1.91 4.25-4.25V5.73c.6-.35 1-.99 1-1.73 0-1.1-.9-2-2-2zm-1 17.75c0 1.24-1.01 2.25-2.25 2.25h-9.5C6.01 22 5 20.99 5 19.75V6h14v13.75z"/>
-            <path fill="#494c4e" d="M8 20.022c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm8 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm-4 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1z"/>
-          </svg>
+            <svg
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="#494c4e"
+                d="M20 2h-4v-.85C16 .52 15.48 0 14.85 0h-5.7C8.52 0 8 .52 8 1.15V2H4c-1.1 0-2 .9-2 2 0 .74.4 1.38 1 1.73v14.02C3 22.09 4.91 24 7.25 24h9.5c2.34 0 4.25-1.91 4.25-4.25V5.73c.6-.35 1-.99 1-1.73 0-1.1-.9-2-2-2zm-1 17.75c0 1.24-1.01 2.25-2.25 2.25h-9.5C6.01 22 5 20.99 5 19.75V6h14v13.75z"
+              />
+              <path
+                fill="#494c4e"
+                d="M8 20.022c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm8 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1zm-4 0c-.553 0-1-.447-1-1v-10c0-.553.447-1 1-1s1 .447 1 1v10c0 .553-.447 1-1 1z"
+              />
+            </svg>
           </button>
         </div>
         <p class="companies__item-desc" v-html="item.description"></p>
@@ -132,8 +177,10 @@
 </template>
 
 <script>
-import actionsNotify from '~/mixins/actionsNotify';
+import actionsNotify from '~/mixins/actionsNotify'
 import getData from '~/firebase/firestoreRead'
+import getCount from '~/firebase/firestoreDocCount'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   mixins: [actionsNotify],
   data() {
@@ -24678,13 +24725,17 @@ export default {
       last: null,
       first: null,
       count: 0,
-      perPage: 10,
+      perPage: 3,
       perPageOptions: [10, 20, 50],
       pages: 0,
       pageNr: 1,
     }
   },
+  computed: {
+    ...mapGetters(['getAllMeetings', 'getMeeting']),
+  },
   methods: {
+    ...mapActions(['fetchMeetings', 'fetcMeeting']),
     async readFromFirestore(nav = null) {
       let messageRef = null
       if (nav) {
@@ -24725,29 +24776,56 @@ export default {
         return
       }
     },
-    nextRec() {
-      this.readFromFirestore('n')
+    async nextRec() {
+      //this.readFromFirestore('n')
+      const opts = {
+        fire: this.$fire.firestore,
+        opt: { coll: 'meetings', field: 'title', limit: this.perPage },
+        nav: { type: 'next', first: this.first, last: this.last}
+      }
+      const uii = await getData.getFirestoreCol(opts)
+      this.meet = uii.data
       this.pageNr++
     },
-    prevRec() {
-      this.readFromFirestore('p')
+    async prevRec() {
+      //this.readFromFirestore('p')
+      const opts = {
+        fire: this.$fire.firestore,
+        opt: { coll: 'meetings', field: 'title', limit: this.perPage },
+        nav: { type: 'prev', first: this.first, last: this.last}
+      }
+      const uii = await getData.getFirestoreCol(opts)
+      this.meet = uii.data
       this.pageNr--
     },
     setPerPage(nr) {
       this.perPage = nr
-      this.readFromFirestore()
+      //this.readFromFirestore()
       this.setNav()
     },
-    setPage(nr) {},
+    async setPage(nr) {
+      const opts = {
+        fire: this.$fire.firestore,
+        opt: { coll: 'meetings', field: 'title', limit: this.perPage },
+        nav: { type: 'next', first: nr * this.perPage, last: this.last}
+      }
+      const uii = await getData.getFirestoreCol(opts)
+      this.meet = uii.data
+      this.pageNr = nr
+    },
 
     async setNav() {
-      await this.$fire.firestore
+/*       await this.$fire.firestore
         .collection('meetings')
         .get()
         .then((querySnapshot) => {
           this.count = querySnapshot.size
         })
-      this.pages = Math.ceil(this.count / this.perPage)
+      this.pages = Math.ceil(this.count / this.perPage) */
+      const opts = {fire: this.$fire.firestore, opt: { coll: 'meetings' }}
+      const count = await getCount.getDocCount(opts)
+      this.count = count
+      this.pages = Math.ceil(count / this.perPage)
     },
     vali() {
       //const validation = this.comp.every(item =>  item.Zemlja === '' );
@@ -24775,7 +24853,9 @@ export default {
           bookmarked: false,
           favorited: false,
           user: user,
-          date: this.$fireModule.firestore.Timestamp.fromDate(new Date(c.DatumP.toString().slice(0, 10))),
+          date: this.$fireModule.firestore.Timestamp.fromDate(
+            new Date(c.DatumP.toString().slice(0, 10))
+          ),
           title: c.Naslov,
           description: c.Opis,
           created_at: this.$fireModule.firestore.FieldValue.serverTimestamp(),
@@ -24800,56 +24880,55 @@ export default {
     },
     async deleteMeeting(id) {
       this.$notify.question({
-            timeout: 0,
-            close: false,
-            overlay: true,
-            toastOnce: true,
-            id: 'question',
-            zindex: 999,
-            position: 'center',
-            buttons: [
-              [
-                `<button><b>DA</b></button>`,
-                (instance, toast) => {
-                  instance.hide(
-                    {
-                      transitionOut: 'fadeOut',
-                      onClosing: async (instance, toast, closedBy) => {
-                        console.info('closedBy: ' + closedBy)
-                        await this.delEx(id)
-                      },
-                    },
-                    toast,
-                    true
-                  )
+        timeout: 0,
+        close: false,
+        overlay: true,
+        toastOnce: true,
+        id: 'question',
+        zindex: 999,
+        position: 'center',
+        buttons: [
+          [
+            `<button><b>DA</b></button>`,
+            (instance, toast) => {
+              instance.hide(
+                {
+                  transitionOut: 'fadeOut',
+                  onClosing: async (instance, toast, closedBy) => {
+                    console.info('closedBy: ' + closedBy)
+                    await this.delEx(id)
+                  },
                 },
-              ],
-              [
-                '<button>NE</button>',
-                (instance, toast) => {
-                  instance.hide(
-                    {
-                      transitionOut: 'fadeOutUp',
-                      onClosed: function (instance, toast, closedBy) {
-                        console.info('closedBy: ' + closedBy)
-                      },
-                    },
-                    toast,
-                    false
-                  )
+                toast,
+                true
+              )
+            },
+          ],
+          [
+            '<button>NE</button>',
+            (instance, toast) => {
+              instance.hide(
+                {
+                  transitionOut: 'fadeOutUp',
+                  onClosed: function (instance, toast, closedBy) {
+                    console.info('closedBy: ' + closedBy)
+                  },
                 },
-              ],
-            ],
-            onClosing: function (instance, toast, closedBy) {
-              console.info('Closing | closedBy: ' + closedBy)
+                toast,
+                false
+              )
             },
-            onClosed: function (instance, toast, closedBy) {
-              console.info('Closed | closedBy: ' + closedBy)
-            },
-      }
-      )
+          ],
+        ],
+        onClosing: function (instance, toast, closedBy) {
+          console.info('Closing | closedBy: ' + closedBy)
+        },
+        onClosed: function (instance, toast, closedBy) {
+          console.info('Closed | closedBy: ' + closedBy)
+        },
+      })
       //this.delClient()
-/*       this.$notify.success(
+      /*       this.$notify.success(
           'Uspješno sačuvano!',
           'OK',
           this.notificationSystem.options.success
@@ -24873,25 +24952,29 @@ export default {
         title: 'Hooray',
         message: 'I am using iziToast!'
       }) */
-
     },
     async delEx(id) {
       alert(id)
       const messageRef = this.$fire.firestore.collection('meetings')
-        try {
-          await messageRef.doc(id).delete().then(() => {
+      try {
+        await messageRef
+          .doc(id)
+          .delete()
+          .then(() => {
             this.$notify.success(
               'Uspješno sačuvano!',
               'OK',
-              this.notificationSystem.options.success);
-            }).catch((error) => {
-                console.error("Error removing document: ", error);
-            });
-        } catch (e) {
-          alert(e)
-          return
-        }
-/*       db.collection("cities").doc("DC").delete().then(() => {
+              this.notificationSystem.options.success
+            )
+          })
+          .catch((error) => {
+            console.error('Error removing document: ', error)
+          })
+      } catch (e) {
+        alert(e)
+        return
+      }
+      /*       db.collection("cities").doc("DC").delete().then(() => {
           console.log("Document successfully deleted!");
       }).catch((error) => {
           console.error("Error removing document: ", error);
@@ -24907,8 +24990,18 @@ export default {
   async mounted() {
     //this.sube()
     //this.readFromFirestore()
-    this.meet = await getData.getFirestoreCol(this.$fire.firestore, 'meetings', 'title')
-    //this.setNav()
+    const opts = {
+      fire: this.$fire.firestore,
+      opt: { coll: 'meetings', field: 'title', limit: this.perPage },
+      nav: { type: '', first: this.first, last: this.last}
+    }
+    const uii = await getData.getFirestoreCol(opts)
+    this.meet = uii.data
+    this.last = uii.last
+    this.first = uii.first
+    console.log('uuuu',uii.last)
+    //this.meet = await getData.getFirestoreCol(this.$fire.firestore, 'meetings', 'title', this.perPage)
+    this.setNav()
   },
 }
 </script>
@@ -24933,10 +25026,10 @@ export default {
   align-items: center;
   gap: 1em;
   justify-self: center;
-  padding: .5em 1em;
-  border-radius: .2em;
+  padding: 0.5em 1em;
+  border-radius: 0.2em;
   cursor: pointer;
-  transition: all .4s ease;
+  transition: all 0.4s ease;
 }
 .btn__new:hover {
   background-color: rgb(28, 28, 194);
@@ -24988,7 +25081,7 @@ export default {
 
   .companies__list {
     padding: 0;
-    margin-top: .5em;
+    margin-top: 0.5em;
 
     li {
       display: grid;
@@ -25040,11 +25133,11 @@ export default {
 
       .action__btns {
         justify-self: end;
-        
+
         button {
           border: none;
           background-color: transparent;
-          color: whitesmoke ;
+          color: whitesmoke;
           cursor: pointer;
         }
 

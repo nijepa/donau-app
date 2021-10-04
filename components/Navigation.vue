@@ -15,7 +15,7 @@
         <nuxt-link to="/meetings">Sastanci</nuxt-link>
       </li>
     </ul>
-    <!-- <a href="#">{{ $nuxt.$fire.auth.currentUser.email || '' }}</a> -->
+    <a href="#">{{ $nuxt.$fire.auth.currentUser.email || '' }}</a>
   </nav>
 </template>
 

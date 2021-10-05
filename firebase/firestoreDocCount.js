@@ -8,6 +8,5 @@ export default {
         count = querySnapshot.size
       })
     return count
-    //this.pages = Math.ceil(this.count / this.perPage)
   },
 }

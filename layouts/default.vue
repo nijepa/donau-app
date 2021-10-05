@@ -300,6 +300,7 @@ h1 {
   display: grid;
   align-self: center;
   justify-self: center;
+  justify-items: center;
   padding: 2em;
   border: 1px solid var(--blue-dark);
   border-radius: 2em;

@@ -19,9 +19,105 @@
         <h3>{{ count }}</h3>
         <span> sastanaka</span>
       </div>
-      <div class="">
-        <button @click="setPage()" :class="'btn__active'">filter</button>
-        <button @click="setPage()" :class="'btn__active'">sort</button>
+      <div class="search">
+        <date-picker
+          placeholder="Izaberi datum"
+          format="dd MMM yyyy"
+          v-model="searchDateStart" />
+        <date-picker
+          placeholder="Izaberi datum"
+          format="dd MMM yyyy"
+          v-model="searchDateEnd" />
+      </div>
+      <div class="filter">
+        <div
+          class="sort__items"
+          @click="filterMeetings('active')"
+          :class="dataOptions.opt.filter === 'active' && 'sort__selected'"
+        >
+          <svg
+            width="20px"
+            height="20px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M8 21c-.512 0-1.024-.195-1.414-.586l-6-6c-.78-.78-.78-2.047 0-2.828.78-.78 2.047-.78 2.828 0L8 16.172 20.586 3.586c.78-.78 2.047-.78 2.828 0 .78.78.78 2.047 0 2.828l-14 14c-.39.39-.902.586-1.414.586z"
+              fill="#cad2d8"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </div>
+        <div
+          class="sort__items"
+          @click="filterMeetings('bookmarked')"
+          :class="dataOptions.opt.filter === 'bookmarked' && 'sort__selected'"
+        >
+          <svg
+            width="20px"
+            height="20px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#cad2d8"
+              d="M17 0H7.01a3.008 3.008 0 0 0-3 3L4 22a1.986 1.986 0 0 0 1.06 1.76 1.973 1.973 0 0 0 2.05-.1L12 20.4l4.89 3.26a1.973 1.973 0 0 0 2.05.1A1.986 1.986 0 0 0 20 22V3a3.008 3.008 0 0 0-3-3z"
+            />
+          </svg>
+        </div>
+        <div
+          class="sort__items"
+          @click="filterMeetings('favorited')"
+          :class="dataOptions.opt.filter === 'favorited' && 'sort__selected'"
+        >
+          <svg
+            width="20px"
+            height="20px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#cad2d8"
+              d="M12 0a2 2 0 0 0-1.81 1.15L7.556 6.758 1.7 7.642a2 2 0 0 0-1.13 3.374l4.3 4.408-1.02 6.235a2 2 0 0 0 2.94 2.073L12 20.86l5.216 2.89a2 2 0 0 0 2.942-2.073l-1.02-6.237 4.293-4.39a2 2 0 0 0-1.124-3.376l-5.857-.9-2.64-5.624A2 2 0 0 0 12 0z"
+            />
+          </svg>
+        </div>
+      </div>
+      <div class="sort">
+        <div class="">
+          <svg
+            :class="dataOptions.opt.direction == 'desc' && 'svg__active'"
+            width="20px"
+            height="20px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#cad2d8"
+              d="M22.987 10.25l-9 7.99c-.57.51-1.28.76-1.99.76s-1.42-.25-1.98-.74c0-.01-.01-.01-.01-.01l-.02-.02-8.98-7.98c-1.24-1.1-1.35-3.002-.25-4.242 1.1-1.24 3-1.35 4.23-.25l7.01 6.23 7.01-6.23c1.24-1.1 3.13-.99 4.24.25 1.1 1.24.98 3.13-.26 4.24z"
+            />
+          </svg>
+          <svg
+            :class="dataOptions.opt.direction == 'asc' && 'svg__active'"
+            width="20px"
+            height="20px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#cad2d8"
+              d="M22.987 13.75l-9-7.99c-.57-.51-1.28-.76-1.99-.76s-1.42.25-1.98.74c0 .01-.01.01-.01.01l-.02.02-8.98 7.98c-1.24 1.1-1.35 3.002-.25 4.242 1.1 1.24 3 1.35 4.23.25l7.01-6.23 7.01 6.23c1.24 1.1 3.13.99 4.24-.25 1.1-1.24.98-3.13-.26-4.24z"
+            />
+          </svg>
+        </div>
+        <div
+          class="sort__items"
+          v-for="item in sortFields"
+          :key="item.name"
+          :class="dataOptions.opt.field === item.field && 'sort__selected'"
+        >
+          <span @click="sortMeetings(item)">{{ item.name }}</span>
+        </div>
       </div>
     </div>
     <ul class="companies__list">
@@ -44,7 +140,7 @@
         >
           <path
             d="M8 21c-.512 0-1.024-.195-1.414-.586l-6-6c-.78-.78-.78-2.047 0-2.828.78-.78 2.047-.78 2.828 0L8 16.172 20.586 3.586c.78-.78 2.047-.78 2.828 0 .78.78.78 2.047 0 2.828l-14 14c-.39.39-.902.586-1.414.586z"
-            fill="#494c4e"
+            fill="#cad2d8"
             fill-rule="evenodd"
           />
         </svg>
@@ -64,7 +160,7 @@
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill="#494c4e"
+              fill="#cad2d8"
               d="M17-.01H7.01c-1.65 0-3 1.35-3 3L4 22c0 .74.41 1.42 1.06 1.76.29.16.62.24.94.24.39 0 .77-.11 1.11-.34L12 20.4l4.89 3.26c.34.23.72.34 1.11.34.32 0 .65-.08.94-.24.65-.34 1.06-1.02 1.06-1.76V2.99c0-1.65-1.35-3-3-3zM18 22s-5.45-3.63-5.46-3.63c-.16-.1-.34-.16-.54-.16-.19 0-.37.05-.52.15C11.47 18.36 6 22 6 22l.01-19.01c0-.54.46-1 1-1H17c.54 0 1 .46 1 1V22z"
             />
           </svg>
@@ -77,12 +173,11 @@
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill="#494c4e"
+              fill="#cad2d8"
               d="M11.998 2l3.092 6.585L22 9.652l-5 5.114L18.184 22l-6.18-3.425-6.18 3.405L7 14.75 2 9.62l6.91-1.044L11.998 2m0-2c-.774 0-1.48.448-1.81 1.15L7.555 6.758 1.7 7.642c-.74.112-1.357.63-1.596 1.34-.24.712-.06 1.497.464 2.034l4.297 4.408L3.85 21.66c-.124.754.195 1.514.82 1.955.344.243.748.366 1.153.366.33 0 .664-.08.965-.247L12 20.86l5.215 2.89c.3.167.635.25.968.25.405 0 .808-.123 1.15-.365.628-.44.947-1.202.824-1.958l-1.02-6.237 4.293-4.39c.524-.537.704-1.32.467-2.032-.237-.71-.852-1.23-1.592-1.344l-5.857-.904-2.64-5.62C13.48.448 12.775 0 12 0z"
             />
           </svg>
-          <button @click="setPage">
-            edit
+          <button @click="setPage" class="btn__edit">
             <svg
               width="20px"
               height="20px"
@@ -96,7 +191,6 @@
             </svg>
           </button>
           <button @click="deleteMeeting(item.id)">
-            del
             <svg
               width="20px"
               height="20px"
@@ -132,7 +226,7 @@
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fill="#494c4e"
+              fill="#cad2d8"
               d="M13.75 22.987l-7.99-9c-.51-.57-.76-1.28-.76-1.99s.25-1.42.74-1.98c.01 0 .01-.01.01-.01l.02-.02 7.98-8.98c1.1-1.24 3.002-1.35 4.242-.25 1.24 1.1 1.35 3 .25 4.23l-6.23 7.01 6.23 7.01c1.1 1.24.99 3.13-.25 4.24-1.24 1.1-3.13.98-4.24-.26z"
             />
           </svg>
@@ -156,7 +250,7 @@
             mirror-in-rtl="true"
           >
             <path
-              fill="#494c4e"
+              fill="#cad2d8"
               d="M10.25 22.987l7.99-9c.51-.57.76-1.28.76-1.99s-.25-1.42-.74-1.98c-.01 0-.01-.01-.01-.01l-.02-.02-7.98-8.98c-1.1-1.24-3.002-1.35-4.242-.25-1.24 1.1-1.35 3-.25 4.23l6.23 7.01-6.23 7.01c-1.1 1.24-.99 3.13.25 4.24 1.24 1.1 3.13.98 4.24-.26z"
             />
           </svg>
@@ -180,7 +274,6 @@
 import actionsNotify from '~/mixins/actionsNotify'
 import getData from '~/firebase/firestoreRead'
 import getCount from '~/firebase/firestoreDocCount'
-import { mapGetters, mapActions } from 'vuex'
 export default {
   mixins: [actionsNotify],
   data() {
@@ -24725,17 +24818,52 @@ export default {
       last: null,
       first: null,
       count: 0,
-      perPage: 3,
+      perPage: 20,
       perPageOptions: [10, 20, 50],
       pages: 0,
       pageNr: 1,
+      sortFields: [
+        { name: 'datum', field: 'date' },
+        { name: 'firma', field: 'company.title' },
+      ],
+      sortDirection: false,
+      filterField: '',
+      filtered: false,
+      searchDateStart: new Date(),
+      searchDateEnd: new Date(),
+      dataOptions: {
+        fire: this.$fire.firestore,
+        opt: {
+          coll: 'meetings',
+          field: 'date',
+          limit: this.perPage,
+          direction: 'desc',
+          filter: 'active',
+        },
+        nav: { type: '', first: this.first, last: this.last },
+      },
     }
   },
-  computed: {
-    ...mapGetters(['getAllMeetings', 'getMeeting']),
-  },
   methods: {
-    ...mapActions(['fetchMeetings', 'fetcMeeting']),
+    async filterMeetings(item) {
+      this.dataOptions.opt.filter === item
+        ? (this.dataOptions.opt.filter = '')
+        : (this.dataOptions.opt.filter = item)
+      const uii = await getData.getFirestoreCol(this.dataOptions)
+      this.meet = uii.data
+    },
+    async sortMeetings(item) {
+      this.dataOptions.opt.field === item.field
+        ? (this.sortDirection = !this.sortDirection)
+        : (this.sortDirection = true)
+      this.sortDirection
+        ? (this.dataOptions.opt.direction = 'asc')
+        : (this.dataOptions.opt.direction = 'desc')
+      this.dataOptions.opt.field = item.field
+
+      const uii = await getData.getFirestoreCol(this.dataOptions)
+      this.meet = uii.data
+    },
     async readFromFirestore(nav = null) {
       let messageRef = null
       if (nav) {
@@ -24781,7 +24909,7 @@ export default {
       const opts = {
         fire: this.$fire.firestore,
         opt: { coll: 'meetings', field: 'title', limit: this.perPage },
-        nav: { type: 'next', first: this.first, last: this.last}
+        nav: { type: 'next', first: this.first, last: this.last },
       }
       const uii = await getData.getFirestoreCol(opts)
       this.meet = uii.data
@@ -24792,7 +24920,7 @@ export default {
       const opts = {
         fire: this.$fire.firestore,
         opt: { coll: 'meetings', field: 'title', limit: this.perPage },
-        nav: { type: 'prev', first: this.first, last: this.last}
+        nav: { type: 'prev', first: this.first, last: this.last },
       }
       const uii = await getData.getFirestoreCol(opts)
       this.meet = uii.data
@@ -24807,7 +24935,7 @@ export default {
       const opts = {
         fire: this.$fire.firestore,
         opt: { coll: 'meetings', field: 'title', limit: this.perPage },
-        nav: { type: 'next', first: nr * this.perPage, last: this.last}
+        nav: { type: 'next', first: nr * this.perPage, last: this.last },
       }
       const uii = await getData.getFirestoreCol(opts)
       this.meet = uii.data
@@ -24815,14 +24943,14 @@ export default {
     },
 
     async setNav() {
-/*       await this.$fire.firestore
+      /*       await this.$fire.firestore
         .collection('meetings')
         .get()
         .then((querySnapshot) => {
           this.count = querySnapshot.size
         })
       this.pages = Math.ceil(this.count / this.perPage) */
-      const opts = {fire: this.$fire.firestore, opt: { coll: 'meetings' }}
+      const opts = { fire: this.$fire.firestore, opt: { coll: 'meetings' } }
       const count = await getCount.getDocCount(opts)
       this.count = count
       this.pages = Math.ceil(count / this.perPage)
@@ -24990,16 +25118,20 @@ export default {
   async mounted() {
     //this.sube()
     //this.readFromFirestore()
-    const opts = {
+    /*     const opts = {
       fire: this.$fire.firestore,
-      opt: { coll: 'meetings', field: 'title', limit: this.perPage },
-      nav: { type: '', first: this.first, last: this.last}
-    }
-    const uii = await getData.getFirestoreCol(opts)
+      opt: {
+        coll: 'meetings',
+        field: 'date',
+        limit: this.perPage,
+        direction: 'desc',
+      },
+      nav: { type: '', first: this.first, last: this.last },
+    } */
+    const uii = await getData.getFirestoreCol(this.dataOptions)
     this.meet = uii.data
     this.last = uii.last
     this.first = uii.first
-    console.log('uuuu',uii.last)
     //this.meet = await getData.getFirestoreCol(this.$fire.firestore, 'meetings', 'title', this.perPage)
     this.setNav()
   },
@@ -25007,9 +25139,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+/* svg {
+  stroke: #cad2d8;
+  //fill: #cad2d8;
+} */
+.vdp-datepicker * {
+  width: 100px;
+}
 .svg__active {
   path {
     fill: var(--blue-dark);
+  }
+}
+.sort__selected {
+  background-color: var(--blue-dark);
+  span {
+    color: whitesmoke;
+  }
+  svg path {
+    fill: whitesmoke;
   }
 }
 .btn__active {
@@ -25027,9 +25175,20 @@ export default {
   gap: 1em;
   justify-self: center;
   padding: 0.5em 1em;
+  margin-bottom: 0.5em;
   border-radius: 0.2em;
   cursor: pointer;
   transition: all 0.4s ease;
+  text-decoration: none;
+  position: relative;
+}
+.btn__new:after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  border-top: 1px solid whitesmoke;
+  z-index: 55;
+  width: 100%;
 }
 .btn__new:hover {
   background-color: rgb(28, 28, 194);
@@ -25047,7 +25206,8 @@ export default {
   }
 
   .companies__header {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto repeat(3, 1fr);
     align-items: center;
     justify-content: space-between;
 
@@ -25057,6 +25217,57 @@ export default {
       column-gap: 0.5em;
       h3 {
         margin: 0;
+      }
+    }
+    .search {
+      justify-self: end;
+
+      .vdp-datepicker {
+        width: 100px;
+        div {
+          input {
+            width: 100px !important;
+            padding: .5em;
+          }
+        }
+      }
+    }
+    .filter,
+    .sort {
+      justify-self: end;
+      border: 2px solid var(--blue-dark);
+      border-radius: 0.2em;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      text-align: center;
+      column-gap: 0;
+
+      div {
+        border-right: 2px solid var(--blue-dark);
+        padding: 0.2em 0.5em;
+        margin: 0;
+        font: inherit;
+        font-weight: 500;
+        height: 100%;
+        transition: all 0.4s ease;
+      }
+      .sort__items {
+        cursor: pointer;
+      }
+      .sort__items:hover {
+        background-color: var(--blue-dark);
+
+        path {
+          fill: whitesmoke;
+        }
+        span {
+          color: whitesmoke;
+        }
+      }
+      div:last-child {
+        border-right: 2px solid transparent;
       }
     }
 
@@ -25085,9 +25296,9 @@ export default {
 
     li {
       display: grid;
-      grid-template-columns: auto 1fr 1fr;
+      grid-template-columns: auto 1fr auto;
       gap: 0.5em;
-      padding: 0.5em;
+      padding: 0.2em;
       border-bottom: 1px solid #c4d0fa;
       transition: all 0.4s ease;
 
@@ -25098,7 +25309,7 @@ export default {
 
         //border: 1px solid var(--blue-dark);
         border-radius: 0.2em;
-        padding: 0.2em 0.5em;
+        padding: 0.2em 0.2em;
         h3 {
           font-size: 1.2em;
           color: #abadc4;
@@ -25139,6 +25350,9 @@ export default {
           background-color: transparent;
           color: whitesmoke;
           cursor: pointer;
+        }
+        .btn__edit {
+          margin-left: 1em;
         }
 
         button:hover {

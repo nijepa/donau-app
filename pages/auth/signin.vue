@@ -203,6 +203,7 @@
 
 export default {
   name: "Login",
+  layout: 'start',
   data() {
     return {
       isLoaded: false,

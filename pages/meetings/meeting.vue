@@ -2,6 +2,7 @@
   <section>
     <form action="">
       <div class="inputs" key="1">
+        <h3 class="action__title">{{actionTitle}}</h3>
         <label>
           <input
             type="text"
@@ -80,7 +81,7 @@
             </svg>
             <div>Sačuvaj</div>
           </button>
-          <button @click="$router.push({name:'meetings'})">
+          <nuxt-link tag="button" to="/meetings">
             <svg
               width="24px"
               height="24px"
@@ -97,7 +98,7 @@
               </g>
             </svg>
             <div>Odustani</div>
-          </button>
+          </nuxt-link>
         </div>
 
         <!--         <transition name="bounce">
@@ -133,9 +134,18 @@ export default {
           userId: $nuxt.$fire.auth.currentUser.toString(),
           name: $nuxt.$fire.auth.currentUser.email,
         },
-        contacts: []
+        comments: [],
+        active: true,
+        bookmarked: false,
+        favorited: false
       },
       companies: [],
+      newMeeting: true
+    }
+  },
+  computed: {
+    actionTitle() {
+      return this.newMeeting ? 'novi sastanak' : 'izmeni sastanak'
     }
   },
   methods: {
@@ -196,6 +206,7 @@ export default {
               this.meeting = doc.data()
               this.meeting.id = doc.id
               this.meeting.date = doc.data().date.toDate()
+              this.newMeeting = false
           } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");
@@ -240,6 +251,7 @@ export default {
 }
 .desc__norm {
   margin-left: 1em;
+  margin-bottom: -1em;
   font-size: 0.8em;
   color: var(--blue-dark);
   transform: translateY(0px);
@@ -250,6 +262,16 @@ export default {
   transform: translateY(50px);
   transition: all 0.4s ease;
 }
+.action__title {
+  text-transform: uppercase;
+  justify-self: center;
+  padding: .5em 1em;
+  color: var(--blue-dark);
+  font-weight: 800;
+  //border: 2px solid var(--blue-dark);
+  //border-radius: .2em;
+  //box-shadow: 0px 0px 2px 2px var(--blue-dark) inset;
+}
 form {
   display: grid;
   align-self: center;
@@ -257,6 +279,7 @@ form {
   padding: 3em 1em 1em 1em;
   border: 1px solid var(--blue-dark);
   border-radius: 0.2em;
+  margin: .2em;
   //width: 300px;
   //height: 500px;
   box-shadow: 0 0 1px 1px var(--blue-dark);

@@ -1,34 +1,37 @@
 <template>
   <section class="meetings">
-    <nuxt-link to="/meetings/meeting" class="btn__new">
-      Novi sastanak
-      <svg
-        width="24px"
-        height="24px"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fill="whitesmoke"
-          d="M13 2c.55 0 1 .45 1 1v7h7c.55 0 1 .45 1 1v2c0 .55-.45 1-1 1h-7v7c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-7H3c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1h7V3c0-.55.45-1 1-1h2m0-2h-2C9.346 0 8 1.346 8 3v5H3c-1.654 0-3 1.346-3 3v2c0 1.654 1.346 3 3 3h5v5c0 1.654 1.346 3 3 3h2c1.654 0 3-1.346 3-3v-5h5c1.654 0 3-1.346 3-3v-2c0-1.654-1.346-3-3-3h-5V3c0-1.654-1.346-3-3-3z"
-        />
-      </svg>
-    </nuxt-link>
+
+    <div class="meetings__title">
+      <SearchPeriod @periodSeted="filterByPeriod" />
+      <nuxt-link to="/meetings/meeting" class="btn__new">
+        Novi sastanak
+        <svg
+          width="24px"
+          height="24px"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill="whitesmoke"
+            d="M13 2c.55 0 1 .45 1 1v7h7c.55 0 1 .45 1 1v2c0 .55-.45 1-1 1h-7v7c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-7H3c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1h7V3c0-.55.45-1 1-1h2m0-2h-2C9.346 0 8 1.346 8 3v5H3c-1.654 0-3 1.346-3 3v2c0 1.654 1.346 3 3 3h5v5c0 1.654 1.346 3 3 3h2c1.654 0 3-1.346 3-3v-5h5c1.654 0 3-1.346 3-3v-2c0-1.654-1.346-3-3-3h-5V3c0-1.654-1.346-3-3-3z"
+          />
+        </svg>
+      </nuxt-link>
+    </div>
+    
     <div class="companies__header">
       <div>
         <h3>{{ count }}</h3>
         <span> sastanaka</span>
       </div>
-      <div class="search">
-        <date-picker
-          placeholder="Izaberi datum"
-          format="dd MMM yyyy"
-          v-model="searchDateStart" />
-        <date-picker
-          placeholder="Izaberi datum"
-          format="dd MMM yyyy"
-          v-model="searchDateEnd" />
-      </div>
+      
+      <v-select
+          :options="companies"
+          label="title"
+          v-model="filteredCompany"
+          placeholder="Izaberi firmu"
+          class="style-chooser"
+        ></v-select>
       <div class="filter">
         <div
           class="sort__items"
@@ -177,7 +180,7 @@
               d="M11.998 2l3.092 6.585L22 9.652l-5 5.114L18.184 22l-6.18-3.425-6.18 3.405L7 14.75 2 9.62l6.91-1.044L11.998 2m0-2c-.774 0-1.48.448-1.81 1.15L7.555 6.758 1.7 7.642c-.74.112-1.357.63-1.596 1.34-.24.712-.06 1.497.464 2.034l4.297 4.408L3.85 21.66c-.124.754.195 1.514.82 1.955.344.243.748.366 1.153.366.33 0 .664-.08.965-.247L12 20.86l5.215 2.89c.3.167.635.25.968.25.405 0 .808-.123 1.15-.365.628-.44.947-1.202.824-1.958l-1.02-6.237 4.293-4.39c.524-.537.704-1.32.467-2.032-.237-.71-.852-1.23-1.592-1.344l-5.857-.904-2.64-5.62C13.48.448 12.775 0 12 0z"
             />
           </svg>
-          <button @click="setPage" class="btn__edit">
+          <button @click="$router.push({ name: 'meetings-meeting', params: { id: item._id } })" class="btn__edit">
             <svg
               width="20px"
               height="20px"
@@ -190,7 +193,7 @@
               />
             </svg>
           </button>
-          <button @click="deleteMeeting(item.id)">
+          <button @click="deleteMeeting(item._id)">
             <svg
               width="20px"
               height="20px"
@@ -216,7 +219,7 @@
         </div>
       </li>
     </ul>
-    <div class="navigation">
+<!--     <div class="navigation">
       <div class="page__nav">
         <button @click="prevRec" v-if="pageNr > 1">
           <svg
@@ -266,7 +269,7 @@
           </button>
         </li>
       </ul>
-    </div>
+    </div> -->
   </section>
 </template>
 
@@ -24829,8 +24832,10 @@ export default {
       sortDirection: false,
       filterField: '',
       filtered: false,
-      searchDateStart: new Date(),
-      searchDateEnd: new Date(),
+      filterDateStart: new Date(),
+      filterDateEnd: new Date(),
+      filteredCompany: '',
+      companies: [],
       dataOptions: {
         fire: this.$fire.firestore,
         opt: {
@@ -24839,12 +24844,18 @@ export default {
           limit: this.perPage,
           direction: 'desc',
           filter: 'active',
+          dateStart: new Date(new Date().getFullYear(), 0, 1),
+          dateEnd: new Date(),
         },
         nav: { type: '', first: this.first, last: this.last },
       },
     }
   },
   methods: {
+    filterByPeriod(period) {
+      this.dataOptions.opt.dateStart = period.searchDateStart
+      this.dataOptions.opt.dateEnd = period.searchDateEnd
+    },
     async filterMeetings(item) {
       this.dataOptions.opt.filter === item
         ? (this.dataOptions.opt.filter = '')
@@ -25081,19 +25092,35 @@ export default {
         message: 'I am using iziToast!'
       }) */
     },
+    async getCompanies() {
+      let messageRef = null
+      messageRef = await this.$fire.firestore
+        .collection('companies')
+        .orderBy('name')
+        .get()
+
+      try {
+        this.companies = await messageRef.docs.map((doc) => {
+          return { title: doc.data().name, companyId: doc.data().id }
+        })
+        //this.comp = messageDoc
+      } catch (e) {
+        alert(e)
+        return
+      }
+    },
     async delEx(id) {
-      alert(id)
       const messageRef = this.$fire.firestore.collection('meetings')
       try {
         await messageRef
           .doc(id)
           .delete()
           .then(() => {
-            this.$notify.success(
-              'Uspješno sačuvano!',
-              'OK',
-              this.notificationSystem.options.success
-            )
+            this.$notify.success({
+              title: 'Obrisano',
+              message: 'Uspješno sačuvano!'
+              //this.notificationSystem.options.success
+            })
           })
           .catch((error) => {
             console.error('Error removing document: ', error)
@@ -25102,6 +25129,8 @@ export default {
         alert(e)
         return
       }
+      const uii = await getData.getFirestoreCol(this.dataOptions)
+      this.meet = uii.data
       /*       db.collection("cities").doc("DC").delete().then(() => {
           console.log("Document successfully deleted!");
       }).catch((error) => {
@@ -25128,6 +25157,7 @@ export default {
       },
       nav: { type: '', first: this.first, last: this.last },
     } */
+    this.getCompanies()
     const uii = await getData.getFirestoreCol(this.dataOptions)
     this.meet = uii.data
     this.last = uii.last
@@ -25138,14 +25168,30 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 /* svg {
   stroke: #cad2d8;
   //fill: #cad2d8;
 } */
-.vdp-datepicker * {
-  width: 100px;
+
+.style-chooser .vs__search::placeholder,
+.style-chooser .vs__dropdown-toggle,
+.style-chooser .vs__dropdown-menu 
+.style-chooser #vs2__listbox{
+  text-align: left;
+  cursor: pointer;
+  font-family: 'Ubuntu Condensed', sans-serif;
+  font-weight: 400;
+  font-size: 0.9em;
+  border: 2px solid transparent;
+  border-bottom: 2px solid var(--blue-dark);
+  letter-spacing: 1px;
 }
+.style-chooser .vs__dropdown-toggle:hover {
+  border: 2px solid var(--blue-dark);
+}
+
+
 .svg__active {
   path {
     fill: var(--blue-dark);
@@ -25205,9 +25251,15 @@ export default {
     font-size: 0.8em;
   }
 
+  .meetings__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .companies__header {
     display: grid;
-    grid-template-columns: auto repeat(3, 1fr);
+    grid-template-columns: repeat(4, auto);
     align-items: center;
     justify-content: space-between;
 
@@ -25219,23 +25271,11 @@ export default {
         margin: 0;
       }
     }
-    .search {
-      justify-self: end;
 
-      .vdp-datepicker {
-        width: 100px;
-        div {
-          input {
-            width: 100px !important;
-            padding: .5em;
-          }
-        }
-      }
-    }
     .filter,
     .sort {
       justify-self: end;
-      border: 2px solid var(--blue-dark);
+      border: 1px solid var(--blue-dark);
       border-radius: 0.2em;
       padding: 0;
       display: grid;
@@ -25245,7 +25285,7 @@ export default {
       column-gap: 0;
 
       div {
-        border-right: 2px solid var(--blue-dark);
+        border-right: 1px solid var(--blue-dark);
         padding: 0.2em 0.5em;
         margin: 0;
         font: inherit;
@@ -25276,7 +25316,7 @@ export default {
       color: var(--blue-dark);
       border: 2px solid transparent;
       border-radius: 0.2em;
-      padding: 0.5em;
+      //padding: 0.5em;
       font: inherit;
       font-size: 0.8em;
       font-weight: 600;

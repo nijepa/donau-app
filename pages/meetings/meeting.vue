@@ -63,7 +63,7 @@
         </div>
 
         <div class="btn__save">
-          <button @click="save">
+          <button @click.prevent="save">
             <svg
               width="24px"
               height="24px"
@@ -166,11 +166,13 @@ export default {
         const messageRef = this.$fire.firestore.collection('meetings')
         try {
           await messageRef.doc().set(this.meeting)
-          this.$route.push({name:'meetings'})
+          console.log('add')
+          
         } catch (e) {
           alert(e)
           return
         }
+        this.$router.push({name:'meetings'})
       }
       
       //alert('Success.')

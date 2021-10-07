@@ -21,6 +21,8 @@ export default {
           .collection(opts.opt.coll)
           .orderBy(opts.opt.field, opts.opt.direction)
           .limit(opts.opt.limit)
+          .where('date', '>=', new Date(opts.opt.dateStart))
+          .where('date', '<=', new Date(opts.opt.dateEnd))
           .where(opts.opt.filter, '==', true)
           .get()
       } else {

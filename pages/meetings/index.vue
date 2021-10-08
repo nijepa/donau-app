@@ -71,7 +71,7 @@
         <div
           class="sort__items"
           @click="filterMeetings('favorited')"
-          :class="dataOptions.opt.filter === 'favorited' && 'sort__selected'"
+          :class="dataOptions.opt.filter === 'favorited' && 'sort__selectedComments'"
         >
           <svg
             width="20px"
@@ -130,7 +130,7 @@
             {{ item.comments.length }}
           </h3>
           <span :style="item.comments.length && 'color: var(--blue-dark);'"
-            >kom.</span
+            >komentara</span
           >
         </div>
         <svg
@@ -217,6 +217,7 @@
           <p>{{ item.user.name }}</p>
           <p>{{ $dayjs(item.date.toDate()).format('DD MMM YYYY') }}</p>
         </div>
+        <Comments v-if="item.comments.length" :coms="item.comments" />
       </li>
     </ul>
 <!--     <div class="navigation">
@@ -277,8 +278,10 @@
 import actionsNotify from '~/mixins/actionsNotify'
 import getData from '~/firebase/firestoreRead'
 import getCount from '~/firebase/firestoreDocCount'
+import Comments from '~/components/meetings/Comments'
 export default {
-  mixins: [actionsNotify],
+  mixins: [ actionsNotify ],
+  components: { Comments },
   data() {
     return {
       meetings: [
@@ -25023,6 +25026,7 @@ export default {
         close: false,
         overlay: true,
         toastOnce: true,
+        title: 'Brisanje',
         id: 'question',
         zindex: 999,
         position: 'center',
@@ -25118,7 +25122,8 @@ export default {
           .then(() => {
             this.$notify.success({
               title: 'Obrisano',
-              message: 'Uspješno sačuvano!'
+              message: 'Uspješno sačuvano!',
+              position: 'center',
               //this.notificationSystem.options.success
             })
           })
@@ -25237,7 +25242,7 @@ export default {
   width: 100%;
 }
 .btn__new:hover {
-  background-color: rgb(28, 28, 194);
+  background-color: rgb(3, 3, 94);
 }
 .meetings {
   display: grid;

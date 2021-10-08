@@ -37,7 +37,8 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: whitesmoke;
+    background-color: rgba(245, 245, 245, .88);
+    z-index: 5;
 
     img {
       width: 40px;

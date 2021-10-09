@@ -30,7 +30,7 @@ export default {
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    padding: .5em;
+    padding: 0 .2em;
     margin: 0;
     border-bottom: 1px solid black;
     box-shadow: 0px 0px 1px 1px rgba(13, 21, 141, .7);
@@ -47,18 +47,30 @@ export default {
     ul {
       display: flex;
       list-style: none;
-      column-gap: 1em;
+      //column-gap: 1em;
       align-items: center;
       justify-self: center;
+      margin: 0;
+      height: 100%;
 
+      li {
+        height: 100%;
+
+        a {
+          height: 100%;
+          display: flex;
+          align-items: center;
+        }
+      }
     }
   }
   a{
     text-decoration: none;
-    padding: .5em;
-    border-radius: .2em;
+    padding: .2em .7em;
+    //border-radius: .2em;
     border: 2px solid transparent;
     transition: all .4s ease;
+    
   }
   a:hover {
     text-shadow: 2px 2px 3px rgb(54, 82, 238);

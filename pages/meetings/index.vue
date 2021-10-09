@@ -71,7 +71,7 @@
         <div
           class="sort__items"
           @click="filterMeetings('favorited')"
-          :class="dataOptions.opt.filter === 'favorited' && 'sort__selectedComments'"
+          :class="dataOptions.opt.filter === 'favorited' && 'sort__selected'"
         >
           <svg
             width="20px"
@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="sort">
-        <div class="">
+        <div class="sort__items">
           <svg
             :class="dataOptions.opt.direction == 'desc' && 'svg__active'"
             width="20px"
@@ -125,7 +125,7 @@
     </div>
     <ul class="companies__list">
       <li v-for="item in meet" :key="item.id" class="companies__item">
-        <div class="companies__item-count">
+        <div class="companies__item-count" @click="toggleComments(item.id)">
           <h3 :style="item.comments.length && 'color: var(--blue-dark);'">
             {{ item.comments.length }}
           </h3>
@@ -217,7 +217,21 @@
           <p>{{ item.user.name }}</p>
           <p>{{ $dayjs(item.date.toDate()).format('DD MMM YYYY') }}</p>
         </div>
-        <Comments v-if="item.comments.length" :coms="item.comments" />
+        <div class="meeting__comments" v-if="item.comments.length">
+          <div class="meeting__comments-heading"  @click="toggleComments(item.id)">
+            <h5>Komentari</h5>
+            <svg v-if="isComments && idComments === item.id" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#494c4e" d="M22.987 13.75l-9-7.99c-.57-.51-1.28-.76-1.99-.76s-1.42.25-1.98.74c0 .01-.01.01-.01.01l-.02.02-8.98 7.98c-1.24 1.1-1.35 3.002-.25 4.242 1.1 1.24 3 1.35 4.23.25l7.01-6.23 7.01 6.23c1.24 1.1 3.13.99 4.24-.25 1.1-1.24.98-3.13-.26-4.24z"/>
+            </svg>
+            <svg v-else width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#494c4e" fill-rule="evenodd" d="M23.541 3.28l-10 12a2.007 2.007 0 0 1-3.08 0l-10-12A2 2 0 0 1 2 0h20a2 2 0 0 1 1.541 3.28z"/>
+            </svg>
+<!--             <svg v-else width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#494c4e" d="M22.987 10.25l-9 7.99c-.57.51-1.28.76-1.99.76s-1.42-.25-1.98-.74c0-.01-.01-.01-.01-.01l-.02-.02-8.98-7.98c-1.24-1.1-1.35-3.002-.25-4.242 1.1-1.24 3-1.35 4.23-.25l7.01 6.23 7.01-6.23c1.24-1.1 3.13-.99 4.24.25 1.1 1.24.98 3.13-.26 4.24z"/>
+            </svg> -->
+          </div>
+          <Comments v-if="item.comments.length && isComments && idComments === item.id" :coms="item.comments" />
+        </div>
       </li>
     </ul>
 <!--     <div class="navigation">
@@ -24852,9 +24866,16 @@ export default {
         },
         nav: { type: '', first: this.first, last: this.last },
       },
+      isComments: false,
+      idComments: null
     }
   },
   methods: {
+    toggleComments(id) {
+      if (this.idComments === id || !this.idComments) this.isComments = !this.isComments
+      else this.isComments = true
+      this.idComments = id
+    },
     filterByPeriod(period) {
       this.dataOptions.opt.dateStart = period.searchDateStart
       this.dataOptions.opt.dateEnd = period.searchDateEnd
@@ -25173,7 +25194,7 @@ export default {
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 /* svg {
   stroke: #cad2d8;
   //fill: #cad2d8;
@@ -25200,15 +25221,6 @@ export default {
 .svg__active {
   path {
     fill: var(--blue-dark);
-  }
-}
-.sort__selected {
-  background-color: var(--blue-dark);
-  span {
-    color: whitesmoke;
-  }
-  svg path {
-    fill: whitesmoke;
   }
 }
 .btn__active {
@@ -25247,6 +25259,8 @@ export default {
 .meetings {
   display: grid;
   padding: 1em;
+  border-left: 1px solid #c4d0fa;
+  border-right: 1px solid #c4d0fa;
 
   p,
   h5 {
@@ -25280,7 +25294,7 @@ export default {
     .filter,
     .sort {
       justify-self: end;
-      border: 1px solid var(--blue-dark);
+      border: 1px solid #c4d0fa;
       border-radius: 0.2em;
       padding: 0;
       display: grid;
@@ -25289,21 +25303,30 @@ export default {
       text-align: center;
       column-gap: 0;
 
-      div {
-        border-right: 1px solid var(--blue-dark);
+      .sort__items {
+        border-left: 1px solid #c4d0fa;
+        border-right: 1px solid transparent;
         padding: 0.2em 0.5em;
         margin: 0;
         font: inherit;
         font-weight: 500;
         height: 100%;
         transition: all 0.4s ease;
-      }
-      .sort__items {
         cursor: pointer;
+      }
+      .sort__items:last-child {
+        border-top-right-radius: .2em;
+        border-bottom-right-radius: .2em;
+      }
+      .sort__items:first-child {
+        border-left: 1px solid transparent;
+        border-top-left-radius: .2em;
+        border-bottom-left-radius: .2em;
       }
       .sort__items:hover {
         background-color: var(--blue-dark);
-
+        border-right: 1px solid var(--blue-dark);
+        border-left: 1px solid var(--blue-dark);
         path {
           fill: whitesmoke;
         }
@@ -25311,8 +25334,22 @@ export default {
           color: whitesmoke;
         }
       }
-      div:last-child {
-        border-right: 2px solid transparent;
+      .sort__items:first-child:hover {
+        border-right: 1px solid var(--blue-dark);
+      }
+      .sort__items:last-child:hover {
+        border-left: 1px solid var(--blue-dark);
+      }
+      .sort__selected {
+        background-color: var(--blue-dark);
+        border-left: 1px solid var(--blue-dark);
+        border-right: 1px solid var(--blue-dark);
+        span {
+          color: whitesmoke;
+        }
+        svg path {
+          fill: whitesmoke;
+        }
       }
     }
 
@@ -25351,7 +25388,7 @@ export default {
         grid-row: 1/3;
         align-self: center;
         text-align: center;
-
+        cursor: pointer;
         //border: 1px solid var(--blue-dark);
         border-radius: 0.2em;
         padding: 0.2em 0.2em;
@@ -25416,7 +25453,7 @@ export default {
       .companies__item-company {
         font-weight: 600;
         text-align: left;
-        background-color: #c4d0fa;
+        background-color: #e1ecf4;
         border-radius: 0.2em;
         justify-self: start;
         padding: 0.5em;
@@ -25427,6 +25464,19 @@ export default {
         justify-self: end;
         align-self: center;
       }
+
+      .meeting__comments {
+        grid-column: 1/4;
+        .meeting__comments-heading {
+          display: flex;
+          flex-direction: column;
+           h5 {
+            text-align: center;
+            font-variant: small-caps;
+            cursor: pointer;
+          }
+        }
+      }
     }
 
     li:first-child {
@@ -25434,7 +25484,7 @@ export default {
     }
 
     li:hover {
-      background-color: #e8ecfa;
+      background-color: #f2f4fa;
     }
   }
 

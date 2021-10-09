@@ -40,7 +40,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    border: 1px solid var(--blue-dark);
+    border: 1px solid #c4d0fa;
     border-radius: .2em;
     font-variant: small-caps;
     padding: 0 .2em !important;

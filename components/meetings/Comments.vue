@@ -23,11 +23,21 @@ export default {
 <style lang="scss" scoped>
   ul {
     grid-column: 1/4;
-    margin: 0;
+    margin: 0 ;
 
     li {
-      display: flex !important;
+      display: flex ;
       flex-direction: column;
+      padding: .2em;
+      border-bottom: 1px solid #c4d0fa;
+
+      p{
+        margin: 0;
+        font-size: .8em;
+      }
+    }
+    li:last-child {
+      border-bottom: 1px solid transparent;
     }
   }
 </style>

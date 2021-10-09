@@ -260,7 +260,7 @@ h2:after {
 
 
 section {
-  margin-top: 5em;
+  margin-top: 2.5em;
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;

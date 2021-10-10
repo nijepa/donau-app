@@ -236,7 +236,8 @@ export default {
 
 <style lang="scss">
 .vdp-datepicker input {
-  font-family: 'Ubuntu Condensed', sans-serif;
+  //font-family: 'Ubuntu Condensed', sans-serif;
+  font-family: 'Rubik', sans-serif;
   font-size: 0.8em;
   font-weight: 400;
   letter-spacing: 1px;
@@ -250,12 +251,17 @@ export default {
 .style-chooser #vs2__listbox{
   text-align: left;
   cursor: pointer;
-  font-family: 'Ubuntu Condensed', sans-serif;
+  //font-family: 'Ubuntu Condensed', sans-serif;
+  font-family: 'Rubik', sans-serif;
   font-weight: 400;
   font-size: 0.9em;
   border: 2px solid transparent;
   border-bottom: 2px solid var(--blue-dark);
   letter-spacing: 1px;
+  width: 20em;
+}
+.style-chooser .vs__search {
+  border: 2px solid transparent;
 }
 .style-chooser .vs__dropdown-toggle:hover {
   border: 2px solid var(--blue-dark);
@@ -290,7 +296,7 @@ form {
   padding: 3em 1em 1em 1em;
   border: 1px solid var(--blue-dark);
   border-radius: 0.2em;
-  margin: .2em;
+  margin: 3em .2em;
   //width: 300px;
   //height: 500px;
   box-shadow: 0 0 1px 1px var(--blue-dark);

@@ -1,6 +1,5 @@
 <template>
   <section class="meetings">
-
     <div class="meetings__title">
       <SearchPeriod @periodSeted="filterByPeriod" />
       <nuxt-link to="/meetings/meeting" class="btn__new">
@@ -18,20 +17,20 @@
         </svg>
       </nuxt-link>
     </div>
-    
+
     <div class="companies__header">
       <div>
         <h3>{{ count }}</h3>
         <span> sastanaka</span>
       </div>
-      
+
       <v-select
-          :options="companies"
-          label="title"
-          v-model="filteredCompany"
-          placeholder="Izaberi firmu"
-          class="style-chooser"
-        ></v-select>
+        :options="companies"
+        label="title"
+        v-model="filteredCompany"
+        placeholder="Izaberi firmu"
+        class="style-chooser forcomp"
+      ></v-select>
       <div class="filter">
         <div
           class="sort__items"
@@ -180,7 +179,15 @@
               d="M11.998 2l3.092 6.585L22 9.652l-5 5.114L18.184 22l-6.18-3.425-6.18 3.405L7 14.75 2 9.62l6.91-1.044L11.998 2m0-2c-.774 0-1.48.448-1.81 1.15L7.555 6.758 1.7 7.642c-.74.112-1.357.63-1.596 1.34-.24.712-.06 1.497.464 2.034l4.297 4.408L3.85 21.66c-.124.754.195 1.514.82 1.955.344.243.748.366 1.153.366.33 0 .664-.08.965-.247L12 20.86l5.215 2.89c.3.167.635.25.968.25.405 0 .808-.123 1.15-.365.628-.44.947-1.202.824-1.958l-1.02-6.237 4.293-4.39c.524-.537.704-1.32.467-2.032-.237-.71-.852-1.23-1.592-1.344l-5.857-.904-2.64-5.62C13.48.448 12.775 0 12 0z"
             />
           </svg>
-          <button @click="$router.push({ name: 'meetings-meeting', params: { id: item._id } })" class="btn__edit">
+          <button
+            @click="
+              $router.push({
+                name: 'meetings-meeting',
+                params: { id: item._id },
+              })
+            "
+            class="btn__edit"
+          >
             <svg
               width="20px"
               height="20px"
@@ -217,24 +224,72 @@
           <p>{{ item.user.name }}</p>
           <p>{{ $dayjs(item.date.toDate()).format('DD MMM YYYY') }}</p>
         </div>
-        <div class="meeting__comments" v-if="item.comments.length">
-          <div class="meeting__comments-heading"  @click="toggleComments(item.id)">
-            <h5>Komentari</h5>
-            <svg v-if="isComments && idComments === item.id" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#494c4e" d="M22.987 13.75l-9-7.99c-.57-.51-1.28-.76-1.99-.76s-1.42.25-1.98.74c0 .01-.01.01-.01.01l-.02.02-8.98 7.98c-1.24 1.1-1.35 3.002-.25 4.242 1.1 1.24 3 1.35 4.23.25l7.01-6.23 7.01 6.23c1.24 1.1 3.13.99 4.24-.25 1.1-1.24.98-3.13-.26-4.24z"/>
+        <div class="meeting__comments-title">
+          <h5>Komentari</h5>
+          <svg
+            @click="addComment(item._id)"
+            width="20px"
+            height="20px"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#494c4e"
+              d="M13 2c.55 0 1 .45 1 1v7h7c.55 0 1 .45 1 1v2c0 .55-.45 1-1 1h-7v7c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-7H3c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1h7V3c0-.55.45-1 1-1h2m0-2h-2C9.346 0 8 1.346 8 3v5H3c-1.654 0-3 1.346-3 3v2c0 1.654 1.346 3 3 3h5v5c0 1.654 1.346 3 3 3h2c1.654 0 3-1.346 3-3v-5h5c1.654 0 3-1.346 3-3v-2c0-1.654-1.346-3-3-3h-5V3c0-1.654-1.346-3-3-3z"
+            />
+          </svg>
+        </div>
+
+        <div class="meeting__comments" v-if="item.comments.length || isComments">
+          <transition-group name="slide-fade" mode="out-in">
+          <div key="1"
+            class="meeting__comments-heading"
+            @click="toggleComments(item.id)"
+          >
+            <!-- <h5>Komentari</h5> -->
+            <svg
+              v-if="isComments && idComments === item.id"
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="#494c4e"
+                d="M22.987 13.75l-9-7.99c-.57-.51-1.28-.76-1.99-.76s-1.42.25-1.98.74c0 .01-.01.01-.01.01l-.02.02-8.98 7.98c-1.24 1.1-1.35 3.002-.25 4.242 1.1 1.24 3 1.35 4.23.25l7.01-6.23 7.01 6.23c1.24 1.1 3.13.99 4.24-.25 1.1-1.24.98-3.13-.26-4.24z"
+              />
             </svg>
-            <svg v-else width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#494c4e" fill-rule="evenodd" d="M23.541 3.28l-10 12a2.007 2.007 0 0 1-3.08 0l-10-12A2 2 0 0 1 2 0h20a2 2 0 0 1 1.541 3.28z"/>
+            <svg
+              v-else
+              width="20px"
+              height="20px"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="#494c4e"
+                fill-rule="evenodd"
+                d="M23.541 3.28l-10 12a2.007 2.007 0 0 1-3.08 0l-10-12A2 2 0 0 1 2 0h20a2 2 0 0 1 1.541 3.28z"
+              />
             </svg>
-<!--             <svg v-else width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!--             <svg v-else width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path fill="#494c4e" d="M22.987 10.25l-9 7.99c-.57.51-1.28.76-1.99.76s-1.42-.25-1.98-.74c0-.01-.01-.01-.01-.01l-.02-.02-8.98-7.98c-1.24-1.1-1.35-3.002-.25-4.242 1.1-1.24 3-1.35 4.23-.25l7.01 6.23 7.01-6.23c1.24-1.1 3.13-.99 4.24.25 1.1 1.24.98 3.13-.26 4.24z"/>
             </svg> -->
           </div>
-          <Comments v-if="item.comments.length && isComments && idComments === item.id" :coms="item.comments" />
+          
+          <Comments key="2"
+            v-if="item.comments.length && isComments && idComments === item.id"
+            :coms="item.comments"
+            ref="Comments"
+          />
+          </transition-group>
         </div>
+<transition name="slide-fade" appear mode="in-out">
+        <comments-actions class="comments-actions" v-if="isCommentsAdd && idComments === item._id" @deselect="isCommentsAdd = false" />
+        </transition>
       </li>
     </ul>
-<!--     <div class="navigation">
+    <!--     <div class="navigation">
       <div class="page__nav">
         <button @click="prevRec" v-if="pageNr > 1">
           <svg
@@ -293,9 +348,10 @@ import actionsNotify from '~/mixins/actionsNotify'
 import getData from '~/firebase/firestoreRead'
 import getCount from '~/firebase/firestoreDocCount'
 import Comments from '~/components/meetings/Comments'
+import CommentsActions from '~/components/meetings/CommentsActions.vue'
 export default {
-  mixins: [ actionsNotify ],
-  components: { Comments },
+  mixins: [actionsNotify],
+  components: { Comments, CommentsActions },
   data() {
     return {
       meetings: [
@@ -24867,12 +24923,18 @@ export default {
         nav: { type: '', first: this.first, last: this.last },
       },
       isComments: false,
-      idComments: null
+      idComments: null,
+      isCommentsAdd: false,
     }
   },
   methods: {
+    addComment(id) {
+      this.isCommentsAdd = true
+      this.idComments = id
+    },
     toggleComments(id) {
-      if (this.idComments === id || !this.idComments) this.isComments = !this.isComments
+      if (this.idComments === id || !this.idComments)
+        this.isComments = !this.isComments
       else this.isComments = true
       this.idComments = id
     },
@@ -25002,6 +25064,9 @@ export default {
               title: p.Naslov,
               description: p.Opis,
               user: { id: 1, name: 'Nemanja Ranđić' },
+              finished: true,
+              created_at:
+                this.$fireModule.firestore.FieldValue.serverTimestamp(),
             }
           })
         const fi = this.comp2.find((f) => f.IdKupca === c.idKupca)
@@ -25195,28 +25260,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(-50px);
+  opacity: 0;
+}
+
 /* svg {
   stroke: #cad2d8;
   //fill: #cad2d8;
 } */
-
-.style-chooser .vs__search::placeholder,
+.forcomp {
+  border: 1px solid #c4d0fa !important;
+  border-radius: 4px !important;
+  padding: 0 !important;
+  font-size: .9em !important;
+  margin: 0 !important;
+  .style-chooser .vs__search::placeholder,
 .style-chooser .vs__dropdown-toggle,
 .style-chooser .vs__dropdown-menu 
-.style-chooser #vs2__listbox{
-  text-align: left;
-  cursor: pointer;
-  font-family: 'Ubuntu Condensed', sans-serif;
-  font-weight: 400;
-  font-size: 0.9em;
-  border: 2px solid transparent;
-  border-bottom: 2px solid var(--blue-dark);
-  letter-spacing: 1px;
+.style-chooser #vs2__listbox {
+    border-bottom: 1px solid #c4d0fa !important;
+  }
 }
-.style-chooser .vs__dropdown-toggle:hover {
-  border: 2px solid var(--blue-dark);
-}
-
 
 .svg__active {
   path {
@@ -25246,7 +25320,7 @@ export default {
   position: relative;
 }
 .btn__new:after {
-  content: "";
+  content: '';
   position: absolute;
   top: 1px;
   border-top: 1px solid whitesmoke;
@@ -25315,13 +25389,13 @@ export default {
         cursor: pointer;
       }
       .sort__items:last-child {
-        border-top-right-radius: .2em;
-        border-bottom-right-radius: .2em;
+        border-top-right-radius: 0.2em;
+        border-bottom-right-radius: 0.2em;
       }
       .sort__items:first-child {
         border-left: 1px solid transparent;
-        border-top-left-radius: .2em;
-        border-bottom-left-radius: .2em;
+        border-top-left-radius: 0.2em;
+        border-bottom-left-radius: 0.2em;
       }
       .sort__items:hover {
         background-color: var(--blue-dark);
@@ -25465,17 +25539,28 @@ export default {
         align-self: center;
       }
 
+      .meeting__comments-title {
+        grid-column: 1/4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        grid-column-gap: 0.5em;
+      }
+
       .meeting__comments {
         grid-column: 1/4;
         .meeting__comments-heading {
           display: flex;
           flex-direction: column;
-           h5 {
+          h5 {
             text-align: center;
             font-variant: small-caps;
             cursor: pointer;
           }
         }
+      }
+      .comments-actions {
+        grid-column: 1/4;
       }
     }
 

@@ -24,8 +24,10 @@ export default {
   --blue-lighter: #86cde9; 
 }
 * {
-  @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap');
-  font-family: 'Ubuntu Condensed', sans-serif;
+  //@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  font-family: 'Rubik', sans-serif;
+  //@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap');
+  //font-family: 'Ubuntu Condensed', sans-serif;
   //font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

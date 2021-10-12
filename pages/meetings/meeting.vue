@@ -27,18 +27,6 @@
           placeholder="Izaberi datum"
           format="dd MMM yyyy"
           v-model="meeting.date" />
-
-<!--         <label>
-          <input
-            type="date"
-            name="text"
-            v-model="meeting.date"
-            id="password"
-            required
-            placeholder=" "
-          />
-          <span>Datum</span>
-        </label> -->
         <label :class="meeting.company ? 'desc__norm' : 'desc__trans'"
           >Firma</label
         >
@@ -236,7 +224,6 @@ export default {
 
 <style lang="scss">
 .vdp-datepicker input {
-  //font-family: 'Ubuntu Condensed', sans-serif;
   font-family: 'Rubik', sans-serif;
   font-size: 0.8em;
   font-weight: 400;

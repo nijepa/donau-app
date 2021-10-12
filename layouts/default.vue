@@ -136,22 +136,7 @@ h2 {
   color: var(--orange);
 }
 
-h2:before, h2:after {
-  display: block;
-  content: '';
-  height: 10px;
-  background: linear-gradient(to var(--direction, left), var(--yellow), transparent); 
-  -webkit-box-shadow: 9px -9px 9px -7px rgba(0,0,0,0.75);
-  -moz-box-shadow: 9px -9px 9px -7px rgba(0,0,0,0.75);
-  box-shadow: 9px -9px 9px -7px rgba(0,0,0,0.75);
-}
 
-h2:after {
-  --direction: right;
-  -webkit-box-shadow: 9px -9px 9px -7px rgba(0,0,0,0.75);
-  -moz-box-shadow: 9px -9px 9px -7px rgba(0,0,0,0.75);
-  box-shadow: 9px -9px 9px -7px rgba(0,0,0,0.75);
-}
 
 
 @media (min-width: 1000px) {

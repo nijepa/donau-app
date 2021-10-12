@@ -44,7 +44,8 @@ export default {
   buildModules: [
   ],
 
-  router: {
+  router: { 
+    base: '/donau-app/',
     middleware: ['auth']
   },
 

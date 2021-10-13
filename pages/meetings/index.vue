@@ -240,8 +240,8 @@
           </svg>
         </div>
 
-        <div class="meeting__comments" v-if="item.comments.length || isComments">
-          <transition-group name="slide-fade" mode="out-in">
+        <div class="meeting__comments" v-show="item.comments.length || isComments">
+          <transition name="slide-fade" appear >
           <div key="1"
             class="meeting__comments-heading"
             @click="toggleComments(item.id)"
@@ -278,11 +278,11 @@
           </div>
           
           <Comments key="2"
-            v-if="item.comments.length && isComments && idComments === item.id"
+            v-show="item.comments.length && isComments && idComments === item.id"
             :coms="item.comments"
             ref="Comments"
           />
-          </transition-group>
+          </transition>
         </div>
 <transition name="slide-fade" appear mode="in-out">
         <comments-actions class="comments-actions" v-if="isCommentsAdd && idComments === item._id" @deselect="isCommentsAdd = false" />
@@ -25260,7 +25260,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.slide-fade-enter-active {
+/* .slide-fade-enter-active {
   transition: all 0.3s ease-out;
 }
 
@@ -25272,6 +25272,30 @@ export default {
 .slide-fade-leave-to {
   transform: translateY(-50px);
   opacity: 0;
+} */
+
+.slide-fade-enter {
+  top: 100vh;
+  width: inherit;
+  height: inherit;
+}
+.slide-fade-enter-to {
+  top: 0;
+}
+.slide-fade-enter-active {
+  transition: .5s; /* MISSING RULE */
+}
+
+.slide-fade-leave {
+  width: inherit;
+  height: inherit;
+  top: 0;
+}
+.slide-fade-leave-to {
+  top: -100vh;
+}
+.slide-fade-leave-active {
+  transition: .5s; /* MISSING RULE */
 }
 
 /* svg {

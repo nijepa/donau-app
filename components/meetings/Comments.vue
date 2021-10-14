@@ -83,6 +83,7 @@ export default {
       }
     }
   },
+   
   methods: {
      setMode(comment) {
       this.selected.mode = 'edit'

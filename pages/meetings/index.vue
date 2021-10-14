@@ -241,7 +241,7 @@
         </div>
 
         <div class="meeting__comments" v-show="item.comments.length || isComments">
-          <transition name="slide-fade" appear >
+          <transition-group name="slide-fade" appear >
           <div key="1"
             class="meeting__comments-heading"
             @click="toggleComments(item.id)"
@@ -282,7 +282,7 @@
             :coms="item.comments"
             ref="Comments"
           />
-          </transition>
+          </transition-group>
         </div>
 <transition name="slide-fade" appear mode="in-out">
         <comments-actions class="comments-actions" v-if="isCommentsAdd && idComments === item._id" @deselect="isCommentsAdd = false" />

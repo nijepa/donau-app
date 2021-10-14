@@ -3,13 +3,13 @@
     <img src="/logo-Donau.svg" alt="">
     <ul class="">
       <li>
-        <nuxt-link to="/auth/users">Users</nuxt-link>
+        <nuxt-link to="/">Početna</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/">Home</nuxt-link>
+        <nuxt-link to="/auth/users">Korisnici</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/companies">Companies</nuxt-link>
+        <nuxt-link to="/companies">Firme</nuxt-link>
       </li>
       <li>
         <nuxt-link to="/meetings">Sastanci</nuxt-link>

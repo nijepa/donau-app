@@ -1,13 +1,12 @@
 <template>
-  <div class="">
+  <section class="">
     <ul>
       <li v-for="user in users" :key="user.id">
         <p>{{ user.displayName }}</p><span>{{ user.email }}</span>
       </li>
     </ul>
     <user />
-  </div>
-  
+  </section>
 </template>
 
 <script>
@@ -46,6 +45,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+  ul {
+    list-style: none;
 
+    li {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      justify-items: start;
+      gap: .5em;
+    }
+  }
 </style>

@@ -13,10 +13,10 @@
       </li>
     </ul> -->
     <div class="companies__header">
-      <div><h3>606</h3><span> firmi</span></div>
+<!--       <div><h3>606</h3><span> firmi</span></div>
       <button @click="setPage(p)" :class="Number(p) === pageNr && 'btn__active'">
         filter
-      </button>
+      </button> -->
     </div>
     <ul class="companies__list">
       <li v-for="item in comp" :key="item.id" class="companies__item">

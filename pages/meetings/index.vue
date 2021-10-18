@@ -122,9 +122,11 @@
         </div>
       </div>
     </div>
+
     <ul class="companies__list">
-      <li v-for="item in meet" :key="item.id" class="companies__item">
-        <div class="companies__item-count" @click="toggleComments(item.id)">
+      <transition-group name="slide-fade" mode="out-in">
+      <li v-for="item in meet" :key="item._id" class="companies__item" >
+        <div class="companies__item-count" @click="toggleComments(item.id)" >
           <h3 :style="item.comments.length && 'color: var(--blue-dark);'">
             {{ item.comments.length }}
           </h3>
@@ -239,9 +241,7 @@
             />
           </svg>
         </div>
-
         <div class="meeting__comments" v-show="item.comments.length || isComments">
-          <transition-group name="slide-fade" appear >
           <div key="1"
             class="meeting__comments-heading"
             @click="toggleComments(item.id)"
@@ -276,19 +276,19 @@
               <path fill="#494c4e" d="M22.987 10.25l-9 7.99c-.57.51-1.28.76-1.99.76s-1.42-.25-1.98-.74c0-.01-.01-.01-.01-.01l-.02-.02-8.98-7.98c-1.24-1.1-1.35-3.002-.25-4.242 1.1-1.24 3-1.35 4.23-.25l7.01 6.23 7.01-6.23c1.24-1.1 3.13-.99 4.24.25 1.1 1.24.98 3.13-.26 4.24z"/>
             </svg> -->
           </div>
-          
+          <transition name="slide-fade" mode="out-in">
           <Comments key="2"
             v-show="item.comments.length && isComments && idComments === item.id"
             :coms="item.comments"
             ref="Comments"
           />
-          </transition-group>
+          </transition>
         </div>
-<transition name="slide-fade" appear mode="in-out">
-        <comments-actions class="comments-actions" v-if="isCommentsAdd && idComments === item._id" @deselect="isCommentsAdd = false" />
-        </transition>
+        <comments-actions class="comments-actions" v-show="isCommentsAdd && idComments === item._id" @deselect="isCommentsAdd = false" />
       </li>
+     </transition-group> 
     </ul>
+
     <!--     <div class="navigation">
       <div class="page__nav">
         <button @click="prevRec" v-if="pageNr > 1">
@@ -25260,21 +25260,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* .slide-fade-enter-active {
-  transition: all 0.3s ease-out;
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
 }
 
 .slide-fade-leave-active {
   transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateY(-50px);
+.slide-fade-enter-from {
+  transform: translateY(-150px);
   opacity: 0;
-} */
+} 
 
-.slide-fade-enter {
+.slide-fade-leave-to {
+  transform: translateY(-150px);
+  opacity: 0;
+} 
+
+/*.slide-fade-enter {
   top: 100vh;
   width: inherit;
   height: inherit;
@@ -25283,7 +25287,7 @@ export default {
   top: 0;
 }
 .slide-fade-enter-active {
-  transition: .5s; /* MISSING RULE */
+  transition: .5s; 
 }
 
 .slide-fade-leave {
@@ -25295,8 +25299,8 @@ export default {
   top: -100vh;
 }
 .slide-fade-leave-active {
-  transition: .5s; /* MISSING RULE */
-}
+  transition: .5s; 
+}*/
 
 /* svg {
   stroke: #cad2d8;

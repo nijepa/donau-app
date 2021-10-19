@@ -241,6 +241,7 @@
             />
           </svg>
         </div>
+        
         <div class="meeting__comments" v-show="item.comments.length || isComments">
           <div key="1"
             class="meeting__comments-heading"
@@ -276,15 +277,15 @@
               <path fill="#494c4e" d="M22.987 10.25l-9 7.99c-.57.51-1.28.76-1.99.76s-1.42-.25-1.98-.74c0-.01-.01-.01-.01-.01l-.02-.02-8.98-7.98c-1.24-1.1-1.35-3.002-.25-4.242 1.1-1.24 3-1.35 4.23-.25l7.01 6.23 7.01-6.23c1.24-1.1 3.13-.99 4.24.25 1.1 1.24.98 3.13-.26 4.24z"/>
             </svg> -->
           </div>
-          <transition name="slide-fade" mode="out-in">
-          <Comments key="2"
+          <Comments
             v-show="item.comments.length && isComments && idComments === item.id"
             :coms="item.comments"
             ref="Comments"
           />
-          </transition>
         </div>
+        
         <comments-actions class="comments-actions" v-show="isCommentsAdd && idComments === item._id" @deselect="isCommentsAdd = false" />
+        
       </li>
      </transition-group> 
     </ul>
@@ -25261,7 +25262,7 @@ export default {
 
 <style lang="scss" scoped>
 .slide-fade-enter-active {
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 
 .slide-fade-leave-active {

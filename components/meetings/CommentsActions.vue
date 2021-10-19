@@ -1,4 +1,5 @@
 <template>
+<transition name="slide-fade" appear>
   <div class="coment__action">
     <label>
       <input
@@ -51,6 +52,7 @@
       </button>
     </div>
   </div>
+</transition>
 </template>
 
 <script>
@@ -78,8 +80,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .slide-fade-enter-active {
+    transition: all 0.3s ease;
+  }
+
+  .slide-fade-leave-active {
+    transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
+  }
+
+  .slide-fade-enter-from {
+    transform: translateY(-50px);
+    opacity: 0;
+  } 
+
+  .slide-fade-leave-to {
+    transform: translateY(-50px);
+    opacity: 0;
+  } 
   .coment__action {
-    border: 1px solid var(--blue-dark);
+    border: 1px solid #273795;
     border-radius: 0.2em;
     padding: .2em;
     box-shadow: 0 0 1px 1px var(--blue-dark);

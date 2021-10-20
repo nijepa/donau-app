@@ -88,7 +88,7 @@
         <div>Kompanije</div>
       </button>
     </nuxt-link>
-    <nuxt-link tag="button" to="/users" custom v-slot="{ navigate }">
+    <nuxt-link tag="button" to="/auth/users" custom v-slot="{ navigate }">
       <button @click="navigate" role="link">
         <svg
           width="50px"

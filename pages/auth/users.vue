@@ -1,6 +1,9 @@
 <template>
   <section class="">
-    <ul>
+    <h1 v-if="!isLoaded">
+      DONAU
+    </h1>
+    <ul v-if="isLoaded">
       <li v-for="user in users" :key="user.id">
         <p>{{ user.displayName }}</p><span>{{ user.email }}</span>
       </li>
@@ -32,6 +35,7 @@ export default {
         console.log(messageDoc)
         //const promiseThemes = snapshot.docs.map(doc => {id: doc.id, ...doc.data());
         this.users = messageDoc
+        this.isLoaded = true
         //alert(messageDoc.data().message)
       } catch (e) {
         alert(e)

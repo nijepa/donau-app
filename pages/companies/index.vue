@@ -1,5 +1,9 @@
 <template>
-  <section class="companies">
+  <div class="">
+    <h1 v-if="!isLoaded">
+      DONAU
+    </h1>
+    <section class="companies" v-if="isLoaded">
     <!-- <button @click="sube">fff</button>
     <p>{{ comps }}</p>
     <button @click="vali">check</button> -->
@@ -74,7 +78,8 @@
         </li>
       </ul>
     </div>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -22344,6 +22349,7 @@ export default {
       perPageOptions: [10, 20, 50],
       pages: 0,
       pageNr: 1,
+      isLoaded: false,
     }
   },
   computed: {
@@ -22475,9 +22481,10 @@ export default {
       this.pages = Math.floor(this.count / this.perPage)
     },
   },
-  mounted() {
-    this.readFromFirestore()
-    this.setNav()
+  async mounted() {
+    await this.readFromFirestore()
+    await this.setNav()
+    this.isLoaded = true
   },
 }
 </script>

@@ -242,10 +242,6 @@ h2 {
   }
 }
 
-
-
-
-
 section {
   margin-top: 2.5em;
   max-width: 1000px;
